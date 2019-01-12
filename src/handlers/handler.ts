@@ -1,6 +1,5 @@
-import { APIGatewayProxyHandler } from 'aws-lambda'
 import { config } from 'dotenv'
-import { initializeDB } from '../datastore/index'
+import { initializeDB } from '@datastore/index'
 
 // DotENV Configuration
 config()

@@ -2,16 +2,17 @@ const path = require('path');
 const slsw = require('serverless-webpack');
 
 module.exports = {
-  target: 'node',  
+  target: 'node',
   entry: slsw.lib.entries,
   resolve: {
     extensions: ['.ts', '.js', '.tsx', '.jsx', '.json'],
     modules: [ 'node_modules' ],
     alias: {
-      '@repositories': path.resolve(__dirname, 'src/repositories'),
-      '@utils': path.resolve(__dirname, 'src/utils'),
       '@datastore': path.resolve(__dirname, 'src/datastore'),
-      '@handlers': path.resolve(__dirname, 'src/handlers')
+      '@handlers': path.resolve(__dirname, 'src/handlers'),
+      '@models': path.resolve(__dirname, 'src/models'),
+      '@errors': path.resolve(__dirname, 'src/errors'),
+      '@helpers': path.resolve(__dirname, 'src/helpers')
     }
   },
   output: {
@@ -24,5 +25,5 @@ module.exports = {
       { test: /\.ts(x?)$/, loader: 'ts-loader' },
     ],
   },
-  
+
 };

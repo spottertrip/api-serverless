@@ -8,10 +8,11 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@repositories/*": ["src/repositories/*"],
-      "@utils/*": ["src/utils/*"],
       "@datastore/*": ["src/datastore/*"],
-      "@handlers/*": ["src/handlers/*"]
+      "@handlers/*": ["src/handlers/*"],
+      "@models/*": ["src/models/*"],
+      "@errors/*": ["src/errors/*"],
+      "@helpers/*": ["src/helpers/*"]
     }
   },
   "exclude": [

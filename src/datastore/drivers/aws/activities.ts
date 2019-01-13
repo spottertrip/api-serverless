@@ -21,7 +21,7 @@ export const updateActivity = async (): Promise<any> => {}
  */
 export const listTravelBandActivities = async (documentClient: DocumentClient, travelBandId: string): Promise<Activity[]> => {
   if (!travelBandId) {
-    throw new BadRequestError('Travel Band ID is empty')
+    throw new BadRequestError('travelBands.errors.missingId')
   }
   const params = {
     TableName: 'travelBands',

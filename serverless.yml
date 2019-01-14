@@ -37,6 +37,12 @@ functions:
       - http:
           method: get
           path: travel-bands/{travelBandId}/activities
+  listTravelBandSpotters:
+    handler: src/handlers/handler.listTravelBandSpotters
+    events:
+      - http:
+          method: get
+          path: travel-bands/{travelBandId}/spotters
 
 resources:
   Resources:

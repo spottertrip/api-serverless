@@ -2,7 +2,8 @@ import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import TravelBand from '@models/TravelBand'
 import BadRequestError from '@errors/BadRequestError'
 import NotFoundError from '@errors/NotFoundError'
-import Activity from '@models/Activity';
+import Activity from '@models/Activity'
+import { t } from '@helpers/i18n'
 
 export const getActivity = async(id: string): Promise<any> => {}
 export const createActivities = async (activity: any): Promise<any>  => {}
@@ -21,7 +22,7 @@ export const updateActivity = async (): Promise<any> => {}
  */
 export const listTravelBandActivities = async (documentClient: DocumentClient, travelBandId: string): Promise<Activity[]> => {
   if (!travelBandId) {
-    throw new BadRequestError('travelBands.errors.missingId')
+    throw new BadRequestError(t('travelBands.errors.missingId'))
   }
   const params = {
     TableName: 'travelBands',
@@ -32,7 +33,7 @@ export const listTravelBandActivities = async (documentClient: DocumentClient, t
   }
   const result = await documentClient.get(params).promise()
   if (!result.Item) {
-    throw new NotFoundError('Travel Band does not exist')
+    throw new NotFoundError(t('travelBands.errors.notFound'))
   }
   const travelBand = result.Item as TravelBand
   return travelBand.activities

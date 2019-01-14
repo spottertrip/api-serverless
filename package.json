@@ -1,11 +1,12 @@
 {
-  "name": "svl",
+  "name": "spotter-api-serverless",
   "version": "1.0.0",
-  "description": "Serverless webpack example using Typescript",
-  "main": "handler.js",
+  "description": "Serverless w/ TypeScript and Node on top of AWS Lambda/API Gateway/S3/DynamoDB",
+  "main": "src/handlers/handler.ts",
   "scripts": {
     "test": "jest",
-    "dev": "serverless offline start"
+    "dev": "serverless offline start",
+    "lint": "tslint --project ."
   },
   "dependencies": {
     "aws-sdk": "^2.384.0",
@@ -33,7 +34,5 @@
     "tslint-config-airbnb": "^5.11.1",
     "typescript": "^3.2.2",
     "webpack": "^4.5.0"
-  },
-  "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
-  "license": "MIT"
+  }
 }

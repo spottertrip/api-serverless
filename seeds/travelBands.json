@@ -28,6 +28,25 @@
         "category": "sport",
         "capacity": 4,
         "price": 100
+      },
+      {
+        "activityId": "3afe37d5-41db-438a-9f51-8cd212d76d25",
+        "name": "second activity",
+        "description": "Second Activity, cooking sushis in the city with friends, get to eat your passionate meals.",
+        "picture": "http://s3.pictures",
+        "duration": 1,
+        "language": "fr",
+        "services": [],
+        "location": {
+          "street": "51 Avenue de Iéna",
+          "postalCode": 75008,
+          "city": "Paris",
+          "country": "France",
+          "phoneNumber": "0615372839"
+        },
+        "category": "loisir",
+        "capacity": 2,
+        "price": 30
       }
     ]
   }

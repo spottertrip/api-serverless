@@ -4,6 +4,7 @@ const fr = {
   travelBands: {
     errors: {
       missingId: 'L\'id du groupe de voyage est requise',
+      notFound: 'Le groupe de voyage n\'existe pas',
     },
   },
 }

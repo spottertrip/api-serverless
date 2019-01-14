@@ -1,0 +1,53 @@
+[
+  {
+    "travelBandId": "15a992e1-8d3f-421e-99a3-2ba5d2131d09",
+    "name": "Development Group",
+    "description": "Description for development battle group",
+    "spotters": [
+      {
+        "spotterId": "15a992e1-8d3f-421e-99a3-2ba5d2131d82",
+        "username": "Antoine Masselot"
+      }
+    ],
+    "activities": [
+      {
+        "activityId": "1c6afe6d-230c-4528-bd7e-6f447912fee7",
+        "name": "activity 1",
+        "description": "First Activity, cross Paris in Bobsleigh, then second round with electric Scooters and then swimming through the magestic 'La Seine'",
+        "picture": "http://s3.pictures",
+        "duration": 1,
+        "language": "fr",
+        "services": [],
+        "location": {
+          "street": "44 Avenue Edison",
+          "postalCode": 75013,
+          "city": "Paris",
+          "country": "France",
+          "phoneNumber": "0615372839"
+        },
+        "category": "sport",
+        "capacity": 4,
+        "price": 100
+      },
+      {
+        "activityId": "3afe37d5-41db-438a-9f51-8cd212d76d25",
+        "name": "second activity",
+        "description": "Second Activity, cooking sushis in the city with friends, get to eat your passionate meals.",
+        "picture": "http://s3.pictures",
+        "duration": 1,
+        "language": "fr",
+        "services": [],
+        "location": {
+          "street": "51 Avenue de Iéna",
+          "postalCode": 75008,
+          "city": "Paris",
+          "country": "France",
+          "phoneNumber": "0615372839"
+        },
+        "category": "loisir",
+        "capacity": 2,
+        "price": 30
+      }
+    ]
+  }
+]

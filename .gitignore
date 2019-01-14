@@ -10,3 +10,7 @@ jspm_packages
 
 # Environment
 .env.prod
+
+.idea/
+
+yarn-error.log

@@ -5,7 +5,7 @@ import {
   listActivities,
   getActivity,
   deleteActivity,
-  updateActivity,
+  updateActivity, listTravelBandActivities,
 } from './activities'
 
 export interface AWSOptions {
@@ -13,17 +13,18 @@ export interface AWSOptions {
   region: string
   accessKeyId: string
   secretAccessKey: string
-};
+}
 
 export default class AWSDataStore implements DataStore {
-  private documentClient: DocumentClient
+  private readonly documentClient: DocumentClient
 
   constructor(options: AWSOptions) {
-    this.documentClient = new DocumentClient(options);
+    this.documentClient = new DocumentClient(options)
   }
 
   public getActivity = getActivity
   public listActivities = listActivities
   public deleteActivity = deleteActivity
   public updateActivity = updateActivity
+  public listTravelBandActivities = (travelBandId: string) => listTravelBandActivities(this.documentClient, travelBandId)
 }

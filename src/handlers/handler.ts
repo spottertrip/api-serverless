@@ -20,3 +20,4 @@ try {
 
 // Serverless handlers
 export * from './activities'
+export * from './travelBands'

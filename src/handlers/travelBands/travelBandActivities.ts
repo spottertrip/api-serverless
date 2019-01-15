@@ -25,3 +25,24 @@ export const listTravelBandActivities = async (event, context) => {
     body: JSON.stringify(activities),
   };
 }
+
+/**
+ * List travel Band Activities booked for a given travel band
+ * @param event - API Gateway Event, containing travel band id as path parameter
+ * @param context
+ */
+export const listTravelBandBookings = async (event, context) => {
+  let bookings: Activity[]
+  if (!event || !event.pathParameters || !event.pathParameters.travelBandId) {
+    return handleError(new BadRequestError(t('travelBands.errors.missingId')))
+  }
+  try {
+    bookings = await datastore.listTravelBandBookings(event.pathParameters.travelBandId)
+  } catch (e) {
+    return handleError(e as HTTPError)
+  }
+  return {
+    statusCode: 200,
+    body: JSON.stringify(bookings),
+  };
+}

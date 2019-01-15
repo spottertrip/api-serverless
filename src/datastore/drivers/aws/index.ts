@@ -5,7 +5,7 @@ import {
   listActivities,
   getActivity,
   deleteActivity,
-  updateActivity, listTravelBandActivities,
+  updateActivity, listTravelBandActivities, listTravelBandBookings,
 } from './activities'
 import { listSpotters } from '@datastore/drivers/aws/spotters'
 
@@ -29,6 +29,7 @@ export default class AWSDataStore implements DataStore {
   public deleteActivity = deleteActivity
   public updateActivity = updateActivity
   public listTravelBandActivities = (travelBandId: string) => listTravelBandActivities(this.documentClient, travelBandId)
+  public listTravelBandBookings = (travelBandId: string) => listTravelBandBookings(this.documentClient, travelBandId)
   // Spotters
   public listSpotters = (travelBandId: string) => listSpotters(this.documentClient, travelBandId)
 }

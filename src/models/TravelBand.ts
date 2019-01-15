@@ -8,5 +8,5 @@ export default interface TravelBand extends AttributeMap {
   description: string
   activities: Activity[]
   spotters: ISpotter[]
-  bookings: any[]
+  bookings: Activity[]
 }

@@ -19,5 +19,6 @@ try {
 }
 
 // Serverless handlers
-export * from './activities'
+export * from './hello'
 export * from './travelBands'
+export * from './activities'

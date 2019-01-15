@@ -8,6 +8,7 @@ export interface DataStore {
   deleteActivity: (id: string) => Promise<void>
   updateActivity: () => Promise<any>
   listTravelBandActivities: (travelBandId: string) => Promise<Activity[]>
+  listTravelBandBookings: (travelBandId: string) => Promise<Activity[]>
   // Spotters
   listSpotters: (travelBandId: string) => Promise<ISpotter[]>
 }

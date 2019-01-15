@@ -23,6 +23,10 @@ custom:
         sources:
           - table: travelBands
             sources: [./seeds/travelBands.json]
+      activities:
+        sources:
+          - table: activities
+            sources: [./seeds/activities.json]
 
 functions:
   hello:
@@ -31,6 +35,12 @@ functions:
       - http:
           method: get
           path: hello
+  listActivities:
+    handler: src/handlers/handler.listActivities
+    events:
+      - http:
+          method: get
+          path: activities
   listTravelBandActivities:
     handler: src/handlers/handler.listTravelBandActivities
     events:

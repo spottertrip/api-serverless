@@ -11,7 +11,7 @@ jest.mock('@datastore/index', () => ({
 const datastoreMock = require('@datastore/index')
 
 test('list travel band spotters without ID returns bad request', async () => {
-  const response = await listTravelBandSpotters({}, {})
+  const response = await listTravelBandSpotters({ pathParameters: {} }, {})
   expect(response.statusCode).toBe(400)
 })
 

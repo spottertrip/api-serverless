@@ -34,6 +34,7 @@ export const listActivities = async (
   try  {
     results = await documentClient.scan(params).promise()
   } catch (e) {
+    console.log(e)
     throw new InternalServerError(t('errors.database.internal'))
   }
 

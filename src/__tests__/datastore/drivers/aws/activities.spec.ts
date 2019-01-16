@@ -1,6 +1,8 @@
+
 jest.mock('aws-sdk')
 
-import { listTravelBandActivities, listTravelBandBookings } from '@datastore/drivers/aws/activities';
+import { listActivities, listTravelBandActivities, listTravelBandBookings } from '@datastore/drivers/aws/activities'
+import InternalServerError from '@errors/InternalServerError'
 import * as AWSMock from 'aws-sdk-mock'
 import * as AWS from 'aws-sdk'
 import { v4 } from 'uuid'
@@ -59,5 +61,44 @@ test('list travel band bookings with valid ID', async () => {
   const activities = await listTravelBandBookings(new AWS.DynamoDB.DocumentClient(), v4())
   expect(activities.length).toBe(1)
   expect(activities[0].name).toBe(activityName)
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+// ---- List Activities ---- //
+
+test('List activities with valid last evaluated id', async () => {
+  const lastEvaluatedId = v4()
+  const mockedList = jest.fn((params: AWS.DynamoDB.DocumentClient.ScanInput, cb: any) => {
+    expect(params.ExclusiveStartKey.activityId).toBe(lastEvaluatedId)
+    expect(params.Limit).toBe(10)
+    return cb(null, { Items: [{ activiyId: v4() }], LastEvaluatedKey: { activityId: lastEvaluatedId } })
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'scan', mockedList)
+  const results = await listActivities(new AWS.DynamoDB.DocumentClient(), lastEvaluatedId, 10)
+  expect(results.activities.length).toBe(1)
+  expect(results.lastEvaluatedId).toBe(lastEvaluatedId)
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+test('List activities dynamodb error', async () => {
+  const mockedError = jest.fn((params: any, cb: any) => {
+    throw new Error('DynamoDB error')
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'scan', mockedError)
+  await expect(listActivities(new AWS.DynamoDB.DocumentClient())).rejects.toThrow(InternalServerError)
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+test('List activities with default pagination', async () => {
+  const lastEvaluatedId = v4()
+  const mockedList = jest.fn((params: AWS.DynamoDB.DocumentClient.ScanInput, cb: any) => {
+    expect(params.ExclusiveStartKey).toBeUndefined()
+    expect(params.Limit).toBe(10)
+    return cb(null, { Items: [{ activityId: lastEvaluatedId }], LastEvaluatedKey: { activityId: lastEvaluatedId } })
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'scan', mockedList)
+  const results = await listActivities(new AWS.DynamoDB.DocumentClient(), '', 10)
+  expect(results.activities.length).toBe(1)
+  expect(results.lastEvaluatedId).toBe(lastEvaluatedId)
   AWSMock.restore('DynamoDB.DocumentClient')
 })

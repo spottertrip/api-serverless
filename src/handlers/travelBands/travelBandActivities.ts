@@ -4,6 +4,7 @@ import { handleError } from '@helpers/http'
 import Activity from '@models/Activity'
 import BadRequestError from '@errors/BadRequestError'
 import { t } from '@helpers/i18n'
+import * as validateUUID from 'uuid-validate'
 
 /**
  * Handler for event listing activities shared inside a travel band
@@ -12,9 +13,11 @@ import { t } from '@helpers/i18n'
  */
 export const listTravelBandActivities = async (event, context) => {
   let activities: Activity[]
-  if (!event || !event.pathParameters || !event.pathParameters.travelBandId) {
-    return handleError(new BadRequestError(t('travelBands.errors.missingId')))
+  const travelBandId: string = event.pathParameters && event.pathParameters.travelBandId || ''
+  if (!travelBandId || !validateUUID(travelBandId)) {
+    return handleError(new BadRequestError(t('travelBands.errors.invalidUUID')))
   }
+
   try {
     activities = await datastore.listTravelBandActivities(event.pathParameters.travelBandId)
   } catch (e) {
@@ -33,9 +36,12 @@ export const listTravelBandActivities = async (event, context) => {
  */
 export const listTravelBandBookings = async (event, context) => {
   let bookings: Activity[]
-  if (!event || !event.pathParameters || !event.pathParameters.travelBandId) {
-    return handleError(new BadRequestError(t('travelBands.errors.missingId')))
+
+  const travelBandId: string = event.pathParameters && event.pathParameters.travelBandId || ''
+  if (!travelBandId || !validateUUID(travelBandId)) {
+    return handleError(new BadRequestError(t('travelBands.errors.invalidUUID')))
   }
+
   try {
     bookings = await datastore.listTravelBandBookings(event.pathParameters.travelBandId)
   } catch (e) {

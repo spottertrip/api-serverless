@@ -24,8 +24,11 @@ export default class AWSDataStore implements DataStore {
   }
 
   // Activities
+  public listActivities = (
+    lastEvaluatedId: string = '',
+    itemsPerPage: number = 20,
+  ) => listActivities(this.documentClient, lastEvaluatedId, itemsPerPage)
   public getActivity = getActivity
-  public listActivities = listActivities
   public deleteActivity = deleteActivity
   public updateActivity = updateActivity
   public listTravelBandActivities = (travelBandId: string) => listTravelBandActivities(this.documentClient, travelBandId)

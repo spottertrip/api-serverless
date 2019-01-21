@@ -2,6 +2,7 @@
 import Activity from '@models/Activity'
 import ISpotter from '@models/Spotter'
 import { ListActivityOutput } from '@datastore/types'
+import { IAvailability } from '@models/Availability'
 
 export interface DataStore {
   // Activities
@@ -11,6 +12,8 @@ export interface DataStore {
   updateActivity: () => Promise<any>
   listTravelBandActivities: (travelBandId: string) => Promise<Activity[]>
   listTravelBandBookings: (travelBandId: string) => Promise<Activity[]>
+  // Availabilities
+  listAvailabilities: (activityId: string) => Promise<IAvailability[]>
   // Spotters
   listSpotters: (travelBandId: string) => Promise<ISpotter[]>
 }

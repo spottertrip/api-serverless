@@ -7,6 +7,8 @@ const fr = {
     },
     activities: {
       invalid_lastEvaluatedId: 'Une erreur est survenue lors de l\'évaluation de la pagination d\'activités',
+      invalidUUID: 'L\'id de l\'activité fourni est invalide',
+      missingId: 'L\'id de l\'activité est requis pour obtenir ses disponibilités',
     },
   },
   travelBands: {

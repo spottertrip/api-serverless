@@ -22,3 +22,4 @@ try {
 export * from './hello'
 export * from './travelBands'
 export * from './activities'
+export * from './availabilities'

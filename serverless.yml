@@ -27,6 +27,10 @@ custom:
         sources:
           - table: activities
             sources: [./seeds/activities.json]
+      availabilities:
+        sources:
+          - table: availabilities
+            sources: [./seeds/availabilities.json]
 
 functions:
   hello:
@@ -41,6 +45,12 @@ functions:
       - http:
           method: get
           path: activities
+  listActivityAvailabilities:
+    handler: src/handlers/handler.listAvailabilities
+    events:
+      - http:
+          method: get
+          path: activities/{activityId}/availabilities
   listTravelBandActivities:
     handler: src/handlers/handler.listTravelBandActivities
     events:
@@ -131,3 +141,21 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: bookings
+    AvailabilitiesDynamodbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: availabilityId
+            AttributeType: S
+          - AttributeName: activityId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: activityId
+            KeyType: HASH
+          - AttributeName: availabilityId
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: availabilities

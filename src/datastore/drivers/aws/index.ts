@@ -8,6 +8,7 @@ import {
   updateActivity, listTravelBandActivities, listTravelBandBookings,
 } from './activities'
 import { listSpotters } from '@datastore/drivers/aws/spotters'
+import { listAvailabilities } from '@datastore/drivers/aws/availabilities'
 
 export interface AWSOptions {
   endpoint: string
@@ -33,6 +34,8 @@ export default class AWSDataStore implements DataStore {
   public updateActivity = updateActivity
   public listTravelBandActivities = (travelBandId: string) => listTravelBandActivities(this.documentClient, travelBandId)
   public listTravelBandBookings = (travelBandId: string) => listTravelBandBookings(this.documentClient, travelBandId)
+  // Availabilities
+  public listAvailabilities = (activityId: string) => listAvailabilities(this.documentClient, activityId)
   // Spotters
   public listSpotters = (travelBandId: string) => listSpotters(this.documentClient, travelBandId)
 }

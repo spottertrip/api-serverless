@@ -9,6 +9,10 @@ import {
 } from './activities'
 import { listSpotters } from '@datastore/drivers/aws/spotters'
 import { listAvailabilities } from '@datastore/drivers/aws/availabilities'
+import TravelBand from '@models/TravelBand'
+import { IFolder } from '@models/Folder'
+import { createFolder } from '@datastore/drivers/aws/folders'
+import { getTravelBand } from '@datastore/drivers/aws/travelBands'
 
 export interface AWSOptions {
   endpoint: string
@@ -36,6 +40,10 @@ export default class AWSDataStore implements DataStore {
   public listTravelBandBookings = (travelBandId: string) => listTravelBandBookings(this.documentClient, travelBandId)
   // Availabilities
   public listAvailabilities = (activityId: string) => listAvailabilities(this.documentClient, activityId)
+  // Travel Band
+  public getTravelBand = (travelBandId: string) => getTravelBand(this.documentClient, travelBandId)
   // Spotters
   public listSpotters = (travelBandId: string) => listSpotters(this.documentClient, travelBandId)
+  // Folders
+  public createFolder = (travelBand: TravelBand, folder: IFolder) => createFolder(this.documentClient, travelBand, folder)
 }

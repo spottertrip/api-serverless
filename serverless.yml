@@ -63,6 +63,12 @@ functions:
       - http:
           method: get
           path: travel-bands/{travelBandId}/spotters
+  createFolder:
+    handler: src/handlers/handler.createFolder
+    events:
+      - http:
+          method: post
+          path: travel-bands/{travelBandId}/folders
 
 resources:
   Resources:

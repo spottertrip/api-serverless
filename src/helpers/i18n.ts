@@ -10,6 +10,18 @@ const fr = {
       invalidUUID: 'L\'id de l\'activité fourni est invalide',
       missingId: 'L\'id de l\'activité est requis pour obtenir ses disponibilités',
     },
+    folders: {
+      invalid: 'Le dossier est invalide',
+      name: {
+        required: 'Le nom du dossier est requis',
+        max: 'Le nom du dossier ne doit pas dépasser 20 caractères',
+        min: 'Le nom du dossier doit contenir au moins 3 caractères',
+        alreadyExists: 'Un autre dossier existe déjà avec le nom "{{name}}" pour ce groupe de voyage.',
+      },
+      description: {
+        max: 'La description du dossier ne doit pas dépasser 120 caractères',
+      },
+    },
   },
   travelBands: {
     errors: {

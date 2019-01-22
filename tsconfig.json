@@ -12,7 +12,8 @@
       "@handlers/*": ["src/handlers/*"],
       "@models/*": ["src/models/*"],
       "@errors/*": ["src/errors/*"],
-      "@helpers/*": ["src/helpers/*"]
+      "@helpers/*": ["src/helpers/*"],
+      "@validators/*": ["src/validators/*"]
     }
   },
   "exclude": [

@@ -19,6 +19,7 @@ module.exports = {
         "@datastore/(.*)$": "<rootDir>/src/datastore/$1",
         "@models/(.*)$": "<rootDir>/src/models/$1",
         "@errors/(.*)$": "<rootDir>/src/errors/$1",
-        "@helpers/(.*)$": "<rootDir>/src/helpers/$1"
+        "@helpers/(.*)$": "<rootDir>/src/helpers/$1",
+        "@validators/(.*)$": "<rootDir>/src/validators/$1"
     }
 }

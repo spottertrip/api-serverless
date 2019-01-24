@@ -3,6 +3,7 @@
     "travelBandId": "15a992e1-8d3f-421e-99a3-2ba5d2131d09",
     "name": "Development Group",
     "description": "Description for development battle group",
+    "folders": [],
     "spotters": [
       {
         "spotterId": "15a992e1-8d3f-421e-99a3-2ba5d2131d82",

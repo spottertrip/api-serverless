@@ -1,8 +1,8 @@
-import {DocumentClient, QueryInput, ScanInput} from 'aws-sdk/clients/dynamodb'
+import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import BadRequestError from '@errors/BadRequestError'
 import { t } from '@helpers/i18n'
 import { IAvailability } from '@models/Availability'
-import InternalServerError from "@errors/InternalServerError";
+import InternalServerError from '@errors/InternalServerError'
 
 /**
  * List availabilities for an activity

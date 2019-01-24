@@ -1,4 +1,3 @@
-
 jest.mock('aws-sdk')
 
 import { listActivities, listTravelBandActivities, listTravelBandBookings } from '@datastore/drivers/aws/activities'

@@ -12,7 +12,8 @@ module.exports = {
       '@handlers': path.resolve(__dirname, 'src/handlers'),
       '@models': path.resolve(__dirname, 'src/models'),
       '@errors': path.resolve(__dirname, 'src/errors'),
-      '@helpers': path.resolve(__dirname, 'src/helpers')
+      '@helpers': path.resolve(__dirname, 'src/helpers'),
+      '@validators': path.resolve(__dirname, 'src/validators'),
     }
   },
   output: {

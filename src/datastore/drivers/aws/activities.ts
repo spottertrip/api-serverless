@@ -59,22 +59,21 @@ export const updateActivity = async (): Promise<any> => {}
  * @throws BadRequestError - travel id is empty
  */
 export const listTravelBandActivities = async (documentClient: DocumentClient, travelBandId: string): Promise<Activity[]> => {
-  if (!travelBandId) {
-    throw new BadRequestError(t('travelBands.errors.missingId'))
-  }
   const params = {
-    TableName: 'travelBands',
-    AttributesToGet: ['activities'],
-    Key: {
-      travelBandId,
+    TableName: 'travelBandActivities',
+    KeyConditionExpression: 'travelBandId = :id',
+    ExpressionAttributeValues: {
+      ':id': travelBandId,
     },
   }
-  const result = await documentClient.get(params).promise()
-  if (!result.Item) {
-    throw new NotFoundError(t('travelBands.errors.notFound'))
+
+  try {
+    const result = await documentClient.query(params).promise()
+    return result.Items as Activity[]
+  } catch (e) {
+    console.error(e)
+    throw new InternalServerError(t('errors.database.internal'))
   }
-  const travelBand = result.Item as TravelBand
-  return travelBand.activities
 }
 
 /**

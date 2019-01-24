@@ -2,6 +2,7 @@ import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { IFolder } from '@models/Folder'
 import TravelBand from '@models/TravelBand'
 import InternalServerError from '@errors/InternalServerError'
+import { t } from '@helpers/i18n'
 
 export const createFolder = async (documentClient: DocumentClient, travelBand: TravelBand, folder: IFolder) => {
   const params = {
@@ -19,6 +20,6 @@ export const createFolder = async (documentClient: DocumentClient, travelBand: T
     await documentClient.update(params).promise()
     return folder
   } catch (e) {
-    throw new InternalServerError(e.message)
+    throw new InternalServerError(t('errors.database.internal'))
   }
 }

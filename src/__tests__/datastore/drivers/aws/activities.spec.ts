@@ -11,28 +11,24 @@ import NotFoundError from '@errors/NotFoundError'
 AWSMock.setSDKInstance(AWS)
 
 // ---- List Travel Band Activities ---- //
-test('list travel band activities without ID returns bad request', async () => {
-  await expect(listTravelBandActivities(new AWS.DynamoDB.DocumentClient(), '')).rejects.toThrow(BadRequestError)
-})
-
-test('list travel band activities with not existing ID -> not found', async () => {
-  const mockedGet = jest.fn((params: any, cb: any) => {
-    return cb(null, { Item: null })
+test('list travel band activities datastore error list', async () => {
+  const mockedQuery = jest.fn((params: any, cb: any) => {
+    throw new Error('AWS error')
   })
-  AWSMock.mock('DynamoDB.DocumentClient', 'get', mockedGet)
-  await expect(listTravelBandActivities(new AWS.DynamoDB.DocumentClient(), v4())).rejects.toThrow(NotFoundError)
+  AWSMock.mock('DynamoDB.DocumentClient', 'query', mockedQuery)
+  await expect(listTravelBandActivities(new AWS.DynamoDB.DocumentClient(), v4())).rejects.toThrow(InternalServerError)
   AWSMock.restore('DynamoDB.DocumentClient')
 })
 
 test('list travel band activities with valid ID', async () => {
-  const activityName = 'test Activity'
-  const mockedGet = jest.fn((params: any, cb: any) => {
-    return cb(null, { Item: { activities: [{ name: activityName }] } })
+  const travelBandId = v4()
+  const data = [{ travelBandId, name: 'Activity 1' }, { travelBandId, name: 'Activity 2' }]
+  const mockedQuery = jest.fn((params: any, cb: any) => {
+    return cb(null, { Items: data })
   })
-  AWSMock.mock('DynamoDB.DocumentClient', 'get', mockedGet)
+  AWSMock.mock('DynamoDB.DocumentClient', 'query', mockedQuery)
   const activities = await listTravelBandActivities(new AWS.DynamoDB.DocumentClient(), v4())
-  expect(activities.length).toBe(1)
-  expect(activities[0].name).toBe(activityName)
+  expect(activities.length).toBe(2)
   AWSMock.restore('DynamoDB.DocumentClient')
 })
 

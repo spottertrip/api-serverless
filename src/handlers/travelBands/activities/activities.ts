@@ -2,9 +2,10 @@ import { datastore } from '@datastore/index'
 import HTTPError from '@errors/HTTPError'
 import { handleError } from '@helpers/http'
 import Activity from '@models/Activity'
-import BadRequestError from '@errors/BadRequestError'
+import BadRequestError from '../../../errors/BadRequestError'
 import { t } from '@helpers/i18n'
 import * as validateUUID from 'uuid-validate'
+import TravelBand from '@models/TravelBand'
 
 /**
  * Handler for event listing activities shared inside a travel band
@@ -13,13 +14,24 @@ import * as validateUUID from 'uuid-validate'
  */
 export const listTravelBandActivities = async (event, context) => {
   let activities: Activity[]
+  let travelBand: TravelBand
+
   const travelBandId: string = event.pathParameters && event.pathParameters.travelBandId || ''
   if (!travelBandId || !validateUUID(travelBandId)) {
     return handleError(new BadRequestError(t('travelBands.errors.invalidUUID')))
   }
 
+  // get Travel Band
+  // TODO: remove when authentication will be in place as Travel Band will be fetched during auth to verify permissions for user
+  // on given travel band
   try {
-    activities = await datastore.listTravelBandActivities(event.pathParameters.travelBandId)
+    travelBand = await datastore.getTravelBand(travelBandId)
+  } catch (e) {
+    return handleError(e)
+  }
+
+  try {
+    activities = await datastore.listTravelBandActivities(travelBand.travelBandId)
   } catch (e) {
     return handleError(e as HTTPError)
   }

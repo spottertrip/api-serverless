@@ -1,3 +1,3 @@
-export * from './travelBandActivities'
+export * from './activities'
 export * from './spotters'
 export * from './folders'

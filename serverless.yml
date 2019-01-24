@@ -23,6 +23,8 @@ custom:
         sources:
           - table: travelBands
             sources: [./seeds/travelBands.json]
+          - table: travelBandActivities
+            sources: [./seeds/travelBandActivities.json]
       activities:
         sources:
           - table: activities
@@ -33,12 +35,6 @@ custom:
             sources: [./seeds/availabilities.json]
 
 functions:
-  hello:
-    handler: src/handlers/handler.hello
-    events:
-      - http:
-          method: get
-          path: hello
   listActivities:
     handler: src/handlers/handler.listActivities
     events:
@@ -165,3 +161,21 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: availabilities
+    TravelBandActivitiesDynamodbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: travelBandId
+            AttributeType: S
+          - AttributeName: activityId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: travelBandId
+            KeyType: HASH
+          - AttributeName: activityId
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: travelBandActivities

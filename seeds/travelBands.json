@@ -3,7 +3,20 @@
     "travelBandId": "15a992e1-8d3f-421e-99a3-2ba5d2131d09",
     "name": "Development Group",
     "description": "Description for development battle group",
-    "folders": [],
+    "folders": [
+      {
+        "folderId":  "2ab1a512-5d8d-43b7-8578-c730173391e1",
+        "name":  "Parties",
+        "description": "Folders for our activities about Parteyyyyy!",
+        "thumbnailUrl": "https://seda.college/wp-content/uploads/party.jpg"
+      },
+      {
+        "folderId":  "9a090e46-1d90-4b09-939e-1dd1f1a203f3",
+        "name":  "Afternoon at the Beach",
+        "description": "Propositions: What to do during our afternoon, beach volley/fiest",
+        "thumbnailUrl": "https://activeforlife.com/content/uploads/2015/06/boy-girl-beach-ball.jpg"
+      }
+    ],
     "spotters": [
       {
         "spotterId": "15a992e1-8d3f-421e-99a3-2ba5d2131d82",

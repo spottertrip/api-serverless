@@ -13,7 +13,7 @@ AWSMock.setSDKInstance(AWS)
 // ---- List Travel Band Activities ---- //
 test('list travel band activities datastore error list', async () => {
   const mockedQuery = jest.fn((params: any, cb: any) => {
-    throw new Error('AWS error')
+    return cb(new Error('AWS error'), null)
   })
   AWSMock.mock('DynamoDB.DocumentClient', 'query', mockedQuery)
   await expect(listTravelBandActivities(new AWS.DynamoDB.DocumentClient(), v4())).rejects.toThrow(InternalServerError)
@@ -77,7 +77,7 @@ test('List activities with valid last evaluated id', async () => {
 
 test('List activities dynamodb error', async () => {
   const mockedError = jest.fn((params: any, cb: any) => {
-    throw new Error('DynamoDB error')
+    return cb(new Error('DynamoDB error'), null)
   })
   AWSMock.mock('DynamoDB.DocumentClient', 'scan', mockedError)
   await expect(listActivities(new AWS.DynamoDB.DocumentClient())).rejects.toThrow(InternalServerError)

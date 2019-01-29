@@ -7,15 +7,17 @@ import BadRequestError from '@errors/BadRequestError'
 import { t } from '@helpers/i18n'
 import { validateFolder } from '@validators/folder'
 import { v4 } from 'uuid'
-import * as validateUUID from 'uuid-validate'
+import { getIdFromPath } from '@helpers/event';
 
 export const createFolder = async (event, context) => {
   let travelBand: TravelBand
+  let travelBandId: string
 
-  // validate travel band ID
-  const travelBandId: string = event.pathParameters && event.pathParameters.travelBandId || ''
-  if (!travelBandId || !validateUUID(travelBandId)) {
-    return handleError(new BadRequestError(t('travelBands.errors.invalidUUID')))
+  // get travel band id
+  try {
+    travelBandId = getIdFromPath('travelBandId', event.pathParameters)
+  } catch (e) {
+    return handleError(new BadRequestError(e.getErrorMessage()))
   }
 
   const data = JSON.parse(event.body)

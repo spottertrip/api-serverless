@@ -4,7 +4,7 @@ import BadRequestError from '@errors/BadRequestError'
 import { t } from '@helpers/i18n'
 import { IAvailability } from '@models/Availability'
 import HTTPError from '@errors/HTTPError'
-import * as validateUUID from 'uuid-validate'
+import { getIdFromPath } from '@helpers/event'
 
 /**
  * Handler to list availabilities (opening) for a given availability
@@ -13,8 +13,11 @@ import * as validateUUID from 'uuid-validate'
  */
 export const listAvailabilities = async (event, context) => {
   let availabilities: IAvailability[]
-  const activityId: string = event.pathParameters && event.pathParameters.activityId || ''
-  if (!activityId || !validateUUID(activityId)) {
+  let activityId: string
+
+  try {
+    activityId = getIdFromPath('activityId', event.pathParameters)
+  } catch (e) {
     return handleError(new BadRequestError(t('errors.activities.invalidUUID')))
   }
 

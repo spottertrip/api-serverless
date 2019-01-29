@@ -22,3 +22,4 @@ try {
 export * from './travelBands'
 export * from './activities'
 export * from './availabilities'
+export * from './folders'

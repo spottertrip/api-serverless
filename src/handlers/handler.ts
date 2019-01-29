@@ -1,14 +1,13 @@
-import { config } from 'dotenv'
 import { initializeDB } from '@datastore/index'
 
-// DotENV Configuration
-config()
+let dbOptions
 
-const dbOptions = {
-  endpoint: process.env.AWS_ENDPOINT,
-  region: process.env.AWS_REGION,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+if (!!process.env.IS_OFFLINE) {
+  // IS_OFFLINE is set by the serverless-offline-plugin
+  dbOptions = {
+    endpoint: process.env.AWS_ENDPOINT,
+    region: process.env.AWS_REGION,
+  };
 }
 
 try {

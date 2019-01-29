@@ -8,7 +8,7 @@ import TravelBand from '@models/TravelBand'
 
 export interface DataStore {
   // Activities
-  getActivity: (id: string) => Promise<any>
+  getActivity: (activityId: string) => Promise<Activity>
   listActivities: (lastEvaluatedId: string, itemsPerPage: number) => Promise<ListActivityOutput>
   deleteActivity: (id: string) => Promise<void>
   updateActivity: () => Promise<any>

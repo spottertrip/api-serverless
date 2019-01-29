@@ -1,5 +1,5 @@
 service:
-  name: spotted
+  name: spotter
 
 # Add the serverless-webpack plugin
 plugins:
@@ -10,9 +10,38 @@ plugins:
 provider:
   name: aws
   runtime: nodejs8.10
-  region: localhost
+  region: ${opt:region, 'eu-west-1'}
+  stage: ${opt:stage, self:custom.defaultStage}
+  profile: ${self:custom.profiles.${self:provider.stage}}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - { "Fn::GetAtt": ["SpottersDynamoDbTable", "Arn" ] }
+        - { "Fn::GetAtt": ["TravelBandDynamoDbTable", "Arn" ] }
+        - { "Fn::GetAtt": ["ActivitiesDynamoDbTable", "Arn" ] }
+        - { "Fn::GetAtt": ["OfficeDynamoDbTable", "Arn" ] }
+        - { "Fn::GetAtt": ["BookingDynamoDbTable", "Arn" ] }
+        - { "Fn::GetAtt": ["AvailabilitiesDynamodbTable", "Arn" ] }
+        - { "Fn::GetAtt": ["TravelBandActivitiesDynamodbTable", "Arn" ] }
+  environment:
+    AWS_ENDPOINT: ${file(./config.${self:provider.stage}.json):AWS_ENDPOINT}
+    AWS_REGION: ${file(./config.${self:provider.stage}.json):AWS_REGION}
+    AWS_ACCESS_KEY_ID: ${file(./config.${self:provider.stage}.json):AWS_ACCESS_KEY_ID}
+    AWS_SECRET_ACCESS_KEY: ${file(./config.${self:provider.stage}.json):AWS_SECRET_ACCESS_KEY}
 
 custom:
+  defaultStage: dev
+  profiles:
+    dev: dev
+    staging: staging
+    prod: prod
   dynamodb:
     start:
       migrate: true
@@ -41,6 +70,12 @@ functions:
       - http:
           method: get
           path: activities
+  viewActivity:
+    handler: src/handlers/handler.viewActivity
+    events:
+      - http:
+          method: get
+          path: activities/{activityId}
   listActivityAvailabilities:
     handler: src/handlers/handler.listAvailabilities
     events:
@@ -83,7 +118,6 @@ resources:
     # Spotters model - Users
     SpottersDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
       Properties:
         AttributeDefinitions:
           - AttributeName: spotterId
@@ -98,7 +132,6 @@ resources:
     # Travel band Model
     TravelBandDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
       Properties:
         AttributeDefinitions:
           - AttributeName: travelBandId
@@ -113,7 +146,6 @@ resources:
     #
     ActivitiesDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
       Properties:
         AttributeDefinitions:
           - AttributeName: activityId
@@ -128,7 +160,6 @@ resources:
     #
     OfficeDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
       Properties:
         AttributeDefinitions:
           - AttributeName: officeId
@@ -143,7 +174,6 @@ resources:
     #
     BookingDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
       Properties:
         AttributeDefinitions:
           - AttributeName: bookingId
@@ -157,7 +187,6 @@ resources:
         TableName: bookings
     AvailabilitiesDynamodbTable:
       Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
       Properties:
         AttributeDefinitions:
           - AttributeName: availabilityId
@@ -175,7 +204,6 @@ resources:
         TableName: availabilities
     TravelBandActivitiesDynamodbTable:
       Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
       Properties:
         AttributeDefinitions:
           - AttributeName: travelBandId
@@ -191,3 +219,20 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: travelBandActivities
+
+package:
+  exclude:
+    - seeds/**
+    - src/__tests__/**
+    - src/__e2e__/**
+    - .vscode/**
+    - .idea/**
+    - .env
+    - .env.prod
+    - .gitignore
+    - README.md
+    - '*.{ts,js,json,yml}'
+  include:
+    - src/**
+    - '!src/**/*.spec.js'
+    - '!src/**/*.serverless.yml'

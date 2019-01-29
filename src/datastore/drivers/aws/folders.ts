@@ -1,10 +1,10 @@
-import { DocumentClient } from 'aws-sdk/clients/dynamodb'
+import { DocumentClient, GetItemOutput, QueryOutput } from 'aws-sdk/clients/dynamodb'
 import { IFolder } from '@models/Folder'
 import TravelBand from '@models/TravelBand'
 import InternalServerError from '@errors/InternalServerError'
 import { t } from '@helpers/i18n'
-import BadRequestError from '@errors/BadRequestError';
 import NotFoundError from '@errors/NotFoundError';
+import Activity from '@models/Activity';
 
 /**
  * Create a folder for a travel band
@@ -45,10 +45,76 @@ export const listFolders = async (documentClient: DocumentClient, travelBandId: 
       travelBandId,
     },
   }
-  const result = await documentClient.get(params).promise()
+
+  let result: GetItemOutput
+  try {
+    result = await documentClient.get(params).promise()
+  } catch (e) {
+    throw new InternalServerError(t('database.errors.internal'))
+  }
   if (!result.Item) {
     throw new NotFoundError(t('travelBands.errors.notFound'))
   }
   const travelBand = result.Item as TravelBand
   return travelBand.folders
+}
+
+/**
+ * Get a Folder from a travel band by travel band ID and Folder ID
+ * @param documentClient - AWS DynamoDB document client
+ * @param {string} travelBandId - travel band id
+ * @param {string} folderId - folder id
+ */
+export const getFolder = async (documentClient: DocumentClient, travelBandId: string, folderId: string): Promise<IFolder> => {
+  const params = {
+    TableName: 'travelBands',
+    AttributesToGet: ['folders'],
+    Key: {
+      travelBandId,
+    },
+  }
+
+  let result: GetItemOutput
+  try {
+    result = await documentClient.get(params).promise()
+  } catch (e) {
+    throw new InternalServerError(t('database.errors.internal'))
+  }
+  if (!result.Item) {
+    throw new NotFoundError(t('travelBands.errors.notFound'))
+  }
+  const travelBand = result.Item as TravelBand
+
+  // get folder
+  const folder = travelBand.folders.find(f => f.folderId === folderId)
+  if (!folder) {
+    throw new NotFoundError(t('errors.folders.notFound'))
+  }
+  return folder
+}
+
+/**
+ * List activities for a given folder inside a given travel band
+ * @param {DocumentClient} documentClient - DynamoDB DocumentClient - access to AWS DynamoDB
+ * @param {string} travelBandId - ID of the travel band in which folders belong
+ * @param {string} folderId - ID of the folder to retrieve activities for
+ */
+export const listActivitiesInFolder = async (documentClient: DocumentClient, travelBandId: string, folderId: string): Promise<Activity[]> => {
+  const params = {
+    TableName: 'travelBandActivities',
+    KeyConditionExpression: 'travelBandId = :travelBandId',
+    FilterExpression: 'folderId = :folderId',
+    ExpressionAttributeValues: {
+      ':travelBandId': travelBandId,
+      ':folderId': folderId,
+    },
+  }
+
+  let result: QueryOutput
+  try {
+    result = await documentClient.query(params).promise()
+  } catch (e) {
+    throw new InternalServerError(t('database.errors.internal'))
+  }
+  return result.Items as Activity[]
 }

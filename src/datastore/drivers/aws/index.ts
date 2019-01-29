@@ -1,6 +1,8 @@
 import { DataStore } from '../../datastore'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 // Repositories
+import TravelBand from '@models/TravelBand'
+import { IFolder } from '@models/Folder'
 import {
   listActivities,
   getActivity,
@@ -9,9 +11,12 @@ import {
 } from './activities'
 import { listSpotters } from '@datastore/drivers/aws/spotters'
 import { listAvailabilities } from '@datastore/drivers/aws/availabilities'
-import TravelBand from '@models/TravelBand'
-import { IFolder } from '@models/Folder'
-import {createFolder, listFolders} from '@datastore/drivers/aws/folders'
+import {
+  createFolder,
+  getFolder,
+  listActivitiesInFolder,
+  listFolders
+} from '@datastore/drivers/aws/folders'
 import { getTravelBand } from '@datastore/drivers/aws/travelBands'
 
 export interface AWSOptions {
@@ -45,6 +50,8 @@ export default class AWSDataStore implements DataStore {
   // Spotters
   public listSpotters = (travelBandId: string) => listSpotters(this.documentClient, travelBandId)
   // Folders
+  public getFolder = (travelBandId: string, folderId: string) => getFolder(this.documentClient, travelBandId, folderId)
   public listFolders = (travelBandId: string) => listFolders(this.documentClient, travelBandId)
   public createFolder = (travelBand: TravelBand, folder: IFolder) => createFolder(this.documentClient, travelBand, folder)
+  public listActivitiesInFolder = (travelBandId: string, folderId: string) => listActivitiesInFolder(this.documentClient, travelBandId, folderId)
 }

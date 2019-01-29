@@ -1,13 +1,39 @@
-import { DocumentClient } from 'aws-sdk/clients/dynamodb'
+import { DocumentClient, GetItemOutput } from 'aws-sdk/clients/dynamodb'
 import TravelBand from '@models/TravelBand'
 import BadRequestError from '@errors/BadRequestError'
 import NotFoundError from '@errors/NotFoundError'
 import Activity from '@models/Activity'
 import { t } from '@helpers/i18n'
-import InternalServerError from '@errors/InternalServerError';
-import { ListActivityOutput } from '@datastore/types';
+import InternalServerError from '@errors/InternalServerError'
+import { ListActivityOutput } from '@datastore/types'
 
-export const getActivity = async(id: string): Promise<any> => {}
+/**
+ * Get an activity from given ID
+ * @param {DocumentClient} documentClient - AWS DynamoDB DocumentClient to access database
+ * @param {string} activityId - ID of the activity to retrieve
+ */
+export const getActivity = async(documentClient: DocumentClient, activityId: string): Promise<Activity> => {
+  const params = {
+    TableName: 'activities',
+    Key: {
+      activityId,
+    },
+  }
+
+  let result: GetItemOutput
+  try {
+    result = await documentClient.get(params).promise()
+  } catch (e) {
+    throw new InternalServerError(t('database.errors.internal'))
+  }
+
+  if (!result.Item) {
+    throw new NotFoundError(t('errors.activities.notFound'))
+  }
+
+  return result.Item as Activity
+}
+
 export const createActivities = async (activity: any): Promise<any>  => {}
 /**
  * Retrieve paginated list of activities

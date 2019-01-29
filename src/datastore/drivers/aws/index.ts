@@ -15,7 +15,7 @@ import {
   createFolder,
   getFolder,
   listActivitiesInFolder,
-  listFolders
+  listFolders,
 } from '@datastore/drivers/aws/folders'
 import { getTravelBand } from '@datastore/drivers/aws/travelBands'
 
@@ -38,7 +38,7 @@ export default class AWSDataStore implements DataStore {
     lastEvaluatedId: string = '',
     itemsPerPage: number = 20,
   ) => listActivities(this.documentClient, lastEvaluatedId, itemsPerPage)
-  public getActivity = getActivity
+  public getActivity = (activityId: string) => getActivity(this.documentClient, activityId)
   public deleteActivity = deleteActivity
   public updateActivity = updateActivity
   public listTravelBandActivities = (travelBandId: string) => listTravelBandActivities(this.documentClient, travelBandId)

@@ -1,6 +1,11 @@
 jest.mock('aws-sdk')
 
-import { listActivities, listTravelBandActivities, listTravelBandBookings } from '@datastore/drivers/aws/activities'
+import {
+  getActivity,
+  listActivities,
+  listTravelBandActivities,
+  listTravelBandBookings,
+} from '@datastore/drivers/aws/activities'
 import InternalServerError from '@errors/InternalServerError'
 import * as AWSMock from 'aws-sdk-mock'
 import * as AWS from 'aws-sdk'
@@ -95,5 +100,37 @@ test('List activities with default pagination', async () => {
   const results = await listActivities(new AWS.DynamoDB.DocumentClient(), '', 10)
   expect(results.activities.length).toBe(1)
   expect(results.lastEvaluatedId).toBe(lastEvaluatedId)
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+// ---- Get Activity ---- //
+
+test('get activity with not existing ID -> not found', async () => {
+  const mockedGet = jest.fn((params: any, cb: any) => {
+    return cb(null, { Item: null })
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'get', mockedGet)
+  await expect(getActivity(new AWS.DynamoDB.DocumentClient(), v4())).rejects.toThrow(NotFoundError)
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+test('get activity - database error', async () => {
+  const mockedGet = jest.fn((params: any, cb: any) => {
+    throw new Error('db error')
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'get', mockedGet)
+  await expect(getActivity(new AWS.DynamoDB.DocumentClient(), v4())).rejects.toThrow(InternalServerError)
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+test('get activity valid ID', async () => {
+  const activityId = v4()
+  const mockedGet = jest.fn((params: any, cb: any) => {
+    return cb(null, { Item: { activityId, name: 'testing' } })
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'get', mockedGet)
+  const activity = await getActivity(new AWS.DynamoDB.DocumentClient(), activityId)
+  expect(activity.name).toBe('testing')
+  expect(activity.activityId).toBe(activityId)
   AWSMock.restore('DynamoDB.DocumentClient')
 })

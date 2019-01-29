@@ -71,6 +71,12 @@ functions:
       - http:
           method: post
           path: travel-bands/{travelBandId}/folders
+  listActivitiesInFolder:
+    handler: src/handlers/handler.listActivitiesInFolder
+    events:
+      - http:
+          method: get
+          path: travel-bands/{travelBandId}/folders/{folderId}/activities
 
 resources:
   Resources:

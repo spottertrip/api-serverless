@@ -4,7 +4,8 @@
   "description": "Serverless w/ TypeScript and Node on top of AWS Lambda/API Gateway/S3/DynamoDB",
   "main": "src/handlers/handler.ts",
   "scripts": {
-    "test": "jest",
+    "unit": "jest",
+    "unit:ci": "jest --ci -w 1",
     "dev": "serverless offline start",
     "lint": "tslint --project ."
   },

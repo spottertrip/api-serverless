@@ -12,7 +12,7 @@ provider:
   runtime: nodejs8.10
   region: ${opt:region, 'eu-west-1'}
   stage: ${opt:stage, self:custom.defaultStage}
-  profile: ${self:custom.profiles.${self:provider.stage}}
+  #profile: ${self:custom.profiles.${self:provider.stage}}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -222,6 +222,8 @@ resources:
 
 package:
   exclude:
+    - coverage/**
+    - .circleci/**
     - seeds/**
     - src/__tests__/**
     - src/__e2e__/**

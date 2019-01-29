@@ -1,7 +1,12 @@
 const i18n = require('i18n-js')
 
 const fr = {
+  parameters: {
+    travelBand: 'groupe de voyage',
+    folder: 'dossier d\'activitiés',
+  },
   errors: {
+    invalidUUID: 'L\'id du {{name}} est invalide',
     database: {
       internal: 'Une erreur est survenue, veuillez réessayer à nouveau',
     },
@@ -11,6 +16,8 @@ const fr = {
       missingId: 'L\'id de l\'activité est requis pour obtenir ses disponibilités',
     },
     folders: {
+      notFound: 'Le dossier recherché n\'existe pas',
+      invalidUUID: 'L\'id du dossier est invalide',
       invalid: 'Le dossier est invalide',
       name: {
         required: 'Le nom du dossier est requis',

@@ -1,4 +1,4 @@
-import { createFolder } from '@handlers/travelBands'
+import { createFolder } from '@handlers/folders'
 import NotFoundError from '@errors/NotFoundError'
 import { IFolder } from '@models/Folder'
 import ValidationError from '@errors/ValidationError';

@@ -1,7 +1,7 @@
 import { v4 } from 'uuid'
 import NotFoundError from '@errors/NotFoundError'
 import InternalServerError from '@errors/InternalServerError'
-import { listFolders } from '@handlers/travelBands'
+import { listFolders } from '@handlers/folders'
 
 jest.mock('@datastore/index', () => ({
   datastore: {

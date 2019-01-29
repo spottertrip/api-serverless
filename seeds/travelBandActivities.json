@@ -2,6 +2,7 @@
   {
     "activityId": "1c6afe6d-230c-4528-bd7e-6f447912fee7",
     "travelBandId": "15a992e1-8d3f-421e-99a3-2ba5d2131d09",
+    "folderId": "2ab1a512-5d8d-43b7-8578-c730173391e1",
     "name": "activity 1",
     "description": "First Activity, cross Paris in Bobsleigh, then second round with electric Scooters and then swimming through the magestic 'La Seine'",
     "picture": "http://s3.pictures",
@@ -22,6 +23,7 @@
   {
     "activityId": "3afe37d5-41db-438a-9f51-8cd212d76d25",
     "travelBandId":  "15a992e1-8d3f-421e-99a3-2ba5d2131d09",
+    "folderId": "9a090e46-1d90-4b09-939e-1dd1f1a203f3",
     "name": "second activity",
     "description": "Second Activity, cooking sushis in the city with friends, get to eat your passionate meals.",
     "picture": "http://s3.pictures",
@@ -42,6 +44,7 @@
   {
     "activityId": "0dc3da16-82bd-4885-8b79-81d8bd735dad",
     "travelBandId":  "15a992e1-8d3f-421e-99a3-2ba5d2131d09",
+    "folderId": "9a090e46-1d90-4b09-939e-1dd1f1a203f3",
     "name": "third activity",
     "description": "Third Activity, cross Paris in Bobsleigh, then second round with electric Scooters and then swimming through the magestic 'La Seine'",
     "picture": "http://s3.pictures",

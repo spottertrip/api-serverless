@@ -3,8 +3,7 @@ import { datastore } from '@datastore/index'
 import { handleError } from '@helpers/http'
 import HTTPError from '@errors/HTTPError'
 import BadRequestError from '@errors/BadRequestError'
-import { t } from '@helpers/i18n'
-import * as validateUUID from 'uuid-validate'
+import { getIdFromPath } from '@helpers/event';
 
 /**
  * List Activity Folders for a given Travel Band
@@ -13,11 +12,12 @@ import * as validateUUID from 'uuid-validate'
  */
 export const listFolders = async (event, context) => {
   let folders: IFolder[]
+  let travelBandId: string
 
-  // validate travel band ID
-  const travelBandId: string = event.pathParameters && event.pathParameters.travelBandId || ''
-  if (!travelBandId || !validateUUID(travelBandId)) {
-    return handleError(new BadRequestError(t('travelBands.errors.invalidUUID')))
+  try {
+    travelBandId = getIdFromPath('travelBandId', event.pathParameters)
+  } catch (e) {
+    return handleError(new BadRequestError(e.getErrorMessage()))
   }
 
   try {

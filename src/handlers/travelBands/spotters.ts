@@ -4,8 +4,8 @@ import { t } from '@helpers/i18n'
 import { datastore } from '@datastore/index'
 import HTTPError from '@errors/HTTPError'
 import ISpotter from '@models/Spotter'
-import * as validateUUID from 'uuid-validate'
 import TravelBand from '@models/TravelBand'
+import { getIdFromPath } from '@helpers/event'
 
 /**
  * Handler for event listing spotters inside a travel band
@@ -15,8 +15,11 @@ import TravelBand from '@models/TravelBand'
 export const listTravelBandSpotters = async (event, context) => {
   let spotters: ISpotter[]
   let travelBand: TravelBand
-  const travelBandId: string = event.pathParameters && event.pathParameters.travelBandId || ''
-  if (!travelBandId || !validateUUID(travelBandId)) {
+  let travelBandId: string
+
+  try {
+    travelBandId = getIdFromPath('travelBandId', event.pathParameters)
+  } catch (e) {
     return handleError(new BadRequestError(t('travelBands.errors.invalidUUID')))
   }
 

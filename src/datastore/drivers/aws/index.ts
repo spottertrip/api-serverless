@@ -16,7 +16,7 @@ import {
 import { listSpotters } from '@datastore/drivers/aws/spotters'
 import { listAvailabilities } from '@datastore/drivers/aws/availabilities'
 import {
-  createFolder,
+  createFolder, getCountActivitiesInFolder,
   getFolder,
   listActivitiesInFolder,
   listFolders,
@@ -67,4 +67,8 @@ export default class AWSDataStore implements DataStore {
   public listFolders = (travelBandId: string) => listFolders(this.documentClient, travelBandId)
   public createFolder = (travelBand: TravelBand, folder: IFolder) => createFolder(this.documentClient, travelBand, folder)
   public listActivitiesInFolder = (travelBandId: string, folderId: string) => listActivitiesInFolder(this.documentClient, travelBandId, folderId)
+  public getCountActivitiesInFolder = (
+    travelBandId: string,
+    folderId: string,
+  ) => getCountActivitiesInFolder(this.documentClient, travelBandId, folderId)
 }

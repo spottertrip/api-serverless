@@ -6,6 +6,7 @@ import { listFolders } from '@handlers/folders'
 jest.mock('@datastore/index', () => ({
   datastore: {
     listFolders: jest.fn((travelBandId: string) => []),
+    getCountActivitiesInFolder: jest.fn((travelBandId: string, folderId: string) => {}),
   },
 }))
 const datastoreMock = require('@datastore/index')
@@ -41,10 +42,13 @@ test('list folders datastore error', async () => {
 })
 
 test('list travel band folders with valid ID', async () => {
-  const data = [{ folderId: v4() }, { folderId: v4() }]
+  const data = [{ folderId: v4() }]
   datastoreMock.datastore.listFolders.mockResolvedValueOnce(data)
+  datastoreMock.datastore.getCountActivitiesInFolder.mockResolvedValueOnce(10)
   const event = { pathParameters: { travelBandId: v4() } }
   const response = await listFolders(event, {})
   expect(response.statusCode).toBe(200)
-  expect(response.body).toBe(JSON.stringify(data))
+  const responseBody = JSON.parse(response.body)
+  expect(responseBody.length).toBe(1)
+  expect(responseBody[0].nbActivities).toBe(10)
 })

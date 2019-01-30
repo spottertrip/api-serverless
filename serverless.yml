@@ -11,7 +11,7 @@ provider:
   name: aws
   runtime: nodejs8.10
   region: ${opt:region, 'eu-west-1'}
-  stage: ${opt:stage, self:custom.defaultStage}
+  #stage: ${opt:stage, self:custom.defaultStage}
   #profile: ${self:custom.profiles.${self:provider.stage}}
   iamRoleStatements:
     - Effect: Allow

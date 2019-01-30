@@ -3,8 +3,9 @@ import { IFolder } from '@models/Folder'
 import TravelBand from '@models/TravelBand'
 import InternalServerError from '@errors/InternalServerError'
 import { t } from '@helpers/i18n'
-import NotFoundError from '@errors/NotFoundError';
-import Activity from '@models/Activity';
+import NotFoundError from '@errors/NotFoundError'
+import Activity from '@models/Activity'
+import DatabaseError from '@errors/DatabaseError'
 
 /**
  * Create a folder for a travel band
@@ -117,4 +118,25 @@ export const listActivitiesInFolder = async (documentClient: DocumentClient, tra
     throw new InternalServerError(t('database.errors.internal'))
   }
   return result.Items as Activity[]
+}
+
+export const getCountActivitiesInFolder = async (documentClient: DocumentClient, travelBandId: string, folderId: string) => {
+  const params = {
+    TableName: 'travelBandActivities',
+    KeyConditionExpression: 'travelBandId = :travelBandId',
+    FilterExpression: 'folderId = :folderId',
+    ExpressionAttributeValues: {
+      ':travelBandId': travelBandId,
+      ':folderId': folderId,
+    },
+    Select: 'COUNT',
+  }
+
+  let result: QueryOutput
+  try {
+    result = await documentClient.query(params).promise()
+  } catch (e) {
+    throw new DatabaseError(e)
+  }
+  return result.Count
 }

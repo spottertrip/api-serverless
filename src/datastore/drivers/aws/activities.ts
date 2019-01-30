@@ -1,4 +1,4 @@
-import {DocumentClient, GetItemOutput, QueryOutput} from 'aws-sdk/clients/dynamodb'
+import { DocumentClient, GetItemOutput, QueryOutput } from 'aws-sdk/clients/dynamodb'
 import TravelBand from '@models/TravelBand'
 import BadRequestError from '@errors/BadRequestError'
 import NotFoundError from '@errors/NotFoundError'

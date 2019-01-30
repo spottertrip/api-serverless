@@ -44,7 +44,7 @@ export const shareActivity = async (event, context) => {
 
   let folderId: string
   if (!data.folderId) { // if no folder provided, find default one for travel band
-    const defaultFolder = travelBand.folders.find(folder => folder.isDefault === true)
+    const defaultFolder = travelBand.folders.find(folder => folder.isDefault)
     if (!defaultFolder || !defaultFolder.folderId) {
       return handleError(new InternalServerError(t('errors.folders.noDefaultFolder')))
     }

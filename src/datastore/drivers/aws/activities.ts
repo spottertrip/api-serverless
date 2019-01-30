@@ -153,6 +153,7 @@ export const activityExistsInFolder = async (documentClient: DocumentClient, act
       ':folderId': folderId,
       ':activityId': activityId,
     },
+    Select: 'COUNT',
   }
 
   let result: QueryOutput

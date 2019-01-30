@@ -3,4 +3,5 @@ export interface IFolder {
   name: string
   description: string
   isDefault?: boolean
+  nbActivities?: number
 }

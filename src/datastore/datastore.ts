@@ -23,6 +23,7 @@ export interface DataStore {
   createFolder: (travelBand: TravelBand, folder: IFolder) => Promise<IFolder>
   getFolder: (travelBandId: string, folderId: string) => Promise<IFolder>
   listActivitiesInFolder: (travelBandId: string, folderId: string) => Promise<Activity[]>
+  getCountActivitiesInFolder: (travelBandId: string, folderId: string) => Promise<number>
   // Availabilities
   listAvailabilities: (activityId: string) => Promise<IAvailability[]>
   // Spotters

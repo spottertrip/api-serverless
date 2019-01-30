@@ -7,13 +7,15 @@ export default interface Activity extends AttributeMap {
   activityId: string
   name: string
   description: string
-  picture: string
+  pictures: string[]
   duration: number
   language: string
   category: string
   services: string[]
   capacity: number
   price: number
+  mark: number
+  nbVotes: number
   address: Address
   availabilities?: IAvailability[]
 }

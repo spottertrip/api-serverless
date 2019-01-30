@@ -7,6 +7,7 @@
       {
         "folderId":  "2ab1a512-5d8d-43b7-8578-c730173391e1",
         "name":  "Parties",
+        "isDefault": true,
         "description": "Folders for our activities about Parteyyyyy!",
         "thumbnailUrl": "https://seda.college/wp-content/uploads/party.jpg"
       },

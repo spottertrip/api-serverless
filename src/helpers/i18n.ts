@@ -15,8 +15,10 @@ const fr = {
       invalid_lastEvaluatedId: 'Une erreur est survenue lors de l\'évaluation de la pagination d\'activités',
       invalidUUID: 'L\'id de l\'activité fourni est invalide',
       missingId: 'L\'id de l\'activité est requis pour obtenir ses disponibilités',
+      existsInFolder: 'L\'activité a déjà été partagée dans le dossier donné',
     },
     folders: {
+      noDefaultFolder: 'Aucun dossier par défaut n\'existe',
       notFound: 'Le dossier recherché n\'existe pas',
       invalidUUID: 'L\'id du dossier est invalide',
       invalid: 'Le dossier est invalide',

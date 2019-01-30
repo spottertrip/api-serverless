@@ -1,10 +1,11 @@
 jest.mock('aws-sdk')
 
 import {
+  activityExistsInFolder,
   getActivity,
   listActivities,
   listTravelBandActivities,
-  listTravelBandBookings,
+  listTravelBandBookings, shareActivity,
 } from '@datastore/drivers/aws/activities'
 import InternalServerError from '@errors/InternalServerError'
 import * as AWSMock from 'aws-sdk-mock'
@@ -132,5 +133,90 @@ test('get activity valid ID', async () => {
   const activity = await getActivity(new AWS.DynamoDB.DocumentClient(), activityId)
   expect(activity.name).toBe('testing')
   expect(activity.activityId).toBe(activityId)
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+// ---- Activity Exists in Folder ---- //
+
+test('activity does not exist', async () => {
+  const mockedQuery = jest.fn((params: any, cb: any) => {
+    return cb(null, { Count: 0 })
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'query', mockedQuery)
+  const exists = await activityExistsInFolder(new AWS.DynamoDB.DocumentClient(), v4(), v4(), v4())
+  expect(exists).toBeFalsy()
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+test('activty exists - database error', async () => {
+  const mockedGet = jest.fn((params: any, cb: any) => {
+    throw new Error('db error')
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'query', mockedGet)
+  await expect(activityExistsInFolder(new AWS.DynamoDB.DocumentClient(), v4(), v4(), v4())).rejects.toThrow(InternalServerError)
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+test('activty exists', async () => {
+  const activityId = v4()
+  const mockedGet = jest.fn((params: any, cb: any) => {
+    return cb(null, { Count: 1 })
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'query', mockedGet)
+  const response = await activityExistsInFolder(new AWS.DynamoDB.DocumentClient(), v4(), v4(), v4())
+  expect(response).toBeTruthy()
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+// ---- Share Activity ---- //
+
+test('share activity - activity not found', async () => {
+  const mockedGet = jest.fn((params: any, cb: any) => {
+    return cb(null, { Item: null })
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'get', mockedGet)
+  await expect(shareActivity(new AWS.DynamoDB.DocumentClient(), v4(), v4(), v4())).rejects.toThrow(NotFoundError)
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+test('activty exists - database error', async () => {
+  const activityId = v4()
+  const mockedGet = jest.fn((params: any, cb: any) => {
+    return cb(null, { Item: { activityId } })
+  })
+  const mockedPut = jest.fn((params: any, cb: any) => {
+    throw new Error('db error')
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'get', mockedGet)
+  AWSMock.mock('DynamoDB.DocumentClient', 'put', mockedPut)
+  await expect(shareActivity(new AWS.DynamoDB.DocumentClient(), v4(), v4(), v4())).rejects.toThrow(InternalServerError)
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+test('activity shared properly', async () => {
+  const activityId = v4()
+  const folderId = v4()
+  const travelBandId = v4()
+  const sharedActivity = {
+    activityId,
+    folderId,
+    travelBandId,
+    name: 'testing',
+    pictures: ['picture'],
+    price: 100,
+    mark: 3.8,
+    nbVotes: 100,
+    location: {},
+  }
+  const mockedGet = jest.fn((params: any, cb: any) => {
+    return cb(null, { Item: sharedActivity })
+  })
+  const mockedPut = jest.fn((params: any, cb: any) => {
+    return cb(null, {})
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'get', mockedGet)
+  AWSMock.mock('DynamoDB.DocumentClient', 'put', mockedPut)
+  const responseActivity = await shareActivity(new AWS.DynamoDB.DocumentClient(), activityId, travelBandId, folderId)
+  expect(responseActivity.name).toBe(sharedActivity.name)
   AWSMock.restore('DynamoDB.DocumentClient')
 })

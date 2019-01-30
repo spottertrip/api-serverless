@@ -5,7 +5,7 @@ import * as AWSMock from 'aws-sdk-mock'
 import * as AWS from 'aws-sdk'
 import { v4 } from 'uuid'
 import {
-  createFolder,
+  createFolder, getCountActivitiesInFolder,
   getFolder,
   listActivitiesInFolder,
   listFolders,
@@ -147,4 +147,27 @@ test('list activities in folder valid', async () => {
   const gotActivities = await listActivitiesInFolder(new AWS.DynamoDB.DocumentClient(), travelBandId, folderId)
   expect(gotActivities.length).toBe(2)
   AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+// ---- Get Count Activities In Folder ---- //
+
+const folderId = v4()
+const travelBandId = v4()
+
+test('get count activities - db error', async () => {
+  const mockedQuery = jest.fn((params: any, cb: any) => {
+    throw new Error('database error')
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'query', mockedQuery)
+  expect(getCountActivitiesInFolder(new AWS.DynamoDB.DocumentClient(), travelBandId, folderId)).rejects.toThrow(InternalServerError)
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+test('get count activities', async () => {
+  const mockedQuery = jest.fn((params: any, cb: any) => {
+    return cb(null, { Count: 10 })
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'query', mockedQuery)
+  const nbActivities = await getCountActivitiesInFolder(new AWS.DynamoDB.DocumentClient(), travelBandId, folderId)
+  expect(nbActivities).toBe(10)
 })

@@ -88,6 +88,12 @@ functions:
       - http:
           method: get
           path: travel-bands/{travelBandId}/activities
+  shareActivityToTravelBand:
+    handler: src/handlers/handler.shareActivity
+    events:
+      - http:
+          method: post
+          path: activities/{activityId}/share
   listTravelBandSpotters:
     handler: src/handlers/handler.listTravelBandSpotters
     events:
@@ -208,12 +214,12 @@ resources:
         AttributeDefinitions:
           - AttributeName: travelBandId
             AttributeType: S
-          - AttributeName: activityId
+          - AttributeName: id
             AttributeType: S
         KeySchema:
           - AttributeName: travelBandId
             KeyType: HASH
-          - AttributeName: activityId
+          - AttributeName: id
             KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1

@@ -27,8 +27,23 @@ export const listFolders = async (event, context) => {
     return handleError(e as HTTPError)
   }
 
+  // get number of activities
+  let foldersWithActivityCount: IFolder[]
+  try {
+    const foldersPromise = folders.map(async (folder: IFolder) => {
+      const activityCount = await datastore.getCountActivitiesInFolder(travelBandId, folder.folderId)
+      return {
+        ...folder,
+        nbActivities: activityCount,
+      } as IFolder
+    })
+    foldersWithActivityCount = await Promise.all(foldersPromise)
+  } catch (e) {
+    return handleError(e)
+  }
+
   return {
     statusCode: 200,
-    body: JSON.stringify(folders),
+    body: JSON.stringify(foldersWithActivityCount),
   }
 }

@@ -42,29 +42,3 @@ export const listTravelBandActivities = async (event, context) => {
     body: JSON.stringify(activities),
   };
 }
-
-/**
- * List travel Band Activities booked for a given travel band
- * @param event - API Gateway Event, containing travel band id as path parameter
- * @param context
- */
-export const listTravelBandBookings = async (event, context) => {
-  let bookings: Activity[]
-  let travelBandId: string
-
-  try {
-    travelBandId = getIdFromPath('travelBandId', event.pathParameters)
-  } catch (e) {
-    return handleError(new BadRequestError(t('travelBands.errors.invalidUUID')))
-  }
-
-  try {
-    bookings = await datastore.listTravelBandBookings(travelBandId)
-  } catch (e) {
-    return handleError(e as HTTPError)
-  }
-  return {
-    statusCode: 200,
-    body: JSON.stringify(bookings),
-  };
-}

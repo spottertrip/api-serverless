@@ -31,8 +31,8 @@ provider:
         - { "Fn::GetAtt": ["AvailabilitiesDynamodbTable", "Arn" ] }
         - { "Fn::GetAtt": ["TravelBandActivitiesDynamodbTable", "Arn" ] }
   environment:
-#    AWS_ENDPOINT: ${file(./config.${self:provider.stage}.json):AWS_ENDPOINT}
-#    AWS_REGION: ${file(./config.${self:provider.stage}.json):AWS_REGION}
+    LOCAL_ENDPOINT: ${file(./config.${self:provider.stage}.json):AWS_ENDPOINT}
+    LOCAL_REGION: ${file(./config.${self:provider.stage}.json):AWS_REGION}
 
 custom:
   defaultStage: dev
@@ -52,6 +52,8 @@ custom:
             sources: [./seeds/travelBands.json]
           - table: travelBandActivities
             sources: [./seeds/travelBandActivities.json]
+          - table: bookings
+            sources: [./seeds/bookings.json]
       activities:
         sources:
           - table: activities
@@ -116,6 +118,12 @@ functions:
       - http:
           method: get
           path: travel-bands/{travelBandId}/folders/{folderId}/activities
+  listBookingsInTravelBand:
+    handler: src/handlers/handler.listBookingsForTravelBand
+    events:
+      - http:
+          method: get
+          path: travel-bands/{travelBandId}/bookings
 
 resources:
   Resources:
@@ -182,9 +190,13 @@ resources:
         AttributeDefinitions:
           - AttributeName: bookingId
             AttributeType: S
+          - AttributeName: travelBandId
+            AttributeType: S
         KeySchema:
-          - AttributeName: bookingId
+          - AttributeName: travelBandId
             KeyType: HASH
+          - AttributeName: bookingId
+            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1

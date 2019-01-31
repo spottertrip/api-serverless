@@ -9,7 +9,6 @@ import {
   deleteActivity,
   updateActivity,
   listTravelBandActivities,
-  listTravelBandBookings,
   activityExistsInFolder,
   shareActivity,
 } from './activities'
@@ -22,6 +21,7 @@ import {
   listFolders,
 } from '@datastore/drivers/aws/folders'
 import { getTravelBand } from '@datastore/drivers/aws/travelBands'
+import { listBookingsForTravelBand } from '@datastore/drivers/aws/bookings'
 
 export interface AWSOptions {
   endpoint: string
@@ -50,7 +50,6 @@ export default class AWSDataStore implements DataStore {
     activityId: string,
     travelBandId: string,
     folderId: string) => activityExistsInFolder(this.documentClient, activityId, travelBandId, folderId)
-  public listTravelBandBookings = (travelBandId: string) => listTravelBandBookings(this.documentClient, travelBandId)
   public shareActivity = (
     activityId: string,
     travelBandId: string,
@@ -71,4 +70,6 @@ export default class AWSDataStore implements DataStore {
     travelBandId: string,
     folderId: string,
   ) => getCountActivitiesInFolder(this.documentClient, travelBandId, folderId)
+  // Bookings
+  public listBookingsForTravelBand = (travelBandId: string) => listBookingsForTravelBand(this.documentClient, travelBandId)
 }

@@ -5,6 +5,7 @@ import { ListActivityOutput } from '@datastore/types'
 import { IAvailability } from '@models/Availability'
 import { IFolder } from '@models/Folder'
 import TravelBand from '@models/TravelBand'
+import { IBooking } from '@models/Booking'
 
 export interface DataStore {
   // Activities
@@ -15,7 +16,6 @@ export interface DataStore {
   shareActivity: (activityId: string, travelBandId: string, folderId: string) => Promise<Activity>
   activityExistsInFolder: (activityId: string, travelBandId: string, folderId: string) => Promise<boolean>
   listTravelBandActivities: (travelBandId: string) => Promise<Activity[]>
-  listTravelBandBookings: (travelBandId: string) => Promise<Activity[]>
   // Travel Bands
   getTravelBand: (travelBandId: string) => Promise<TravelBand>
   // Folders
@@ -28,4 +28,6 @@ export interface DataStore {
   listAvailabilities: (activityId: string) => Promise<IAvailability[]>
   // Spotters
   listSpotters: (travelBandId: string) => Promise<ISpotter[]>
+  // Bookings
+  listBookingsForTravelBand: (travelBandId: string) => Promise<IBooking[]>
 }

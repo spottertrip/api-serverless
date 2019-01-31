@@ -1,8 +1,8 @@
 import { DocumentClient, GetItemOutput } from 'aws-sdk/clients/dynamodb'
-import InternalServerError from '@errors/InternalServerError'
 import NotFoundError from '@errors/NotFoundError'
 import { t } from '@helpers/i18n'
 import TravelBand from '@models/TravelBand'
+import DatabaseError from '@errors/DatabaseError'
 
 /**
  * Get travel band from given ID
@@ -21,7 +21,7 @@ export const getTravelBand = async (documentClient: DocumentClient, travelBandId
   try {
     result = await documentClient.get(params).promise()
   } catch (e) {
-    throw new InternalServerError(e.message)
+    throw new DatabaseError(e)
   }
 
   if (!result.Item) {

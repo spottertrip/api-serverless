@@ -15,7 +15,7 @@ import DatabaseError from '@errors/DatabaseError'
  */
 export const createFolder = async (documentClient: DocumentClient, travelBand: TravelBand, folder: IFolder) => {
   const params = {
-    TableName: 'travelBands',
+    TableName: process.env.DB_TABLE_TRAVELBANDS,
     Key: {
       travelBandId: travelBand.travelBandId,
     },
@@ -40,7 +40,7 @@ export const createFolder = async (documentClient: DocumentClient, travelBand: T
  */
 export const listFolders = async (documentClient: DocumentClient, travelBandId: string): Promise<IFolder[]> => {
   const params = {
-    TableName: 'travelBands',
+    TableName: process.env.DB_TABLE_TRAVELBANDS,
     AttributesToGet: ['folders'],
     Key: {
       travelBandId,
@@ -68,7 +68,7 @@ export const listFolders = async (documentClient: DocumentClient, travelBandId: 
  */
 export const getFolder = async (documentClient: DocumentClient, travelBandId: string, folderId: string): Promise<IFolder> => {
   const params = {
-    TableName: 'travelBands',
+    TableName: process.env.DB_TABLE_TRAVELBANDS,
     AttributesToGet: ['folders'],
     Key: {
       travelBandId,
@@ -102,7 +102,7 @@ export const getFolder = async (documentClient: DocumentClient, travelBandId: st
  */
 export const listActivitiesInFolder = async (documentClient: DocumentClient, travelBandId: string, folderId: string): Promise<Activity[]> => {
   const params = {
-    TableName: 'travelBandActivities',
+    TableName: process.env.DB_TABLE_TRAVELBANDACTIVITIES,
     KeyConditionExpression: 'travelBandId = :travelBandId',
     FilterExpression: 'folderId = :folderId',
     ExpressionAttributeValues: {
@@ -122,7 +122,7 @@ export const listActivitiesInFolder = async (documentClient: DocumentClient, tra
 
 export const getCountActivitiesInFolder = async (documentClient: DocumentClient, travelBandId: string, folderId: string) => {
   const params = {
-    TableName: 'travelBandActivities',
+    TableName: process.env.DB_TABLE_TRAVELBANDACTIVITIES,
     KeyConditionExpression: 'travelBandId = :travelBandId',
     FilterExpression: 'folderId = :folderId',
     ExpressionAttributeValues: {

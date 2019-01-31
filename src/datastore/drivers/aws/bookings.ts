@@ -9,7 +9,7 @@ import { IBooking } from '@models/Booking'
  */
 export const listBookingsForTravelBand = async (documentClient: DocumentClient, travelBandId: string): Promise<IBooking[]> => {
   const params = {
-    TableName: 'bookings',
+    TableName: process.env.DB_TABLE_BOOKINGS,
     KeyConditionExpression: 'travelBandId = :travelBandId',
     ExpressionAttributeValues: {
       ':travelBandId': travelBandId,

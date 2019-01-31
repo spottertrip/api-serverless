@@ -11,7 +11,7 @@ import DatabaseError from '@errors/DatabaseError'
  */
 export const getTravelBand = async (documentClient: DocumentClient, travelBandId: string) => {
   const params = {
-    TableName: 'travelBands',
+    TableName: process.env.DB_TABLE_TRAVELBANDS,
     Key: {
       travelBandId,
     },

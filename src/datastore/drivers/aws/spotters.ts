@@ -17,7 +17,7 @@ export const listSpotters = async (documentClient: DocumentClient, travelBandId:
     throw new BadRequestError(t('travelBands.errors.missingId'))
   }
   const params = {
-    TableName: 'travelBands',
+    TableName: process.env.DB_TABLE_TRAVELBANDS,
     AttributesToGet: ['spotters'],
     Key: {
       travelBandId,

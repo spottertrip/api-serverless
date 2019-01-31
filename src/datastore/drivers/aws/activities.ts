@@ -15,7 +15,7 @@ import { v4 } from 'uuid'
  */
 export const getActivity = async(documentClient: DocumentClient, activityId: string): Promise<Activity> => {
   const params = {
-    TableName: 'activities',
+    TableName: process.env.DB_TABLE_ACTIVITIES,
     Key: {
       activityId,
     },
@@ -51,7 +51,7 @@ export const listActivities = async (
   lastEvaluatedId: string = '',
   itemsPerPage: number = 20): Promise<ListActivityOutput> => {
   const params: DocumentClient.ScanInput = {
-    TableName: 'activities',
+    TableName: process.env.DB_TABLE_ACTIVITIES,
     Limit: itemsPerPage,
   }
   if (lastEvaluatedId) {
@@ -88,7 +88,7 @@ export const updateActivity = async (): Promise<any> => {}
  */
 export const listTravelBandActivities = async (documentClient: DocumentClient, travelBandId: string): Promise<Activity[]> => {
   const params = {
-    TableName: 'travelBandActivities',
+    TableName: process.env.DB_TABLE_TRAVELBANDACTIVITIES,
     KeyConditionExpression: 'travelBandId = :id',
     ExpressionAttributeValues: {
       ':id': travelBandId,
@@ -114,7 +114,7 @@ export const listTravelBandActivities = async (documentClient: DocumentClient, t
  */
 export const activityExistsInFolder = async (documentClient: DocumentClient, activityId: string, travelBandId: string, folderId: string) => {
   const params = {
-    TableName: 'travelBandActivities',
+    TableName: process.env.DB_TABLE_TRAVELBANDACTIVITIES,
     KeyConditionExpression: 'travelBandId = :travelBandId',
     FilterExpression: 'folderId = :folderId AND activityId = :activityId',
     ExpressionAttributeValues: {
@@ -162,7 +162,7 @@ export const shareActivity = async (documentClient: DocumentClient, activityId: 
   }
 
   const params = {
-    TableName: 'travelBandActivities',
+    TableName: process.env.DB_TABLE_TRAVELBANDACTIVITIES,
     Item: sharedActivity,
   }
 

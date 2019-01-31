@@ -33,8 +33,24 @@ provider:
   environment:
     LOCAL_ENDPOINT: ${file(./config.${self:provider.stage}.json):AWS_ENDPOINT}
     LOCAL_REGION: ${file(./config.${self:provider.stage}.json):AWS_REGION}
+    DB_TABLE_BOOKINGS: ${self:custom.tables.bookings}
+    DB_TABLE_TRAVELBANDS: ${self:custom.tables.travelBands}
+    DB_TABLE_TRAVELBANDACTIVITIES: ${self:custom.tables.travelBandActivities}
+    DB_TABLE_ACTIVITIES: ${self:custom.tables.activities}
+    DB_TABLE_AVAILABILITIES: ${self:custom.tables.availabilities}
+    DB_TABLE_SPOTTERS: ${self:custom.tables.spotters}
+    DB_TABLE_OFFCIES: ${self:custom.tables.offices}
 
 custom:
+  # DynamoDB table names
+  tables:
+    bookings: bookings
+    travelBands: travelBands
+    travelBandActivities: travelBandActivities
+    activities: activities
+    availabilities: availabilities
+    spotters: spotters
+    offices: offices
   defaultStage: dev
   profiles:
     dev: dev
@@ -48,19 +64,19 @@ custom:
     seed:
       travelBands:
         sources:
-          - table: travelBands
+          - table: ${self:custom.tables.travelBands}
             sources: [./seeds/travelBands.json]
-          - table: travelBandActivities
+          - table: ${self:custom.tables.travelBandActivities}
             sources: [./seeds/travelBandActivities.json]
-          - table: bookings
+          - table: ${self:custom.tables.bookings}
             sources: [./seeds/bookings.json]
       activities:
         sources:
-          - table: activities
+          - table: ${self:custom.tables.activities}
             sources: [./seeds/activities.json]
       availabilities:
         sources:
-          - table: availabilities
+          - table: ${self:custom.tables.availabilities}
             sources: [./seeds/availabilities.json]
 
 functions:
@@ -140,7 +156,7 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: spotters
+        TableName: ${self:custom.tables.spotters}
     # Travel band Model
     TravelBandDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
@@ -154,7 +170,7 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: travelBands
+        TableName: ${self:custom.tables.travelBands}
     #
     ActivitiesDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
@@ -168,7 +184,7 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: activities
+        TableName: ${self:custom.tables.activities}
     #
     OfficeDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
@@ -182,7 +198,7 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: offices
+        TableName: ${self:custom.tables.offices}
     #
     BookingDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
@@ -200,7 +216,7 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: bookings
+        TableName: ${self:custom.tables.bookings}
     AvailabilitiesDynamodbTable:
       Type: 'AWS::DynamoDB::Table'
       Properties:
@@ -217,7 +233,7 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: availabilities
+        TableName: ${self:custom.tables.availabilities}
     TravelBandActivitiesDynamodbTable:
       Type: 'AWS::DynamoDB::Table'
       Properties:
@@ -234,7 +250,7 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: travelBandActivities
+        TableName: ${self:custom.tables.travelBandActivities}
 
 package:
   exclude:

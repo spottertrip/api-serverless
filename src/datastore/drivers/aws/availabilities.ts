@@ -16,7 +16,7 @@ export const listAvailabilities = async (documentClient: DocumentClient, activit
 
   // TODO: Add Range of dates start and end to query all availabilities between this range
   const queryParams = {
-    TableName: 'availabilities',
+    TableName: process.env.DB_TABLE_AVAILABILITIES,
     KeyConditionExpression: 'activityId = :id',
     ExpressionAttributeValues: {
       ':id': activityId,

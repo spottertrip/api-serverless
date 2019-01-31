@@ -1,0 +1,30 @@
+[
+  {
+    "bookingId": "9018066d-88b9-4906-a6db-7f9e46e0783b",
+    "travelBandId": "15a992e1-8d3f-421e-99a3-2ba5d2131d09",
+    "activity": {
+      "activityId": "1c6afe6d-230c-4528-bd7e-6f447912fee7",
+      "name": "Cours de créations de croissanterie à la Parisienne",
+      "description": "First Activity, cross Paris in Bobsleigh, then second round with electric Scooters and then swimming through the magestic 'La Seine'",
+      "pictures": ["https://cap.img.pmdstatic.net/fit/http.3A.2F.2Fprd2-bone-image.2Es3-website-eu-west-1.2Eamazonaws.2Ecom.2Fcap.2F2018.2F09.2F28.2F6dafdece-cfb9-4fa4-a1d9-ca1667b12222.2Ejpeg/750x375/background-color/ffffff/quality/70/special-immobilier-a-paris-2018-les-cartes-des-prix-arrondissement-par-arrondissement-1308957.jpg"],
+      "duration": 1,
+      "category": "sport",
+      "price": 100
+    },
+    "start": "2019-02-02T14:00:00",
+    "end": "2019-02-02T16:30:00"
+  },
+  {
+    "bookingId": "c1f3776b-4ece-46d8-99b8-7bc97c0d9e4a",
+    "travelBandId": "15a992e1-8d3f-421e-99a3-2ba5d2131d09",
+    "activity": {
+      "name": "Atelier « Vin, Bérêt, Croissant » dans une ancienne biscuiterie",
+      "description": "Third Activity, cross Paris in Bobsleigh, then second round with electric Scooters and then swimming through the magestic 'La Seine'",
+      "pictures": ["https://www.washingtonpost.com/resizer/Qi0DWj2lS6KVcAoYIXRI2JvgTNE=/480x0/arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/HVRQDWUMLUI6RHKZ3TGCYDFLZ4.jpg"],
+      "duration": 1,
+      "price": 75
+    },
+    "start": "2019-01-018T09:00:00",
+    "end": "2019-01-18T16:10:00"
+  }
+]

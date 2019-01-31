@@ -51,7 +51,7 @@ export const listFolders = async (documentClient: DocumentClient, travelBandId: 
   try {
     result = await documentClient.get(params).promise()
   } catch (e) {
-    throw new InternalServerError(t('database.errors.internal'))
+    throw new DatabaseError(e)
   }
   if (!result.Item) {
     throw new NotFoundError(t('travelBands.errors.notFound'))
@@ -79,7 +79,7 @@ export const getFolder = async (documentClient: DocumentClient, travelBandId: st
   try {
     result = await documentClient.get(params).promise()
   } catch (e) {
-    throw new InternalServerError(t('database.errors.internal'))
+    throw new DatabaseError(e)
   }
   if (!result.Item) {
     throw new NotFoundError(t('travelBands.errors.notFound'))
@@ -115,7 +115,7 @@ export const listActivitiesInFolder = async (documentClient: DocumentClient, tra
   try {
     result = await documentClient.query(params).promise()
   } catch (e) {
-    throw new InternalServerError(t('database.errors.internal'))
+    throw new DatabaseError(e)
   }
   return result.Items as Activity[]
 }

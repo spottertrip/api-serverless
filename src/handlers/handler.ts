@@ -5,8 +5,8 @@ let dbOptions
 if (!!process.env.IS_OFFLINE) {
   // IS_OFFLINE is set by the serverless-offline-plugin
   dbOptions = {
-    endpoint: process.env.AWS_ENDPOINT,
-    region: process.env.AWS_REGION,
+    endpoint: process.env.LOCAL_ENDPOINT,
+    region: process.env.LOCAL_REGION,
   };
 }
 
@@ -22,3 +22,4 @@ export * from './travelBands'
 export * from './activities'
 export * from './availabilities'
 export * from './folders'
+export * from './bookings'

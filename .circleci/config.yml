@@ -35,6 +35,13 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies
       - run:
+          name: Install dependencies
+          command: yarn
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }} 
+      - run:
           name: Run Unit tests
           command: npm run unit:ci
   deploy-staging:

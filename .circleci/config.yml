@@ -44,6 +44,49 @@ jobs:
       - run:
           name: Run Unit tests
           command: npm run unit:ci
+  generate-documentation:
+    docker:
+      - image: circleci/node:10.12.0
+    working_directory: ~/repo
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - run:
+          name: Install Dependencies
+          command: |
+            sudo npm install -g serverless
+            npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Create artifacts directory
+          command: mkdir artifacts
+      - run:
+          name: Generate Documentation
+          command: yarn doc:generate
+      - persist_to_workspace:
+          root: artifacts
+          paths:
+            - api.json
+  upload-documentation:
+    docker:
+      - image: circleci/python:2.7-jessie
+    steps:
+      - run:
+          name: Install AWS CLI
+          command: sudo pip install awscli
+      - attach_workspace:
+          at: /home/circleci
+      - run:
+          name: Upload Documentation to S3
+          command: aws s3 cp /home/circleci/api.json s3://spotter-staging-docs/documentation/api.json
   deploy-staging:
     docker:
       - image: circleci/node:10.12.0
@@ -81,6 +124,18 @@ workflows:
           requires:
             - run-linter
             - run-unit-tests
+          filters:
+            branches:
+              only: develop
+      - generate-documentation:
+          requires:
+            - deploy-staging
+          filters:
+            branches:
+              only: develop
+      - upload-documentation:
+          requires:
+            - generate-documentation
           filters:
             branches:
               only: develop

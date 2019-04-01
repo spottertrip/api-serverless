@@ -1,0 +1,26 @@
+schema:
+  $schema: "http://json-schema.org/draft-07/schema#"
+  properties:
+    travelBandId:
+      type: string
+    name:
+      type: string
+    thumbnailUrl:
+      type: string
+    description:
+      type: string
+    folders:
+      type: array
+      items:
+        type: object
+        properties: ${file(docs/models/folder.yml):schema.properties}
+    spotters:
+      type: array
+      items:
+        type: object
+        properties: ${file(docs/models/spotter.yml):schema.properties}
+    bookings:
+      type: array
+      items:
+        type: object
+        properties: ${file(docs/models/activity.yml):schema.properties}

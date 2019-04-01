@@ -6,6 +6,7 @@ plugins:
   - serverless-webpack
   - serverless-dynamodb-local
   - serverless-offline
+  - serverless-openapi-documentation
 
 provider:
   name: aws
@@ -42,6 +43,7 @@ provider:
     DB_TABLE_OFFCIES: ${self:custom.tables.offices}
 
 custom:
+  documentation: ${file(docs/serverless.doc.yml):documentation}
   # DynamoDB table names
   tables:
     bookings: bookings
@@ -104,6 +106,7 @@ functions:
       - http:
           method: get
           path: travel-bands
+          documentation: ${file(docs/serverless.doc.yml):endpoints.listTravelBands}
   listTravelBandActivities:
     handler: src/handlers/handler.listTravelBandActivities
     events:

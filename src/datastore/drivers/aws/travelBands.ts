@@ -29,3 +29,22 @@ export const getTravelBand = async (documentClient: DocumentClient, travelBandId
   }
   return result.Item as TravelBand
 }
+
+/**
+ * List travel bands in which given user belongs
+ * @param {DocumentClient} documentClient - AWS Document client to access DynamoDB
+ * @returns {TravelBand[]} - list of travel bands
+ */
+export const listTravelBands = async (documentClient: DocumentClient) => {
+  const params = {
+    TableName: process.env.DB_TABLE_TRAVELBANDS,
+  }
+
+  // TODO: Add query by userId when authentication is ready
+  try {
+    const result = await documentClient.scan(params).promise()
+    return result.Items as TravelBand[]
+  } catch (e) {
+    throw new DatabaseError(e.message)
+  }
+}

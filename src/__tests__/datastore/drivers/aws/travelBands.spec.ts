@@ -1,7 +1,7 @@
 
 jest.mock('aws-sdk')
 
-import { getTravelBand } from '@datastore/drivers/aws/travelBands';
+import { getTravelBand, listTravelBands } from '@datastore/drivers/aws/travelBands';
 import InternalServerError from '@errors/InternalServerError'
 import * as AWSMock from 'aws-sdk-mock'
 import * as AWS from 'aws-sdk'
@@ -38,5 +38,31 @@ test('get travel band with valid ID', async () => {
   const travelBand = await getTravelBand(new AWS.DynamoDB.DocumentClient(), travelBandId)
   expect(travelBand.name).toBe('testing')
   expect(travelBand.travelBandId).toBe(travelBandId)
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+// ---- List travel bands --- //
+
+test('list travel bands return unknown error', async () => {
+  const mockedQuery = jest.fn((params: any, cb: any) => {
+    return cb(new Error('database error'), null)
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'scan', mockedQuery)
+  await expect(listTravelBands(new AWS.DynamoDB.DocumentClient())).rejects.toThrow(InternalServerError)
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+test('list travel bands with not existing ID -> not found', async () => {
+  const mockedQuery = jest.fn((params: any, cb: any) => {
+    return cb(null, {
+      Items: [
+        { travelBandId: v4(), name: 'New York' },
+        { travelBandId: v4(), name: 'Los Angeles' },
+      ],
+    })
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'scan', mockedQuery)
+  const travelBands = await listTravelBands(new AWS.DynamoDB.DocumentClient())
+  expect(travelBands.length).toBe(2)
   AWSMock.restore('DynamoDB.DocumentClient')
 })

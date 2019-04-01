@@ -98,6 +98,12 @@ functions:
       - http:
           method: get
           path: activities/{activityId}/availabilities
+  listTravelBands:
+    handler: src/handlers/handler.listTravelBands
+    events:
+      - http:
+          method: get
+          path: travel-bands
   listTravelBandActivities:
     handler: src/handlers/handler.listTravelBandActivities
     events:

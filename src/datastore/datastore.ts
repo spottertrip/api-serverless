@@ -18,6 +18,7 @@ export interface DataStore {
   listTravelBandActivities: (travelBandId: string) => Promise<Activity[]>
   // Travel Bands
   getTravelBand: (travelBandId: string) => Promise<TravelBand>
+  listTravelBands: () => Promise<TravelBand[]>
   // Folders
   listFolders: (travelBandId: string) => Promise<IFolder[]>
   createFolder: (travelBand: TravelBand, folder: IFolder) => Promise<IFolder>

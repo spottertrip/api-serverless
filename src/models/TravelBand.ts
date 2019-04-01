@@ -8,6 +8,7 @@ export default interface TravelBand extends AttributeMap {
   travelBandId: string
   name: string
   description: string
+  thumbnailUrl: string
   spotters: ISpotter[]
   bookings: Activity[]
   folders: IFolder[]

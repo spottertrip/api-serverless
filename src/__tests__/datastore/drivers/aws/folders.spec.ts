@@ -24,6 +24,7 @@ const fixtureTravelBand: TravelBand = {
   spotters: [],
   folders: [],
   bookings: [],
+  thumbnailUrl: 'https://activeforlife.com/content/uploads/2015/06/boy-girl-beach-ball.jpg',
 }
 const fixtureFolder: IFolder = {
   name: 'test',

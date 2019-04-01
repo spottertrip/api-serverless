@@ -64,5 +64,31 @@
         "price": 30
       }
     ]
+  },
+  {
+    "travelBandId": "9b13c59a-4d9a-4cb2-9e98-a08b6b0de9ad",
+    "name": "New-York",
+    "description": "Traveling to New-York with my friends",
+    "folders": [],
+    "spotters": [
+      {
+        "spotterId": "15a992e1-8d3f-421e-99a3-2ba5d2131d82",
+        "username": "Antoine Masselot"
+      }
+    ],
+    "bookings": []
+  },
+  {
+    "travelBandId": "40bd672b-1940-4334-89be-c739639d8f27",
+    "name": "Los Angeles",
+    "description": "Going surfing and partying to Los Angeles !",
+    "folders": [],
+    "spotters": [
+      {
+        "spotterId": "15a992e1-8d3f-421e-99a3-2ba5d2131d82",
+        "username": "Antoine Masselot"
+      }
+    ],
+    "bookings": []
   }
 ]

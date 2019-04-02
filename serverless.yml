@@ -6,7 +6,7 @@ plugins:
   - serverless-webpack
   - serverless-dynamodb-local
   - serverless-offline
-  - serverless-openapi-documentation
+  - serverless-aws-documentation
 
 provider:
   name: aws
@@ -127,6 +127,7 @@ functions:
       - http:
           method: post
           path: activities/{activityId}/share
+          documentation: ${file(docs/serverless.doc.yml):endpoints.shareActivity}
   listTravelBandSpotters:
     handler: src/handlers/handler.listTravelBandSpotters
     events:

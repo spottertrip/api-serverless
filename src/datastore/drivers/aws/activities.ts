@@ -161,16 +161,36 @@ export const shareActivity = async (documentClient: DocumentClient, activityId: 
     id: v4(),
   }
 
-  const params = {
+  const addActivityParams = {
     TableName: process.env.DB_TABLE_TRAVELBANDACTIVITIES,
     Item: sharedActivity,
   }
 
+  const updateCountTravelBandParams = {
+    TableName: process.env.DB_TABLE_TRAVELBANDS,
+    Key: { travelBandId },
+    UpdateExpression: 'add activityCount :count',
+    ExpressionAttributeValues: {
+      ':count': 1,
+    },
+  }
+
+  const transactionParams = {
+    TransactItems: [
+      {
+        Put: addActivityParams,
+      },
+      {
+        Update: updateCountTravelBandParams,
+      },
+    ],
+  }
+
   try {
-    await documentClient.put(params).promise()
+    await documentClient.transactWrite(transactionParams).promise()
   } catch (e) {
     throw new DatabaseError(e)
   }
 
-  return activity
+  return true
 }

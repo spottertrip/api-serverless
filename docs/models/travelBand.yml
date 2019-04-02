@@ -2,24 +2,35 @@ schema:
   $schema: "http://json-schema.org/draft-07/schema#"
   properties:
     travelBandId:
+      description: "ID of the travel band"
       type: string
     name:
+      description: "Name of the travel-band"
       type: string
     thumbnailUrl:
+      description: "Link (http/https) to an image representing the travel band"
       type: string
     description:
+      description: "Description of the wishlist/travel-band"
       type: string
+    activityCount:
+      description: "Number of activities in this travel band/wishlist"
+      type: number
     folders:
+      description: "Activity folders, deprecated as travel-bands become activity folders"
+      deprecated: true
       type: array
       items:
         type: object
         properties: ${file(docs/models/folder.yml):schema.properties}
     spotters:
+      description: "List of spotters present in this travel-band"
       type: array
       items:
         type: object
         properties: ${file(docs/models/spotter.yml):schema.properties}
     bookings:
+      description: "List of activities booked inside this travel band"
       type: array
       items:
         type: object

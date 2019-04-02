@@ -12,4 +12,5 @@ export default interface TravelBand extends AttributeMap {
   spotters: ISpotter[]
   bookings: Activity[]
   folders: IFolder[]
+  activityCount: number
 }

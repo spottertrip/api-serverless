@@ -1,7 +1,9 @@
 documentation:
-  version: '1'
-  title:  'Spotters API'
-  description: 'This is the documentation for the Spotters back-end API'
+  api:
+    info:
+      version: '1'
+      title:  'Spotters API'
+      description: 'This is the documentation for the Spotters back-end API'
   models:
     - name: ErrorResponse
       description: Response type when an error occurs in the back-end
@@ -85,7 +87,26 @@ documentation:
           count:
             type: integer
             description: "Number of categories retrieved"
-
+    - name: "ShareActivityRequest"
+      description: "Request body for the share activity endpoint containing the travel band ID"
+      schema:
+        $schema: "http://json-schema.org/draft-07/schema#"
+        properties:
+          travelBandId:
+            description: ID of the travel band in which user wants to share an activity
+            type: string
+    - name: "ShareActivityResponse"
+      description: "Response for share activity endpoint containing shared Activity and shared state"
+      schema:
+        $schema: "http://json-schema.org/draft-07/schema#"
+        properties:
+          activity:
+            description: The activity shared inside the travel band
+            type: object
+            properties: ${file(docs/models/activity.yml):schema.properties}
+          shared:
+            description: Indicates whether the activity has been shared properly
+            type: boolean
 
 
 endpoints:
@@ -157,3 +178,33 @@ endpoints:
           description: An error occured
         responseModels:
           application/json: ErrorResponse
+
+  shareActivity:
+    summary: Share an activity to a TravelBand
+    description: Share an activity inside a travel band. Adds an activity to a wishlist
+    requestBody:
+      description: "Requires the travel band id in which you want to share the activity"
+    requestModels:
+      application/json: "ShareActivityRequest"
+    pathParams:
+      - name: "activityId"
+        description: ID of the activity the user wants to share inside his travel band
+        schema:
+          type: string
+    methodResponses:
+      - statusCode: 200
+        responseBody:
+          description: Activity document created
+        responseModels:
+          application/json: ShareActivityResponse
+      - statusCode: 400
+        responseBody:
+          description: Bad request, the activity ID is not valid, travel band ID is either absent or invalid or the activity has already been shared to the travel band
+        responseModels:
+          application/json: ErrorResponse
+      - statusCode: 404
+        responseBody:
+          description: Either the shared activity does not exist for given ID, or travel band in which user wants to share activity does not exist
+        responseModels:
+          application/json: ErrorResponse
+      

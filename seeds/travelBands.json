@@ -4,6 +4,7 @@
     "name": "Development Group",
     "description": "Description for development battle group",
     "thumbnailUrl": "https://seda.college/wp-content/uploads/party.jpg",
+    "activityCount": 3,
     "folders": [
       {
         "folderId":  "2ab1a512-5d8d-43b7-8578-c730173391e1",
@@ -70,7 +71,16 @@
     "travelBandId": "9b13c59a-4d9a-4cb2-9e98-a08b6b0de9ad",
     "name": "New-York",
     "description": "Traveling to New-York with my friends",
-    "folders": [],
+    "folders": [
+      {
+        "folderId": "4e5d8ae6-7625-4320-9934-f729eb8abbd0",
+        "name":  "ignore me",
+        "isDefault": true,
+        "description": "Ignore this folder please",
+        "thumbnailUrl": "https://activeforlife.com/content/uploads/2015/06/boy-girl-beach-ball.jpg"
+      }
+    ],
+    "activityCount": 0,
     "thumbnailUrl": "https://activeforlife.com/content/uploads/2015/06/boy-girl-beach-ball.jpg",
     "spotters": [
       {

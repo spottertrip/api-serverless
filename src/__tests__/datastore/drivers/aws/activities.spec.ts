@@ -12,6 +12,7 @@ import * as AWSMock from 'aws-sdk-mock'
 import * as AWS from 'aws-sdk'
 import { v4 } from 'uuid'
 import NotFoundError from '@errors/NotFoundError'
+import DatabaseError from '@errors/DatabaseError';
 
 AWSMock.setSDKInstance(AWS)
 
@@ -156,12 +157,12 @@ test('activty exists - database error', async () => {
   const mockedGet = jest.fn((params: any, cb: any) => {
     return cb(null, { Item: { activityId } })
   })
-  const mockedPut = jest.fn((params: any, cb: any) => {
+  const mockedTransaction = jest.fn((params: any, cb: any) => {
     throw new Error('db error')
   })
   AWSMock.mock('DynamoDB.DocumentClient', 'get', mockedGet)
-  AWSMock.mock('DynamoDB.DocumentClient', 'put', mockedPut)
-  await expect(shareActivity(new AWS.DynamoDB.DocumentClient(), v4(), v4(), v4())).rejects.toThrow(InternalServerError)
+  AWSMock.mock('DynamoDB.DocumentClient', 'transactWrite', mockedTransaction)
+  await expect(shareActivity(new AWS.DynamoDB.DocumentClient(), v4(), v4(), v4())).rejects.toThrow(DatabaseError)
   AWSMock.restore('DynamoDB.DocumentClient')
 })
 
@@ -183,12 +184,12 @@ test('activity shared properly', async () => {
   const mockedGet = jest.fn((params: any, cb: any) => {
     return cb(null, { Item: sharedActivity })
   })
-  const mockedPut = jest.fn((params: any, cb: any) => {
+  const mockedTransaction = jest.fn((params: any, cb: any) => {
     return cb(null, {})
   })
   AWSMock.mock('DynamoDB.DocumentClient', 'get', mockedGet)
-  AWSMock.mock('DynamoDB.DocumentClient', 'put', mockedPut)
-  const responseActivity = await shareActivity(new AWS.DynamoDB.DocumentClient(), activityId, travelBandId, folderId)
-  expect(responseActivity.name).toBe(sharedActivity.name)
+  AWSMock.mock('DynamoDB.DocumentClient', 'transactWrite', mockedTransaction)
+  const response = await shareActivity(new AWS.DynamoDB.DocumentClient(), activityId, travelBandId, folderId)
+  expect(response).toBe(true)
   AWSMock.restore('DynamoDB.DocumentClient')
 })

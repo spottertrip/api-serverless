@@ -72,7 +72,10 @@ export const shareActivity = async (event, context) => {
   }
 
   try {
-    activity = await datastore.shareActivity(activityId, data.travelBandId, folderId)
+    // Share activity in travel Band
+    await datastore.shareActivity(activityId, data.travelBandId, folderId)
+    // get activity
+    activity = await datastore.getActivity(activityId)
   } catch (e) {
     return handleError(e)
   }

@@ -14,7 +14,7 @@ export interface DataStore {
   listActivities: (lastEvaluatedId: string, itemsPerPage: number) => Promise<ListActivityOutput>
   deleteActivity: (id: string) => Promise<void>
   updateActivity: () => Promise<any>
-  shareActivity: (activityId: string, travelBandId: string, folderId: string) => Promise<Activity>
+  shareActivity: (activityId: string, travelBandId: string, folderId: string) => Promise<boolean>
   activityExistsInFolder: (activityId: string, travelBandId: string, folderId: string) => Promise<boolean>
   listTravelBandActivities: (travelBandId: string) => Promise<Activity[]>
   // Travel Bands

@@ -6,6 +6,7 @@ import { IAvailability } from '@models/Availability'
 import { IFolder } from '@models/Folder'
 import TravelBand from '@models/TravelBand'
 import { IBooking } from '@models/Booking'
+import { ICategory } from '@models/Category'
 
 export interface DataStore {
   // Activities
@@ -31,4 +32,6 @@ export interface DataStore {
   listSpotters: (travelBandId: string) => Promise<ISpotter[]>
   // Bookings
   listBookingsForTravelBand: (travelBandId: string) => Promise<IBooking[]>
+  // Categories
+  listCategories: () => Promise<ICategory[]>
 }

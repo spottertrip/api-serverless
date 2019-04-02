@@ -41,6 +41,7 @@ provider:
     DB_TABLE_AVAILABILITIES: ${self:custom.tables.availabilities}
     DB_TABLE_SPOTTERS: ${self:custom.tables.spotters}
     DB_TABLE_OFFCIES: ${self:custom.tables.offices}
+    DB_TABLE_CATEGORIES: ${self:custom.tables.categories}
 
 custom:
   documentation: ${file(docs/serverless.doc.yml):documentation}
@@ -53,6 +54,7 @@ custom:
     availabilities: availabilities
     spotters: spotters
     offices: offices
+    categories: categories
   defaultStage: dev
   profiles:
     dev: dev
@@ -80,6 +82,10 @@ custom:
         sources:
           - table: ${self:custom.tables.availabilities}
             sources: [./seeds/availabilities.json]
+      categories:
+        sources:
+          - table: ${self:custom.tables.categories}
+            sources: [./seeds/categories.json]
 
 functions:
   listActivities:
@@ -88,6 +94,7 @@ functions:
       - http:
           method: get
           path: activities
+          documentation: ${file(docs/serverless.doc.yml):endpoints.listActivities}
   viewActivity:
     handler: src/handlers/handler.viewActivity
     events:
@@ -113,6 +120,7 @@ functions:
       - http:
           method: get
           path: travel-bands/{travelBandId}/activities
+          documentation: ${file(docs/serverless.doc.yml):endpoints.listTravelBandActivities}
   shareActivityToTravelBand:
     handler: src/handlers/handler.shareActivity
     events:
@@ -149,6 +157,13 @@ functions:
       - http:
           method: get
           path: travel-bands/{travelBandId}/bookings
+  listCategories:
+    handler: src/handlers/handler.listCategories
+    events:
+      - http:
+          method: get
+          path: categories
+          documentation: ${file(docs/serverless.doc.yml):endpoints.listCategories}
 
 resources:
   Resources:
@@ -260,6 +275,19 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:custom.tables.travelBandActivities}
+    CategoriesDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: categoryId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: categoryId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.tables.categories}
 
 package:
   exclude:

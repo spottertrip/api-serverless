@@ -22,6 +22,7 @@ import {
 } from '@datastore/drivers/aws/folders'
 import { getTravelBand, listTravelBands } from '@datastore/drivers/aws/travelBands'
 import { listBookingsForTravelBand } from '@datastore/drivers/aws/bookings'
+import { listCategories } from './categories';
 
 export interface AWSOptions {
   endpoint: string
@@ -73,4 +74,6 @@ export default class AWSDataStore implements DataStore {
   ) => getCountActivitiesInFolder(this.documentClient, travelBandId, folderId)
   // Bookings
   public listBookingsForTravelBand = (travelBandId: string) => listBookingsForTravelBand(this.documentClient, travelBandId)
+  // Categories
+  public listCategories = () => listCategories(this.documentClient)
 }

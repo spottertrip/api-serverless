@@ -87,6 +87,10 @@ jobs:
       - run:
           name: Upload Documentation to S3
           command: aws s3 cp /home/circleci/api.json s3://spotter-staging-docs/documentation/api.json
+      - run:
+          name: Set Public access to documentation object
+          command: aws s3api put-object-acl --bucket spotter-staging-docs --key documentation/api.json --acl public-read
+
   deploy-staging:
     docker:
       - image: circleci/node:10.12.0

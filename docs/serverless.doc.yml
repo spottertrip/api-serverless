@@ -89,6 +89,7 @@ documentation:
             description: "Number of categories retrieved"
     - name: "ShareActivityRequest"
       description: "Request body for the share activity endpoint containing the travel band ID"
+      contentType: application/json
       schema:
         $schema: "http://json-schema.org/draft-07/schema#"
         properties:
@@ -97,6 +98,7 @@ documentation:
             type: string
     - name: "ShareActivityResponse"
       description: "Response for share activity endpoint containing shared Activity and shared state"
+      contentType: application/json
       schema:
         $schema: "http://json-schema.org/draft-07/schema#"
         properties:
@@ -114,12 +116,12 @@ endpoints:
     summary: List activities related to a travel band/wishlist
     description: List/Filter activities inside a travel band
     methodResponses:
-      - statusCode: 200
+      - statusCode: "200"
         responseBody:
           description: 'List of activities matching given criterias, if none given, will retrieve all activities (number of activities and offset are defined with a proper pagination).'
         responseModels:
           application/json: ListTravelBandActivitiesResponse
-      - statusCode: 500
+      - statusCode: "500"
         responseBody:
           description: An Error occured
         responseModels:
@@ -129,12 +131,12 @@ endpoints:
     summary: List all travel bands in which a user has been invited
     description: List travel bands linked to a user, in which he has been invited or has created himself
     methodResponses:
-      - statusCode: 200
+      - statusCode: "200"
         responseBody:
           description: 'The list of travel bands linked to the user'
         responseModels:
           application/json: ListTravelBandsResponse
-      - statusCode: 500
+      - statusCode: "500"
         responseBody:
           description: An error occured during connection to the Database
         responseModels:
@@ -153,12 +155,12 @@ endpoints:
         schema:
           type: string
     methodResponses:
-      - statusCode: 200
+      - statusCode: "200"
         responseBody:
           description: 'List of activities matching filters'
         responseModels:
           application/json: ListActivitiesResponse
-      - statusCode: 500
+      - statusCode: "500"
         responseBody:
           description: An error occured
         responseModels:
@@ -168,12 +170,12 @@ endpoints:
     summary: List Activity Categories
     description: Retrieve a list of all categories of activities
     methodResponses: 
-      - statusCode: 200
+      - statusCode: "200"
         responseBody:
           description: "List of categories"
         responseModels:
           application/json: ListCategoriesResponse
-      - statusCode: 500
+      - statusCode: "500"
         responseBody:
           description: An error occured
         responseModels:
@@ -192,17 +194,17 @@ endpoints:
         schema:
           type: string
     methodResponses:
-      - statusCode: 200
+      - statusCode: "200"
         responseBody:
           description: Activity document created
         responseModels:
           application/json: ShareActivityResponse
-      - statusCode: 400
+      - statusCode: "400"
         responseBody:
           description: Bad request, the activity ID is not valid, travel band ID is either absent or invalid or the activity has already been shared to the travel band
         responseModels:
           application/json: ErrorResponse
-      - statusCode: 404
+      - statusCode: "404"
         responseBody:
           description: Either the shared activity does not exist for given ID, or travel band in which user wants to share activity does not exist
         responseModels:

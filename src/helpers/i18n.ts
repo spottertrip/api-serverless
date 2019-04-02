@@ -40,6 +40,24 @@ const fr = {
       notFound: 'Le groupe de voyage n\'existe pas',
     },
   },
+  categories: {
+    exploration: {
+      name: 'Nature et exploration',
+      description: 'Explorer la nature avec ses amis n\'a jamais été aussi prenant.',
+    },
+    culture: {
+      name: 'Sortie culturel et touristique',
+      description: 'Osez vous aventurer dans les pièces secrètes d\'anciens donjons oubliés, ou simplement passez visiter le Louvres.',
+    },
+    sport: {
+      name: 'Découvertes sportives',
+      description: 'Envie de vous dépenser dans un milieu inconnu ?',
+    },
+    party: {
+      name: 'Soirées et détente',
+      description: 'Faire la fête avec des locaux dans un pays étranger, quelle bonne idée !',
+    },
+  },
 }
 
 i18n.fallbacks = true

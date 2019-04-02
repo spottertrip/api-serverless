@@ -1,7 +1,9 @@
 documentation:
-  version: '1'
-  title:  'Spotters API'
-  description: 'This is the documentation for the Spotters back-end API'
+  api:
+    info:
+      version: '1'
+      title:  'Spotters API'
+      description: 'This is the documentation for the Spotters back-end API'
   models:
     - name: ErrorResponse
       description: Response type when an error occurs in the back-end

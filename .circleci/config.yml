@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  run-linter:
+  install-dependencies:
     docker:
       - image: circleci/node:10.12.0
     working_directory: ~/repo
@@ -21,6 +21,16 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+  run-linter:
+    docker:
+      - image: circleci/node:10.12.0
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies
       - run:
           name: Lint Project
           command: yarn lint
@@ -35,42 +45,22 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies
       - run:
-          name: Install dependencies
-          command: yarn
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }} 
-      - run:
           name: Run Unit tests
           command: npm run unit:ci
   generate-documentation:
     docker:
-      - image: circleci/node:10.12.0
+      - image: circleci/python:2.7-jessie
     working_directory: ~/repo
     steps:
-      - checkout
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
       - run:
-          name: Install Dependencies
-          command: |
-            sudo npm install -g serverless
-            npm install
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          name: Install AWS CLI
+          command: sudo pip install awscli
       - run:
           name: Create artifacts directory
           command: mkdir artifacts
       - run:
-          name: Generate Documentation
-          command: yarn doc:generate
+          name: Download API Gateway Documentation
+          command: aws apigateway get-export --region "$AWS_API_GW_REGION" --rest-api-id "$AWS_API_GW_ID" --stage-name staging --export-type swagger ./artifacts/api.json
       - persist_to_workspace:
           root: artifacts
           paths:
@@ -104,15 +94,6 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
       - run:
-          name: Install Dependencies
-          command: |
-            sudo npm install -g serverless
-            npm install
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-      - run:
           name: Deploy Application
           command: sls deploy --stage staging
       - run:
@@ -122,8 +103,13 @@ workflows:
   version: 2
   deploy-staging:
     jobs:
-      - run-linter
-      - run-unit-tests
+      - install-dependencies
+      - run-linter:
+          requires:
+            - install-dependencies
+      - run-unit-tests:
+          requires:
+            - install-dependencies
       - deploy-staging:
           requires:
             - run-linter

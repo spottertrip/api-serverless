@@ -6,7 +6,7 @@
   "scripts": {
     "unit": "jest",
     "unit:ci": "jest --ci -w 1",
-    "doc:generate": "serverless downloadDocumentation --outputFileName artifacts/api.json",
+    "doc:generate": "serverless downloadDocumentation --stage staging --outputFileName artifacts/api.json",
     "dev": "serverless offline start",
     "lint": "tslint --project ."
   },

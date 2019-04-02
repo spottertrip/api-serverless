@@ -1,0 +1,26 @@
+[
+  {
+    "categoryId": "9018066d-88b9-4906-a6db-7f9e46e0783b",
+    "thumbnailUrl": "https://soulspartan.files.wordpress.com/2017/02/nature-2-26-17.jpg",
+    "icon": "exploration",
+    "name": "exploration"
+  },
+  {
+    "categoryId": "96775713-f67a-4a3b-aac3-62711da6699a",
+    "thumbnailUrl": "https://www.commeuncamion.com/content/uploads/2017/10/quelle-tenue-pour-quel-sport.jpg",
+    "icon": "sport",
+    "name": "sport"
+  },
+  {
+    "categoryId": "4f5848f0-cf7e-4c68-984a-f3202455281e",
+    "thumbnailUrl": "https://www.sortiraparis.com/images/55/83517/421563-visuel-paris-musee-du-louvre-3.jpg",
+    "icon": "culture",
+    "name": "culture"
+  },
+  {
+    "categoryId": "9484a3404-3422-416a-8dc7-95565ce2f054",
+    "thumbnailUrl": "https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/8/shutterstock_199419065.jpg",
+    "icon": "party",
+    "name": "party"
+  }
+]

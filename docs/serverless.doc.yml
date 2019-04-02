@@ -15,6 +15,9 @@ documentation:
             type: array
             items:
               type: string
+    - name: "Category"
+      contentType: "application/json"
+      schema: ${file(docs/models/categories.yml):schema}
     - name: "Activity"
       contentType: "application/json"
       schema: ${file(docs/models/activity.yml):schema}
@@ -28,6 +31,17 @@ documentation:
       description: "Representation of a TravelBand data structure"
       contentType: application/json
       schema: ${file(docs/models/travelBand.yml):schema}
+    - name: "ListTravelBandActivitiesResponse"
+      description: "List of activities retrieved from Travel Bands linked activities"
+      contentType: application/json
+      schema:
+        $schema: "http://json-schema.org/draft-07/schema#"
+        properties:
+          activities:
+            type: array
+            items:
+              type: object
+              properties: ${file(docs/models/activity.yml):schema.properties}
     - name: "ListTravelBandsResponse"
       description: "Response for List travel bands Endpoint"
       contentType: application/json
@@ -39,7 +53,57 @@ documentation:
             items:
               type: object
               properties: ${file(docs/models/travelBand.yml):schema.properties}
+    - name: "ListActivitiesResponse"
+      description: "Response for List of activities"
+      contentType: application/json
+      schema:
+        $schema: "http://json-schema.org/draft-07/schema#"
+        properties:
+          activities:
+            type: array
+            items:
+              type: object
+              properties: ${file(docs/models/activity.yml):schema.properties}
+          lastEvaluatedId:
+            type: string
+            description: |
+              ID of the last activity treated inside DynamoDB, used for pagination.
+              At first call, save this lastEvaluatedId somewhere, so you may use it for following call, in order to retrieve the n (n being the number of results asked in query parameter itemsPerPage) following activities.
+              Repeat this step to paginate activities.
+    - name: "ListCategoriesResponse"
+      description:
+      contentType: application/json
+      schema:
+        $schema: "http://json-schema.org/draft-07/schema#"
+        properties:
+          categories:
+            description: "List of categories"
+            type: array
+            items:
+              type: object
+              properties: ${file(docs/models/categories.yml):schema.properties}
+          count:
+            type: integer
+            description: "Number of categories retrieved"
+
+
+
 endpoints:
+  listTravelBandActivities:
+    summary: List activities related to a travel band/wishlist
+    description: List/Filter activities inside a travel band
+    methodResponses:
+      - statusCode: 200
+        responseBody:
+          description: 'List of activities matching given criterias, if none given, will retrieve all activities (number of activities and offset are defined with a proper pagination).'
+        responseModels:
+          application/json: ListTravelBandActivitiesResponse
+      - statusCode: 500
+        responseBody:
+          description: An Error occured
+        responseModels:
+          application/json: ErrorResponse
+
   listTravelBands:
     summary: List all travel bands in which a user has been invited
     description: List travel bands linked to a user, in which he has been invited or has created himself
@@ -52,5 +116,44 @@ endpoints:
       - statusCode: 500
         responseBody:
           description: An error occured during connection to the Database
+        responseModels:
+          application/json: ErrorResponse
+
+  listActivities:
+    summary: List/Filter Activities
+    description: List/filter paginated activities on multiple criterias
+    queryParams:
+      - name: "itemsPerPage"
+        description: "Number of activities to retrieve per page, defaults to 20"
+        schema:
+          type: integer
+      - name: "lastEvaluatedId"
+        description: "ID of the last activity processed by pagination, use it to start retrieving activities from this activity (next items)"
+        schema:
+          type: string
+    methodResponses:
+      - statusCode: 200
+        responseBody:
+          description: 'List of activities matching filters'
+        responseModels:
+          application/json: ListActivitiesResponse
+      - statusCode: 500
+        responseBody:
+          description: An error occured
+        responseModels:
+          application/json: ErrorResponse
+  
+  listCategories:
+    summary: List Activity Categories
+    description: Retrieve a list of all categories of activities
+    methodResponses: 
+      - statusCode: 200
+        responseBody:
+          description: "List of categories"
+        responseModels:
+          application/json: ListCategoriesResponse
+      - statusCode: 500
+        responseBody:
+          description: An error occured
         responseModels:
           application/json: ErrorResponse

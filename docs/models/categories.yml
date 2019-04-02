@@ -1,0 +1,18 @@
+schema:
+  $schema: "http://json-schema.org/draft-07/schema#"
+  properties:
+    categoryId:
+      description: "ID of the category"
+      type: string
+    thumbnailUrl:
+      description: "Link (http/https) to an image representing the category"
+      type: string
+    icon:
+      description: "Link (http/https) to an image for the icon representing the category"
+      type: string
+    name:
+      description: "Name of the category"
+      type: string
+    description:
+      description: "Short description of the category"
+      type: string

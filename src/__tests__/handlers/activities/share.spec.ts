@@ -4,12 +4,14 @@ import InternalServerError from '@errors/InternalServerError'
 import Activity from '@models/Activity';
 import { shareActivity } from '@handlers/activities'
 import BadRequestError from '../../../errors/BadRequestError';
+import DatabaseError from '@errors/DatabaseError';
 
 jest.mock('@datastore/index', () => ({
   datastore: {
     getTravelBand: jest.fn((travelBandId: string) => {}),
     activityExistsInFolder: jest.fn((activityId: string, travelBandId: string, folderId: string) => true),
     shareActivity: jest.fn((activityId: string, travelBandId: string, folderId: string) => {}),
+    getActivity: jest.fn((activityId: string) => {}),
   },
 }))
 const datastoreMock = require('@datastore/index')
@@ -102,6 +104,23 @@ test('activity already present in folder', async () => {
   expect(response.statusCode).toBe(400)
 })
 
+test('share activity - get activity error', async () => {
+  const data = {
+    folderId,
+    travelBandId: travelBand.travelBandId,
+    activityId: v4(),
+    name: 'testing activity',
+  }
+  datastoreMock.datastore.getTravelBand.mockResolvedValueOnce(travelBand)
+  datastoreMock.datastore.activityExistsInFolder.mockResolvedValueOnce(false)
+  datastoreMock.datastore.shareActivity.mockResolvedValueOnce(true)
+  datastoreMock.datastore.getActivity.mockRejectedValueOnce(new DatabaseError('db error'))
+  const body = { folderId, travelBandId: travelBand.travelBandId }
+  const event = { pathParameters: { activityId: data.activityId }, body: JSON.stringify(body) }
+  const response = await shareActivity(event, null)
+  expect(response.statusCode).toBe(500)
+})
+
 test('share activity properly', async () => {
   const data = {
     folderId,
@@ -111,7 +130,8 @@ test('share activity properly', async () => {
   }
   datastoreMock.datastore.getTravelBand.mockResolvedValueOnce(travelBand)
   datastoreMock.datastore.activityExistsInFolder.mockResolvedValueOnce(false)
-  datastoreMock.datastore.shareActivity.mockResolvedValueOnce({ activityId: data.activityId })
+  datastoreMock.datastore.shareActivity.mockResolvedValueOnce(true)
+  datastoreMock.datastore.getActivity.mockResolvedValueOnce({ activityId: data.activityId })
   const body = { folderId, travelBandId: travelBand.travelBandId }
   const event = { pathParameters: { activityId: data.activityId }, body: JSON.stringify(body) }
   const response = await shareActivity(event, null)

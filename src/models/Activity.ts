@@ -2,6 +2,7 @@ import { DocumentClient } from 'aws-sdk/lib/dynamodb/document_client'
 import AttributeMap = DocumentClient.AttributeMap
 import Address from '@models/Address'
 import { IAvailability } from '@models/Availability'
+import { IOffice } from './Office';
 
 export default interface Activity extends AttributeMap {
   activityId: string
@@ -18,4 +19,5 @@ export default interface Activity extends AttributeMap {
   nbVotes: number
   address: Address
   availabilities?: IAvailability[]
+  office: IOffice
 }

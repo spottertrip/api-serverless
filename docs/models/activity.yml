@@ -2,6 +2,86 @@ schema:
   $schema: "http://json-schema.org/draft-07/schema#"
   properties:
     activityId:
+      description: "ID of the activity"
       type: string
     name:
+      description: "Name of the activity"
       type: string
+    duration:
+      description: "Duration of the activity, expressed in hours"
+      type: float
+    pictures:
+      description: "Pictures related to an activity"
+      type: array
+      items:
+        type: string
+    language:
+      description: "Language spoken by the hosts during the activity"
+      type: string
+    category:
+      type: object
+      properties:
+        categoryId:
+          description: "ID of the category for an activity"
+          type: string
+        name:
+          description: "Name of the category"
+          type: string
+    capacity:
+      description: "Number of persons max. allowed for the activity"
+      type: integer
+    price:
+      description: "Price of the activity"
+      type: float
+    mark:
+      description: "Mark created from review scores given by users"
+      type: float
+    nbVotes:
+      description: "Number of votes submitted for this activity to create the mark"
+      type: integer
+    office:
+      description: "Office hosting the activity"
+      type: object
+      properties:
+        officeId:
+          description: "ID of the office"
+          type: string
+        name:
+          description: "Name of the office"
+          type: string
+        about:
+          description: "Speech about the office behind the activity"
+          type: string
+        thumbnailUrl:
+          description: "Link (http/https) to a picture representing the office"
+          type: string
+    location:
+      type: object
+      properties:
+        street:
+          description: "Street number and name"
+          type: string
+        postalCode:
+          description: Postal Code
+          type: integer
+        city:
+          description: "City Where the activity takes place"
+          type: string
+        country:
+          description: "Country where the activity takes place"
+          type: string
+        phoneNumber:
+          description: "Phone number of the host for an activity"
+          type: string
+    availabilities:
+      type: array
+      items:
+        type: object
+        properties:
+          start:
+            description: "Start Date/Hour (UTC string) of activity"
+            type: string
+          end:
+            description: "End Data/Hour (UTC string) of activity"
+            type: string
+      

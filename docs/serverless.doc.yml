@@ -109,6 +109,12 @@ documentation:
           shared:
             description: Indicates whether the activity has been shared properly
             type: boolean
+    - name: "ViewActivityResponse"
+      description: "Response for view activity endpoint: Contains informations about the activity and related availabilities (calendar) and office"
+      contentType: application/json
+      schema:
+        $schema: "http://json-schema.org/draft-07/schema#"
+        properties: ${file(docs/models/activity.yml):schema.properties}
 
 
 endpoints:
@@ -209,4 +215,29 @@ endpoints:
           description: Either the shared activity does not exist for given ID, or travel band in which user wants to share activity does not exist
         responseModels:
           application/json: ErrorResponse
-      
+
+  viewActivity:
+    summary: View all details about an activity
+    description: Get details about an activity including name, image, description, the related Office who's organizing the activity as well as availabilities for the activity
+    pathParams:
+      - name: "activityId"
+        description: "ID of the activity that the user wants to get details about"
+        schema:
+          type: string
+    methodResponses:
+      - statusCode: "200"
+        responseBody:
+          description: "Activity is retrieved properly with its availabilities"
+        responseModels:
+          application/json: ViewActivityResponse
+      - statusCode: "400"
+        responseBody:
+          description: Bad request, the provided activity ID is not a valid UUID
+        responseModels:
+          application/json: ErrorResponse
+      - statusCode: "404"
+        responseBody:
+          description: "Activity does not exist with given ID"
+        responseModels:
+          application/json: ErrorResponse
+

@@ -101,6 +101,7 @@ functions:
       - http:
           method: get
           path: activities/{activityId}
+          documentation: ${file(docs/serverless.doc.yml):endpoints.viewActivity}
   listActivityAvailabilities:
     handler: src/handlers/handler.listAvailabilities
     events:

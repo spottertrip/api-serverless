@@ -14,7 +14,16 @@
       "country": "France",
       "phoneNumber": "0615372839"
     },
-    "category": "sport",
+    "office": {
+      "officeId": "d36acb97-5f3a-4810-a533-c2bc13c2324e",
+      "name": "Bob the Sleigh",
+      "about": "Le bobsleigh (ou bobsled, ou encore bob par abréviation), est un sport d'hiver dans lequel des équipes de deux ou de quatre bobeurs, assis en file, effectuent des courses chronométrées à bord d'un engin caréné glissant sur une étroite et sinueuse piste glacée en pente. Il figure dans tous les Jeux olympiques d'hiver depuis 1924 (sauf en 1960).",
+      "thumbnailUrl": "https://i0.wp.com/dicodusport.fr/wp-content/uploads/2018/05/Bobsleigh.png?fit=1024%2C572&ssl=1"
+    },
+    "category": {
+      "categoryId": "96775713-f67a-4a3b-aac3-62711da6699a",
+      "name": "sport"
+    },
     "capacity": 4,
     "price": 100,
     "mark": 4.4,
@@ -27,6 +36,12 @@
     "pictures": ["https://www.lapleta.com/files-sbbasic/sr_lapleta_com/rafael-hotels-by-la-pleta-hotel-sushi-3.jpg"],
     "duration": 1,
     "language": "fr",
+    "office": {
+      "officeId": "a2a4f134-65a4-482b-b642-1cf0dabae71d",
+      "name": "Stohrer",
+      "thumbnailUrl": "http://i.f1g.fr/media/ext/1900x1900/madame.lefigaro.fr/sites/default/files/img/2018/02/que-savez-vous-vraiment-de-la-patisserie-francaise.jpg",
+      "about": "Stohrer, la plus ancienne pâtisserie de Paris, a été fondée en 1730 par le pâtissier du roi Louis XV, Nicolas Stohrer. Toujours situé rue Montorgueil, cet établissement a acquis au fil du temps des qualités mythiques. Désormais classé site historique, son décor somptueux a été conçu par un élève de Paul Baudry, décorateur de l'Opéra Garnier."
+    },
     "services": [],
     "location": {
       "street": "51 Avenue de Iéna",
@@ -35,7 +50,10 @@
       "country": "France",
       "phoneNumber": "0615372839"
     },
-    "category": "loisir",
+    "category": {
+      "categoryId": "9484a3404-3422-416a-8dc7-95565ce2f054",
+      "name": "party"
+    },
     "capacity": 2,
     "price": 30,
     "mark": 3.8,
@@ -49,6 +67,12 @@
     "duration": 1,
     "language": "fr",
     "services": [],
+    "office": {
+      "officeId": "d36acb97-5f3a-4810-a533-c2bc13c2324e",
+      "name": "Bob the Sleigh",
+      "about": "Le bobsleigh (ou bobsled, ou encore bob par abréviation), est un sport d'hiver dans lequel des équipes de deux ou de quatre bobeurs, assis en file, effectuent des courses chronométrées à bord d'un engin caréné glissant sur une étroite et sinueuse piste glacée en pente. Il figure dans tous les Jeux olympiques d'hiver depuis 1924 (sauf en 1960).",
+      "thumbnailUrl": "https://i0.wp.com/dicodusport.fr/wp-content/uploads/2018/05/Bobsleigh.png?fit=1024%2C572&ssl=1"
+    },
     "location": {
       "street": "44 Avenue Edison",
       "postalCode": 75013,
@@ -56,7 +80,10 @@
       "country": "France",
       "phoneNumber": "0615372839"
     },
-    "category": "sport",
+    "category": {
+      "categoryId": "96775713-f67a-4a3b-aac3-62711da6699a",
+      "name": "sport"
+    },
     "capacity": 4,
     "price": 75,
     "mark": 4.4,
@@ -70,6 +97,12 @@
     "duration": 1,
     "language": "fr",
     "services": [],
+    "office": {
+      "officeId": "a2a4f134-65a4-482b-b642-1cf0dabae71d",
+      "name": "Stohrer",
+      "thumbnailUrl": "http://i.f1g.fr/media/ext/1900x1900/madame.lefigaro.fr/sites/default/files/img/2018/02/que-savez-vous-vraiment-de-la-patisserie-francaise.jpg",
+      "about": "Stohrer, la plus ancienne pâtisserie de Paris, a été fondée en 1730 par le pâtissier du roi Louis XV, Nicolas Stohrer. Toujours situé rue Montorgueil, cet établissement a acquis au fil du temps des qualités mythiques. Désormais classé site historique, son décor somptueux a été conçu par un élève de Paul Baudry, décorateur de l'Opéra Garnier."
+    },
     "location": {
       "street": "51 Avenue de Iéna",
       "postalCode": 75008,
@@ -77,7 +110,10 @@
       "country": "France",
       "phoneNumber": "0615372839"
     },
-    "category": "loisir",
+    "category": {
+      "name": "party",
+      "categoryId": "9484a3404-3422-416a-8dc7-95565ce2f054"
+    },
     "capacity": 2,
     "price": 30,
     "mark": 2.9,

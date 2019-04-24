@@ -169,6 +169,7 @@ functions:
       - http:
           method: get
           path: bookings
+          documentation: ${file(docs/serverless.doc.yml):endpoints.listAllBookings}
   listCategories:
     handler: src/handlers/handler.listCategories
     events:

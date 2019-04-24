@@ -1,0 +1,28 @@
+[
+  {
+    "spotterId": "15a992e1-8d3f-421e-99a3-2ba5d2131d82",
+    "username": "Antoine Masselot",
+    "travelBands": [
+      "9b13c59a-4d9a-4cb2-9e98-a08b6b0de9ad",
+      "40bd672b-1940-4334-89be-c739639d8f27",
+      "15a992e1-8d3f-421e-99a3-2ba5d2131d09"
+    ]
+  },
+  {
+    "spotterId": "2395d193-892b-4f80-b837-0cfaccb9d851",
+    "username": "Ugo Degioanni",
+    "travelBands": []
+  },
+  {
+    "spotterId": "f6acb9b8-7445-4585-9dcb-550a5d1103c0",
+    "username": "Jérémy Raza",
+    "travelBands": []
+  },
+  {
+    "spotterId": "bb44e065-04de-43da-864a-3a618852f950",
+    "username": "Edouard Gachet",
+    "travelBands": [
+      "9b13c59a-4d9a-4cb2-9e98-a08b6b0de9ad"
+    ]
+  }
+]

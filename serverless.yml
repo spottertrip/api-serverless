@@ -66,6 +66,10 @@ custom:
       seed: true
       port: 8000
     seed:
+      spotters:
+        sources:
+          - table: ${self:custom.tables.spotters}
+            sources: [./seeds/spotters.json]
       travelBands:
         sources:
           - table: ${self:custom.tables.travelBands}
@@ -159,6 +163,12 @@ functions:
       - http:
           method: get
           path: travel-bands/{travelBandId}/bookings
+  listAllBookings:
+    handler: src/handlers/handler.listAllBookings
+    events:
+      - http:
+          method: get
+          path: bookings
   listCategories:
     handler: src/handlers/handler.listCategories
     events:

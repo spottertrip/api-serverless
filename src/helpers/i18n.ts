@@ -17,6 +17,11 @@ const fr = {
       missingId: 'L\'id de l\'activité est requis pour obtenir ses disponibilités',
       existsInFolder: 'L\'activité a déjà été partagée dans le dossier donné',
     },
+    spotters: {
+      errors: {
+        notFound: 'Le spotter n\'existe pas.',
+      },
+    },
     folders: {
       noDefaultFolder: 'Aucun dossier par défaut n\'existe',
       notFound: 'Le dossier recherché n\'existe pas',

@@ -30,7 +30,9 @@ export interface DataStore {
   listAvailabilities: (activityId: string) => Promise<IAvailability[]>
   // Spotters
   listSpotters: (travelBandId: string) => Promise<ISpotter[]>
+  getTravelBandIdsForSpotter: (spotterId: string) => Promise<string[]>;
   // Bookings
+  listAllBookings: (spotterId: string) => Promise<IBooking[]>;
   listBookingsForTravelBand: (travelBandId: string) => Promise<IBooking[]>
   // Categories
   listCategories: () => Promise<ICategory[]>

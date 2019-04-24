@@ -7,6 +7,8 @@ import * as AWSMock from 'aws-sdk-mock'
 import * as AWS from 'aws-sdk'
 import { v4 } from 'uuid'
 import NotFoundError from '@errors/NotFoundError'
+import { getTravelBandIdsForSpotter } from '@datastore/drivers/aws/spotters';
+import DatabaseError from '@errors/DatabaseError';
 
 AWSMock.setSDKInstance(AWS)
 
@@ -64,5 +66,36 @@ test('list travel bands with not existing ID -> not found', async () => {
   AWSMock.mock('DynamoDB.DocumentClient', 'scan', mockedQuery)
   const travelBands = await listTravelBands(new AWS.DynamoDB.DocumentClient())
   expect(travelBands.length).toBe(2)
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+// --- List Travel Band IDs for a spotter
+
+test('get travel bands for spotter with not existing ID -> not found', async () => {
+  const mockedGet = jest.fn((params: any, cb: any) => {
+    return cb(null, { Item: null })
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'get', mockedGet)
+  await expect(getTravelBandIdsForSpotter(new AWS.DynamoDB.DocumentClient(), v4())).rejects.toThrow(NotFoundError)
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+test('get travel bands for spotter - database error', async () => {
+  const mockedGet = jest.fn((params: any, cb: any) => {
+    throw new Error('db error')
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'get', mockedGet)
+  await expect(getTravelBandIdsForSpotter(new AWS.DynamoDB.DocumentClient(), v4())).rejects.toThrow(DatabaseError)
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+test('get travel band ids for spotters with valid ID', async () => {
+  const spotterId = v4()
+  const mockedGet = jest.fn((params: any, cb: any) => {
+    return cb(null, { Item: { travelBands: [v4(), v4(), v4()] } })
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'get', mockedGet)
+  const travelBands = await getTravelBandIdsForSpotter(new AWS.DynamoDB.DocumentClient(), spotterId)
+  expect(travelBands.length).toBe(3)
   AWSMock.restore('DynamoDB.DocumentClient')
 })

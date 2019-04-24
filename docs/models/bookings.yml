@@ -1,0 +1,19 @@
+schema:
+  $schema: "http://json-schema.org/draft-07/schema#"
+  properties:
+    bookingId:
+      description: "ID of the booking"
+      type: string
+    travelBandId:
+      description: "ID of the travel band in which the booking has been made"
+      type: string
+    activity:
+      description: "activity booked"
+      type: object
+      properties: ${file(docs/models/activity.yml):schema.properties}
+    start:
+      description: "Start date for activity booked (Date + Hour/minutes)"
+      type: string
+    end:
+      description: "End date for activity booked (Date + Hour/minute)"
+      type: string

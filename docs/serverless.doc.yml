@@ -17,6 +17,9 @@ documentation:
             type: array
             items:
               type: string
+    - name: "Booking"
+      contentType: "application/json"
+      schema: ${file(docs/models/bookings.yml):schema}
     - name: "Category"
       contentType: "application/json"
       schema: ${file(docs/models/categories.yml):schema}
@@ -115,6 +118,13 @@ documentation:
       schema:
         $schema: "http://json-schema.org/draft-07/schema#"
         properties: ${file(docs/models/activity.yml):schema.properties}
+    - name: "ListAllBookingsResponse"
+      description: "Response for list bookings endpoint"
+      contentType: application/json
+      schema:
+        $schema: "http://json-schema.org/draft-07/schema#"
+        properties:
+          bookings: ${file(docs/models/bookings/yml):schema.properties}
 
 
 endpoints:
@@ -241,3 +251,17 @@ endpoints:
         responseModels:
           application/json: ErrorResponse
 
+  listAllBookings:
+    summary: List all bookings for a spotter
+    description: List all bookings made inside all travel-bands in which a given spotter is a member.
+    methodResponses:
+      - statusCode: "200"
+        responseBody:
+          description: "Bookings"
+        responseModels:
+          application/json: ListAllBookingsResponse
+      - statusCode: "500"
+        responseBody:
+          description: "Internal Error: Database"
+        responseModels:
+          application/json: ErrorResponse

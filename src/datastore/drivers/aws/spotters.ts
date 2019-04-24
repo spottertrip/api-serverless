@@ -1,9 +1,10 @@
-import { DocumentClient } from 'aws-sdk/clients/dynamodb'
+import { DocumentClient, QueryOutput, GetItemOutput } from 'aws-sdk/clients/dynamodb'
 import BadRequestError from '@errors/BadRequestError'
 import { t } from '@helpers/i18n'
 import NotFoundError from '@errors/NotFoundError'
 import TravelBand from '@models/TravelBand'
 import ISpotter from '@models/Spotter'
+import DatabaseError from '@errors/DatabaseError';
 
 /**
  * List spotters inside given travel band
@@ -29,4 +30,33 @@ export const listSpotters = async (documentClient: DocumentClient, travelBandId:
   }
   const travelBand = result.Item as TravelBand
   return travelBand.spotters
+}
+
+/**
+ * Retrieve all travel band IDs for a given Spotter
+ * @param documentClient DynamoDB document client
+ * @param spotterId ID of the spotter for which we want to retrieve associated travel bands
+ */
+export const getTravelBandIdsForSpotter = async (documentClient: DocumentClient, spotterId: string): Promise<string[]> => {
+  const params = {
+    TableName: process.env.DB_TABLE_SPOTTERS,
+    AttributesToGet: ['travelBands'],
+    Key: {
+      spotterId,
+    },
+  }
+
+  let result: GetItemOutput
+  try {
+    result = await documentClient.get(params).promise()
+  } catch (e) {
+    throw new DatabaseError(e)
+  }
+
+  if (!result.Item) {
+    throw new NotFoundError(t('spotters.errors.notFound'));
+  }
+
+  const spotter = result.Item as ISpotter
+  return spotter.travelBands
 }

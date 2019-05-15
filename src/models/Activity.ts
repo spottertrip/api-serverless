@@ -17,7 +17,7 @@ export default interface Activity extends AttributeMap {
   price: number
   mark: number
   nbVotes: number
-  address: Address
+  location: Address
   availabilities?: IAvailability[]
   office: IOffice
 }

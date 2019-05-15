@@ -4,4 +4,6 @@ export default interface Address {
   city: string
   country: string
   phoneNumber: number
+  longitude: number
+  latitude: number
 }

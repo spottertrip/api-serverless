@@ -90,7 +90,7 @@
         "username": "Antoine Masselot"
       },
       {
-        "thumbnailsUrl": "https://scontent-cdt1-1.xx.fbcdn.net/v/t1.0-1/p100x100/26047391_1573715826050205_6413527440687168751_n.jpg?_nc_cat=107&_nc_ht=scontent-cdt1-1.xx&oh=312a76e70390e0a8021441d02580f88d&oe=5D5C1724",
+        "thumbnailUrl": "https://scontent-cdt1-1.xx.fbcdn.net/v/t1.0-1/p100x100/26047391_1573715826050205_6413527440687168751_n.jpg?_nc_cat=107&_nc_ht=scontent-cdt1-1.xx&oh=312a76e70390e0a8021441d02580f88d&oe=5D5C1724",
         "spotterId": "bb44e065-04de-43da-864a-3a618852f950",
         "username": "Edouard Gachet"
       }
@@ -101,7 +101,15 @@
     "travelBandId": "40bd672b-1940-4334-89be-c739639d8f27",
     "name": "Los Angeles",
     "description": "Going surfing and partying to Los Angeles !",
-    "folders": [],
+    "folders": [
+      {
+        "folderId": "4e5d8ae6-7625-4320-9934-f729eb8abbd1",
+        "name":  "ignore me",
+        "isDefault": true,
+        "description": "Ignore this folder please",
+        "thumbnailUrl": "https://activeforlife.com/content/uploads/2015/06/boy-girl-beach-ball.jpg"
+      }
+    ],
     "thumbnailUrl": "https://activeforlife.com/content/uploads/2015/06/boy-girl-beach-ball.jpg",
     "spotters": [
       {

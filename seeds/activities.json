@@ -13,8 +13,8 @@
       "city": "Paris",
       "country": "France",
       "phoneNumber": "0615372839",
-      "longitude": 48.8288164,
-      "latitude": 2.3597541
+      "latitude": 48.8288164,
+      "longitude": 2.3597541
     },
     "office": {
       "officeId": "d36acb97-5f3a-4810-a533-c2bc13c2324e",
@@ -51,8 +51,8 @@
       "city": "Paris",
       "country": "France",
       "phoneNumber": "0615372839",
-      "longitude": 48.8700004,
-      "latitude": 2.2932865
+      "latitude": 48.8700004,
+      "longitude": 2.2932865
     },
     "category": {
       "categoryId": "9484a3404-3422-416a-8dc7-95565ce2f054",
@@ -83,8 +83,8 @@
       "city": "Paris",
       "country": "France",
       "phoneNumber": "0615372839",
-      "longitude": 48.8288164,
-      "latitude": 2.3597541
+      "latitude": 48.8288164,
+      "longitude": 2.3597541
     },
     "category": {
       "categoryId": "96775713-f67a-4a3b-aac3-62711da6699a",
@@ -115,8 +115,8 @@
       "city": "Paris",
       "country": "France",
       "phoneNumber": "0615372839",
-      "longitude": 48.8700004,
-      "latitude": 2.2932865
+      "latitude": 48.8700004,
+      "longitude": 2.2932865
     },
     "category": {
       "name": "party",

@@ -3,7 +3,6 @@ import AttributeMap = DocumentClient.AttributeMap
 
 export default interface ISpotter extends AttributeMap {
   spotterId: string
-  email: string
+  thumbnailUrl: string
   username: string
-  profile_picture: string
 }

@@ -124,7 +124,26 @@ documentation:
       schema:
         $schema: "http://json-schema.org/draft-07/schema#"
         properties:
-          bookings: ${file(docs/models/bookings/yml):schema.properties}
+          bookings: ${file(docs/models/bookings.yml):schema.properties}
+    - name: "CreateTravelBandResponse"
+      description: "Response for create travel band endpoint: Informations about created travel band"
+      contentType: application/json
+      schema:
+        $schema: "http://json-schema.org/draft-07/schema#"
+        properties: 
+          travelBand: ${file(docs/models/bookings.yml)}
+    - name: "CreateTravelBandRequest"
+      description: "Request for create travel band endpoint: name and description"
+      contentType: application/json
+      schema:
+        $schema: "http://json-schema.org/draft-07/schema#"
+        properties: 
+          name:
+            description: "name of the travel band to create"
+            type: string
+          description:
+            description: "description of the travel band to create (optional)"
+            type: string
 
 
 endpoints:
@@ -155,6 +174,35 @@ endpoints:
       - statusCode: "500"
         responseBody:
           description: An error occured during connection to the Database
+        responseModels:
+          application/json: ErrorResponse
+
+  createTravelBand:
+    summary: Create a travel band (Wishlist)
+    description: "Create a travel band, and add currently logged in user to the travel band"
+    requestBody:
+      description: "Travel band name and description (optional)"
+    requestModels:
+      application/json: "CreateTravelBandRequest"
+    methodResponses:
+      - statusCode: "201"
+        responseBody:
+          description: "Created Travel band"
+        responseModels:
+          application/json: CreateTravelBandResponse
+      - statusCode: "500"
+        responseBody:
+          description: "An error occured"
+        responseModels:
+          application/json: ErrorResponse
+      - statusCode: "404"
+        responseBody:
+          description: "Spotter is not found"
+        responseModels:
+          application/json: ErrorResponse
+      - statusCode: "400"
+        responseBody:
+          description: "The given travel band is invalid"
         responseModels:
           application/json: ErrorResponse
 

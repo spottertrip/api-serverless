@@ -20,6 +20,7 @@ module.exports = {
         "@models/(.*)$": "<rootDir>/src/models/$1",
         "@errors/(.*)$": "<rootDir>/src/errors/$1",
         "@helpers/(.*)$": "<rootDir>/src/helpers/$1",
-        "@validators/(.*)$": "<rootDir>/src/validators/$1"
+        "@validators/(.*)$": "<rootDir>/src/validators/$1",
+        "@constants/(.*)$": "<rootDir>/src/constants/$1"
     }
 }

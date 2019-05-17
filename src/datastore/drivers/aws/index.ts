@@ -12,7 +12,7 @@ import {
   activityExistsInFolder,
   shareActivity,
 } from './activities'
-import { listSpotters, getTravelBandIdsForSpotter } from '@datastore/drivers/aws/spotters'
+import { listSpotters, getTravelBandIdsForSpotter, getSpotter } from '@datastore/drivers/aws/spotters'
 import { listAvailabilities } from '@datastore/drivers/aws/availabilities'
 import {
   createFolder, getCountActivitiesInFolder,
@@ -20,7 +20,7 @@ import {
   listActivitiesInFolder,
   listFolders,
 } from '@datastore/drivers/aws/folders'
-import { getTravelBand, listTravelBands } from '@datastore/drivers/aws/travelBands'
+import { getTravelBand, listTravelBands, createTravelBand } from '@datastore/drivers/aws/travelBands'
 import { listBookingsForTravelBand, listAllBookings } from '@datastore/drivers/aws/bookings'
 import { listCategories } from './categories';
 
@@ -59,9 +59,11 @@ export default class AWSDataStore implements DataStore {
   // Availabilities
   public listAvailabilities = (activityId: string) => listAvailabilities(this.documentClient, activityId)
   // Travel Band
+  public createTravelBand = (travelBand: TravelBand) => createTravelBand(this.documentClient, travelBand)
   public getTravelBand = (travelBandId: string) => getTravelBand(this.documentClient, travelBandId)
   public listTravelBands = () => listTravelBands(this.documentClient)
   // Spotters
+  public getSpotter = (spotterId: string) => getSpotter(this.documentClient, spotterId)
   public listSpotters = (travelBandId: string) => listSpotters(this.documentClient, travelBandId)
   public getTravelBandIdsForSpotter = (spotterId: string) => getTravelBandIdsForSpotter(this.documentClient, spotterId)
   // Folders

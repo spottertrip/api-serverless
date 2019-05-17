@@ -124,14 +124,20 @@ documentation:
       schema:
         $schema: "http://json-schema.org/draft-07/schema#"
         properties:
-          bookings: ${file(docs/models/bookings.yml):schema.properties}
+          bookings: 
+            type: array
+            items:
+              type: object
+              properties: ${file(docs/models/bookings.yml):schema.properties}
     - name: "CreateTravelBandResponse"
       description: "Response for create travel band endpoint: Informations about created travel band"
       contentType: application/json
       schema:
         $schema: "http://json-schema.org/draft-07/schema#"
         properties: 
-          travelBand: ${file(docs/models/bookings.yml)}
+          travelBand: 
+            type: object
+            properties: ${file(docs/models/travelBand.yml):schema.properties}
     - name: "CreateTravelBandRequest"
       description: "Request for create travel band endpoint: name and description"
       contentType: application/json

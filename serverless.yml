@@ -118,7 +118,7 @@ functions:
       - http:
           method: post
           path: travel-bands
-          documentatoin: ${file(docs/serverless.doc.yml):endpoints:createTravelBand}
+          documentation: ${file(docs/serverless.doc.yml):endpoints:createTravelBand}
   listTravelBands:
     handler: src/handlers/handler.listTravelBands
     events:

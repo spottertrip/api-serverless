@@ -14,6 +14,7 @@ module.exports = {
       '@errors': path.resolve(__dirname, 'src/errors'),
       '@helpers': path.resolve(__dirname, 'src/helpers'),
       '@validators': path.resolve(__dirname, 'src/validators'),
+      '@constants': path.resolve(__dirname, 'src/constants'),
     }
   },
   output: {

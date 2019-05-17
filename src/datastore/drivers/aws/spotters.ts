@@ -60,3 +60,30 @@ export const getTravelBandIdsForSpotter = async (documentClient: DocumentClient,
   const spotter = result.Item as ISpotter
   return spotter.travelBands
 }
+
+/**
+ * Retrieve a spotter by given ID
+ * @param documentClient - DynamoDB Document Client
+ * @param spotterId - ID of the spotter to retrieve
+ */
+export const getSpotter = async (documentClient: DocumentClient, spotterId: string) => {
+  const params = {
+    TableName: process.env.DB_TABLE_SPOTTERS,
+    Key: {
+      spotterId,
+    },
+  };
+
+  let result: GetItemOutput
+  try {
+    result = await documentClient.get(params).promise()
+  } catch (e) {
+    throw new DatabaseError(e)
+  }
+
+  if (!result.Item) {
+    throw new NotFoundError(t('spotters.errors.notFound'));
+  }
+
+  return result.Item as ISpotter
+}

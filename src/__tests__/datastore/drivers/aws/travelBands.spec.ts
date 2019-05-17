@@ -1,14 +1,16 @@
 
 jest.mock('aws-sdk')
 
-import { getTravelBand, listTravelBands } from '@datastore/drivers/aws/travelBands';
+import { getTravelBand, listTravelBands, createTravelBand } from '@datastore/drivers/aws/travelBands'
 import InternalServerError from '@errors/InternalServerError'
 import * as AWSMock from 'aws-sdk-mock'
 import * as AWS from 'aws-sdk'
 import { v4 } from 'uuid'
 import NotFoundError from '@errors/NotFoundError'
-import { getTravelBandIdsForSpotter } from '@datastore/drivers/aws/spotters';
-import DatabaseError from '@errors/DatabaseError';
+import { getTravelBandIdsForSpotter } from '@datastore/drivers/aws/spotters'
+import DatabaseError from '@errors/DatabaseError'
+import { defaultTravelBandThumbnail } from '@constants/defaults'
+import TravelBand from '@models/TravelBand';
 
 AWSMock.setSDKInstance(AWS)
 
@@ -98,4 +100,33 @@ test('get travel band ids for spotters with valid ID', async () => {
   const travelBands = await getTravelBandIdsForSpotter(new AWS.DynamoDB.DocumentClient(), spotterId)
   expect(travelBands.length).toBe(3)
   AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+// ---- Create Travel Band ---- //
+
+const fixtureTravelBand: TravelBand = {
+  travelBandId: v4(),
+  name: 'testing',
+  thumbnailUrl: defaultTravelBandThumbnail,
+  description: '',
+  folders: [],
+  bookings: [],
+  spotters: [],
+  activityCount: 0,
+}
+
+test('travel band created properly', async () => {
+  const mockedPut = jest.fn((params: any, cb: any) => cb(null, {}));
+  AWSMock.mock('DynamoDB.DocumentClient', 'put', mockedPut)
+  const response = await createTravelBand(new AWS.DynamoDB.DocumentClient(), fixtureTravelBand);
+  expect(response.travelBandId).toBe(fixtureTravelBand.travelBandId)
+  AWSMock.restore('DynamoDB.DocumentClient')
+})
+
+test('travel band db error', async () => {
+  const mockedPut = jest.fn((params: any, cb: any) => {
+    throw new Error('Datastore error')
+  })
+  AWSMock.mock('DynamoDB.DocumentClient', 'put', mockedPut)
+  await expect(createTravelBand(new AWS.DynamoDB.DocumentClient(), fixtureTravelBand)).rejects.toThrow(DatabaseError)
 })

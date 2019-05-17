@@ -18,6 +18,7 @@ export interface DataStore {
   activityExistsInFolder: (activityId: string, travelBandId: string, folderId: string) => Promise<boolean>
   listTravelBandActivities: (travelBandId: string) => Promise<Activity[]>
   // Travel Bands
+  createTravelBand: (travelBand: TravelBand) => Promise<TravelBand>
   getTravelBand: (travelBandId: string) => Promise<TravelBand>
   listTravelBands: () => Promise<TravelBand[]>
   // Folders
@@ -29,6 +30,7 @@ export interface DataStore {
   // Availabilities
   listAvailabilities: (activityId: string) => Promise<IAvailability[]>
   // Spotters
+  getSpotter: (spotterId: string) => Promise<ISpotter>
   listSpotters: (travelBandId: string) => Promise<ISpotter[]>
   getTravelBandIdsForSpotter: (spotterId: string) => Promise<string[]>;
   // Bookings

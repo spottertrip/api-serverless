@@ -112,6 +112,13 @@ functions:
       - http:
           method: get
           path: activities/{activityId}/availabilities
+  createTravelBand:
+    handler: src/handlers/handler.createTravelBand
+    events:
+      - http:
+          method: post
+          path: travel-bands
+          documentatoin: ${file(docs/serverless.doc.yml):endpoints:createTravelBand}
   listTravelBands:
     handler: src/handlers/handler.listTravelBands
     events:

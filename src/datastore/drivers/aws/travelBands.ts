@@ -48,3 +48,22 @@ export const listTravelBands = async (documentClient: DocumentClient) => {
     throw new DatabaseError(e.message)
   }
 }
+
+/**
+ * Create a Travel Band
+ * @param documentClient AWS DynamoDB Document Client
+ * @param travelBand - Travel Band to create
+ */
+export const createTravelBand = async (documentClient: DocumentClient, travelBand: TravelBand) => {
+  const params = {
+    TableName: process.env.DB_TABLE_TRAVELBANDS,
+    Item: travelBand,
+  }
+
+  try {
+    await documentClient.put(params).promise()
+    return travelBand
+  } catch (e) {
+    throw new DatabaseError(e.message)
+  }
+}

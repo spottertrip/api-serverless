@@ -13,7 +13,8 @@
       "@models/*": ["src/models/*"],
       "@errors/*": ["src/errors/*"],
       "@helpers/*": ["src/helpers/*"],
-      "@validators/*": ["src/validators/*"]
+      "@validators/*": ["src/validators/*"],
+      "@constants/*": ["src/constants/*"]
     }
   },
   "exclude": [

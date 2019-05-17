@@ -37,6 +37,14 @@ const fr = {
         max: 'La description du dossier ne doit pas dépasser 120 caractères',
       },
     },
+    travelBands: {
+      invalid: 'Le groupe de voyage est invalide',
+      name: {
+        required: 'Le nom du groupe de voyage est requis',
+        max: 'Le nom du groupe de voyage ne doit pas dépasser 20 caractères',
+        min: 'Le nom du groupe de voyage doit contenir au moins 3 caractères',
+      },
+    },
   },
   travelBands: {
     errors: {

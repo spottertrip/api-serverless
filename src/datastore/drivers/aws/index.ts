@@ -11,6 +11,8 @@ import {
   listTravelBandActivities,
   activityExistsInFolder,
   shareActivity,
+  getTravelBandActivity,
+  updateTravelBandActivity,
 } from './activities'
 import { listSpotters, getTravelBandIdsForSpotter, getSpotter } from '@datastore/drivers/aws/spotters'
 import { listAvailabilities } from '@datastore/drivers/aws/availabilities'
@@ -23,6 +25,7 @@ import {
 import { getTravelBand, listTravelBands, createTravelBand } from '@datastore/drivers/aws/travelBands'
 import { listBookingsForTravelBand, listAllBookings } from '@datastore/drivers/aws/bookings'
 import { listCategories } from './categories';
+import Activity from '@models/Activity';
 
 export interface AWSOptions {
   endpoint: string
@@ -56,6 +59,8 @@ export default class AWSDataStore implements DataStore {
     travelBandId: string,
     folderId: string,
   ) => shareActivity(this.documentClient, activityId, travelBandId, folderId)
+  public getTravelBandActivity = (travelBandId: string, activityId: string) => getTravelBandActivity(this.documentClient, travelBandId, activityId)
+  public updateTravelBandActivity = (activity: Activity) => updateTravelBandActivity(this.documentClient, activity)
   // Availabilities
   public listAvailabilities = (activityId: string) => listAvailabilities(this.documentClient, activityId)
   // Travel Band

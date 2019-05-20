@@ -18,7 +18,9 @@ const fixtureSpotter: ISpotter = {
   spotterId: v4(),
   username: 'testing user',
   thumbnailUrl: 'doesnotmatter',
+  travelBands: [],
 }
+
 const fixtureTravelBand: TravelBand = {
   travelBandId: v4(),
   folders: [],

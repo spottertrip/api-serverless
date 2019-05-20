@@ -51,6 +51,7 @@ test('get spotter properly', async () => {
     thumbnailUrl: 'test',
     username: 'testing',
     spotterId: v4(),
+    travelBands: [],
   }
   const mockedGet = jest.fn((params: any, cb: any) => {
     return cb(null, { Item: fixtureSpotter })

@@ -5,4 +5,5 @@ export default interface ISpotter extends AttributeMap {
   spotterId: string
   thumbnailUrl: string
   username: string
+  travelBands?: string[]
 }

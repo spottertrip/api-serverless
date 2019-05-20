@@ -17,6 +17,8 @@ export interface DataStore {
   shareActivity: (activityId: string, travelBandId: string, folderId: string) => Promise<boolean>
   activityExistsInFolder: (activityId: string, travelBandId: string, folderId: string) => Promise<boolean>
   listTravelBandActivities: (travelBandId: string) => Promise<Activity[]>
+  getTravelBandActivity: (travelBandId: string, activityId: string) => Promise<Activity>
+  updateTravelBandActivity: (activity: Activity) => Promise<void>
   // Travel Bands
   createTravelBand: (travelBand: TravelBand) => Promise<TravelBand>
   getTravelBand: (travelBandId: string) => Promise<TravelBand>

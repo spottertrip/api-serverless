@@ -150,6 +150,51 @@ documentation:
           description:
             description: "description of the travel band to create (optional)"
             type: string
+    - name: "CreateReactionRequest"
+      description: "Request for create reaction endpoint: like or dislike"
+      contentType: application/json
+      schema:
+        $schema: "http://json-schema.org/draft-07/schema#"
+        properties: 
+          like:
+            description: "Whether the spotter likes or dislikes the activity"
+            type: boolean
+    - name: "CreateReactionResponse"
+      description: "Response for create reaction endpoint: Reaction (Spotter who reacted + like/dislike state)"
+      contentType: application/json
+      schema:
+        $schema: "http://json-schema.org/draft-07/schema#"
+        properties: 
+          username:
+            description: "name of the spotter who created the reaction"
+            type: string
+          thumbnailUrl:
+            description: "Profile picture thumbnail of the user sharing a reaction"
+            type: string
+          spotterId:
+            description: "ID of the spotter sharing a reaction"
+            type: string
+          like:
+            description: "Whether the spotter likes or dislikes the activity"
+            type: boolean
+    - name: "DeleteReactionResponse"
+      description: "Response for delete reaction endpoint"
+      contentType: application/json
+      schema:
+        $schema: "http://json-schema.org/draft-07/schema#"
+        properties: 
+          username:
+            description: "name of the spotter who created the reaction"
+            type: string
+          thumbnailUrl:
+            description: "Profile picture thumbnail of the user sharing a reaction"
+            type: string
+          spotterId:
+            description: "ID of the spotter sharing a reaction"
+            type: string
+          like:
+            description: "Whether the spotter likes or dislikes the activity"
+            type: boolean
 
 
 endpoints:
@@ -209,6 +254,88 @@ endpoints:
       - statusCode: "400"
         responseBody:
           description: "The given travel band is invalid"
+        responseModels:
+          application/json: ErrorResponse
+
+  createReaction:
+    summary: React/show (dis)interest to an activity shared inside a travel band
+    description: React/show (dis)interest to an activity shared inside a travel band
+    requestBody:
+      description: "Whether the spotter wants to like or dislike the activity"
+    requestModels:
+      application/json: "CreateReactionRequest"
+    pathParams:
+      - name: activityId
+        description: "ID of the activity to react to"
+        schema:
+          type: string
+      - name: travelBandId
+        description: "ID of travel band in which the activity has been shared"
+        schema:
+          type: string
+    methodResponses:
+      - statusCode: "201"
+        responseBody:
+          description: 'Reaction has been created/updated properly'
+        responseModels:
+          application/json: CreateReactionResponse
+      - statusCode: "400"
+        responseBody:
+          description: Invalid parameters
+        responseModels:
+          application/json: ErrorResponse
+      - statusCode: "404"
+        responseBody:
+          description: "Either spotter, travel band or activity not found"
+        responseModels:
+          application/json: ErrorResponse
+      - statusCode: "401"
+        responseBody:
+          description: "Spotter tries to react to an activity inside a travel band in which he has not been invited"
+        responseModels:
+          application/json: ErrorResponse
+      - statusCode: "500"
+        responseBody:
+          description: An error occured
+        responseModels:
+          application/json: ErrorResponse
+
+  deleteReaction:
+    summary: Delete a reaction to an activity
+    description: Delete reaction to an activity for current spotter
+    pathParams:
+      - name: activityId
+        description: "ID of the activity to react to"
+        schema:
+          type: string
+      - name: travelBandId
+        description: "ID of travel band in which the activity has been shared"
+        schema:
+          type: string
+    methodResponses:
+      - statusCode: "200"
+        responseBody:
+          description: 'Reaction has been deleted properly'
+        responseModels:
+          application/json: DeleteReactionResponse
+      - statusCode: "400"
+        responseBody:
+          description: Invalid parameters
+        responseModels:
+          application/json: ErrorResponse
+      - statusCode: "404"
+        responseBody:
+          description: "Either spotter, travel band or activity not found"
+        responseModels:
+          application/json: ErrorResponse
+      - statusCode: "401"
+        responseBody:
+          description: "Spotter tries to react to an activity inside a travel band in which he has not been invited"
+        responseModels:
+          application/json: ErrorResponse
+      - statusCode: "500"
+        responseBody:
+          description: An error occured
         responseModels:
           application/json: ErrorResponse
 

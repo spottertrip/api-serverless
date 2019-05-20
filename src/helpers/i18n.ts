@@ -44,6 +44,11 @@ const fr = {
         max: 'Le nom du groupe de voyage ne doit pas dépasser 20 caractères',
         min: 'Le nom du groupe de voyage doit contenir au moins 3 caractères',
       },
+      unauthorized: 'Vous n\'êtes pas autorisé à accéder à ce groupe de voyage.',
+    },
+    reactions: {
+      missingLike: 'Vous devez indiqué si souhaitez aimer ou non l\'activité.',
+      notFound: 'Vous n\'avez pas réagi à cette activité',
     },
   },
   travelBands: {

@@ -106,6 +106,20 @@ functions:
           method: get
           path: activities/{activityId}
           documentation: ${file(docs/serverless.doc.yml):endpoints.viewActivity}
+  createReaction:
+    handler: src/handlers/handler.createReaction
+    events:
+      - http:
+          method: post
+          path: /travel-bands/{travelBandId}/activities/{activityId}/reactions
+          documentation: ${file(docs/serverless.doc.yml):endpoints.createReaction}
+  deleteReaction:
+    handler: src/handlers/handler.deleteReaction
+    events:
+      - http:
+          method: delete
+          path: /travel-bands/{travelBandId}/activities/{activityId}/reactions
+          documentation: ${file(docs/serverless.doc.yml):endpoints.deleteReaction}
   listActivityAvailabilities:
     handler: src/handlers/handler.listAvailabilities
     events:
@@ -118,7 +132,7 @@ functions:
       - http:
           method: post
           path: travel-bands
-          documentation: ${file(docs/serverless.doc.yml):endpoints:createTravelBand}
+          documentation: ${file(docs/serverless.doc.yml):endpoints.createTravelBand}
   listTravelBands:
     handler: src/handlers/handler.listTravelBands
     events:

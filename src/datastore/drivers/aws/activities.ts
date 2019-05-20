@@ -1,4 +1,4 @@
-import { DocumentClient, GetItemOutput, QueryOutput } from 'aws-sdk/clients/dynamodb'
+import { DocumentClient, GetItemOutput, QueryOutput, PutItemOutput } from 'aws-sdk/clients/dynamodb'
 import TravelBand from '@models/TravelBand'
 import BadRequestError from '@errors/BadRequestError'
 import NotFoundError from '@errors/NotFoundError'
@@ -159,6 +159,7 @@ export const shareActivity = async (documentClient: DocumentClient, activityId: 
     nbVotes,
     location,
     id: v4(),
+    reactions: [],
   }
 
   const addActivityParams = {
@@ -193,4 +194,52 @@ export const shareActivity = async (documentClient: DocumentClient, activityId: 
   }
 
   return true
+}
+
+/**
+ * Get an activity shared to a travel band from a given ID
+ * @param {DocumentClient} documentClient - AWS DynamoDB DocumentClient to access database
+ * @param {string} activityId - ID of the activity to retrieve
+ */
+export const getTravelBandActivity = async(documentClient: DocumentClient, travelBandId: string, activityId: string): Promise<Activity> => {
+  const params = {
+    TableName: process.env.DB_TABLE_TRAVELBANDACTIVITIES,
+    KeyConditionExpression: 'travelBandId = :travelBandId',
+    FilterExpression: 'activityId = :activityId',
+    ExpressionAttributeValues: {
+      ':travelBandId': travelBandId,
+      ':activityId': activityId,
+    },
+  }
+
+  let result: QueryOutput
+  try {
+    result = await documentClient.query(params).promise()
+  } catch (e) {
+    throw new DatabaseError(e)
+  }
+
+  if (!result.Items.length) {
+    throw new NotFoundError(t('errors.activities.notFound'))
+  }
+
+  return result.Items[0] as Activity
+}
+
+/**
+ * Update an activity shared to a travel band
+ * @param {DocumentClient} documentClient - AWS DynamoDB DocumentClient to access database
+ * @param {Activity} activity - Activity to update
+ */
+export const updateTravelBandActivity = async(documentClient: DocumentClient, activity: Activity): Promise<void> => {
+  const params = {
+    TableName: process.env.DB_TABLE_TRAVELBANDACTIVITIES,
+    Item: activity,
+  }
+
+  try {
+    await documentClient.put(params).promise()
+  } catch (e) {
+    throw new DatabaseError(e)
+  }
 }

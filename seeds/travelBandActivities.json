@@ -10,6 +10,7 @@
     "duration": 1,
     "language": "fr",
     "services": [],
+    "reactions": [],
     "location": {
       "street": "44 Avenue Edison",
       "postalCode": 75013,
@@ -34,6 +35,7 @@
     "duration": 1,
     "language": "fr",
     "services": [],
+    "reactions": [],
     "location": {
       "street": "51 Avenue de Iéna",
       "postalCode": 75008,
@@ -58,6 +60,7 @@
     "duration": 1,
     "language": "fr",
     "services": [],
+    "reactions": [],
     "location": {
       "street": "44 Avenue Edison",
       "postalCode": 75013,

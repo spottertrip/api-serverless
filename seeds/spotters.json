@@ -19,14 +19,17 @@
     "spotterId": "f6acb9b8-7445-4585-9dcb-550a5d1103c0",
     "thumbnailUrl": "https://scontent-cdt1-1.xx.fbcdn.net/v/t1.0-1/c21.0.100.100a/p100x100/1800271_760841427260494_2071006112_n.jpg?_nc_cat=105&_nc_ht=scontent-cdt1-1.xx&oh=dffc2be2d5a331c584f264068cd3af5e&oe=5D5413F3",
     "username": "Jérémy Raza",
-    "travelBands": []
+    "travelBands": [
+      "15a992e1-8d3f-421e-99a3-2ba5d2131d09"
+    ]
   },
   {
     "spotterId": "bb44e065-04de-43da-864a-3a618852f950",
     "thumbnailUrl": "https://scontent-cdt1-1.xx.fbcdn.net/v/t1.0-1/p100x100/26047391_1573715826050205_6413527440687168751_n.jpg?_nc_cat=107&_nc_ht=scontent-cdt1-1.xx&oh=312a76e70390e0a8021441d02580f88d&oe=5D5C1724",
     "username": "Edouard Gachet",
     "travelBands": [
-      "9b13c59a-4d9a-4cb2-9e98-a08b6b0de9ad"
+      "9b13c59a-4d9a-4cb2-9e98-a08b6b0de9ad",
+      "15a992e1-8d3f-421e-99a3-2ba5d2131d09"
     ]
   }
 ]

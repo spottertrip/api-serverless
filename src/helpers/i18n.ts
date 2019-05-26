@@ -50,6 +50,9 @@ const fr = {
       missingLike: 'Vous devez indiqué si souhaitez aimer ou non l\'activité.',
       notFound: 'Vous n\'avez pas réagi à cette activité',
     },
+    availabilities: {
+      invalidDate: 'La date indiquée est invalide.',
+    },
   },
   travelBands: {
     errors: {

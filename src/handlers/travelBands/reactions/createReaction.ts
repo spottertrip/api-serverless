@@ -36,7 +36,7 @@ export const createReaction = async (event) => {
   }
 
   // TODO: Remove when authentication is ready
-  const spotterId = '15a992e1-8d3f-421e-99a3-2ba5d2131d82';
+  const spotterId = '15a992e1-8d3f-421e-99a3-2ba5d2131d82'
   let data: CreateReactionBody
   try {
     data = JSON.parse(event.body)

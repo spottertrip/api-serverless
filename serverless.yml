@@ -106,6 +106,12 @@ functions:
           method: get
           path: activities/{activityId}
           documentation: ${file(docs/serverless.doc.yml):endpoints.viewActivity}
+  checkActivityAvilability:
+    handler: src/handlers/handler.checkActivityAvailability
+    events:
+      - http:
+          method: post
+          path: /activities/{activityId}/checkAvailability
   createReaction:
     handler: src/handlers/handler.createReaction
     events:

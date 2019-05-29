@@ -44,7 +44,7 @@ documentation:
         type: array
         items:
           type: object
-            properties: ${file(docs/models/activity.yml):schema.properties}
+          properties: ${file(docs/models/activity.yml):schema.properties}
     - name: "ListTravelBandsResponse"
       description: "Response for List travel bands Endpoint"
       contentType: application/json

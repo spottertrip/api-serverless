@@ -97,7 +97,7 @@ functions:
     events:
       - http:
           method: get
-          path: activities/highlighted
+          path: activities/highlights
           documentation: ${file(docs/serverless.doc.yml):endpoints.listHighlightedActivities}
   listActivities:
     handler: src/handlers/handler.listActivities

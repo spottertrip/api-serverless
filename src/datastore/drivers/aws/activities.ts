@@ -243,3 +243,26 @@ export const updateTravelBandActivity = async(documentClient: DocumentClient, ac
     throw new DatabaseError(e)
   }
 }
+
+/**
+ * List all activities shared inside a travel band
+ * @param documentClient - AWS Document Client to access DynamoDB
+ * @param travelBandId - ID of the travel band to get activities for
+ * @throws DatabaseError - Internal error in database
+ */
+export const listHighlightedActivities = async (documentClient: DocumentClient): Promise<Activity[]> => {
+  const params = {
+    TableName: process.env.DB_TABLE_ACTIVITIES,
+    FilterExpression: 'highlighted = :highlighted',
+    ExpressionAttributeValues: {
+      ':highlighted': true,
+    },
+  }
+
+  try {
+    const result = await documentClient.scan(params).promise()
+    return result.Items as Activity[]
+  } catch (e) {
+    throw new DatabaseError(e)
+  }
+}

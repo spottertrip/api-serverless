@@ -92,6 +92,13 @@ custom:
             sources: [./seeds/categories.json]
 
 functions:
+  listHighlightedActivities:
+    handler: src/handlers/handler.listHighlightedActivities
+    events:
+      - http:
+          method: get
+          path: activities/highlighted
+          documentation: ${file(docs/serverless.doc.yml):endpoints.listHighlightedActivities}
   listActivities:
     handler: src/handlers/handler.listActivities
     events:

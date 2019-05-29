@@ -93,7 +93,8 @@
     "capacity": 4,
     "price": 75,
     "mark": 4.4,
-    "nbVotes": 476
+    "nbVotes": 476,
+    "highlighted": true
   },
   {
     "activityId": "b1aa76c0-1240-4f7a-8a35-1a5ef9c26221",
@@ -125,6 +126,7 @@
     "capacity": 2,
     "price": 30,
     "mark": 2.9,
-    "nbVotes": 24
+    "nbVotes": 24,
+    "highlighted": true
   }
 ]

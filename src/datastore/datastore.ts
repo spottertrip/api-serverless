@@ -19,6 +19,7 @@ export interface DataStore {
   listTravelBandActivities: (travelBandId: string) => Promise<Activity[]>
   getTravelBandActivity: (travelBandId: string, activityId: string) => Promise<Activity>
   updateTravelBandActivity: (activity: Activity) => Promise<void>
+  listHighlightedActivities: () => Promise<Activity[]>
   // Travel Bands
   createTravelBand: (travelBand: TravelBand) => Promise<TravelBand>
   getTravelBand: (travelBandId: string) => Promise<TravelBand>

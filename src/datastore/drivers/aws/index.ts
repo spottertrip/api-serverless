@@ -12,7 +12,7 @@ import {
   activityExistsInFolder,
   shareActivity,
   getTravelBandActivity,
-  updateTravelBandActivity,
+  updateTravelBandActivity, listHighlightedActivities,
 } from './activities'
 import { listSpotters, getTravelBandIdsForSpotter, getSpotter } from '@datastore/drivers/aws/spotters'
 import { listAvailabilities } from '@datastore/drivers/aws/availabilities'
@@ -61,6 +61,7 @@ export default class AWSDataStore implements DataStore {
   ) => shareActivity(this.documentClient, activityId, travelBandId, folderId)
   public getTravelBandActivity = (travelBandId: string, activityId: string) => getTravelBandActivity(this.documentClient, travelBandId, activityId)
   public updateTravelBandActivity = (activity: Activity) => updateTravelBandActivity(this.documentClient, activity)
+  public listHighlightedActivities = () => listHighlightedActivities(this.documentClient)
   // Availabilities
   public listAvailabilities = (activityId: string) => listAvailabilities(this.documentClient, activityId)
   // Travel Band

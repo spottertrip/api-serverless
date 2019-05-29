@@ -41,23 +41,19 @@ documentation:
       contentType: application/json
       schema:
         $schema: "http://json-schema.org/draft-07/schema#"
-        properties:
-          activities:
-            type: array
-            items:
-              type: object
-              properties: ${file(docs/models/activity.yml):schema.properties}
+        type: array
+        items:
+          type: object
+            properties: ${file(docs/models/activity.yml):schema.properties}
     - name: "ListTravelBandsResponse"
       description: "Response for List travel bands Endpoint"
       contentType: application/json
       schema:
         $schema: "http://json-schema.org/draft-07/schema#"
-        properties:
-          travelBands:
-            type: array
-            items:
-              type: object
-              properties: ${file(docs/models/travelBand.yml):schema.properties}
+        type: array
+        items:
+          type: object
+          properties: ${file(docs/models/travelBand.yml):schema.properties}
     - name: "ListActivitiesResponse"
       description: "Response for List of activities"
       contentType: application/json
@@ -123,19 +119,17 @@ documentation:
       contentType: application/json
       schema:
         $schema: "http://json-schema.org/draft-07/schema#"
-        properties:
-          bookings: 
-            type: array
-            items:
-              type: object
-              properties: ${file(docs/models/bookings.yml):schema.properties}
+        type: array
+        items:
+          type: object
+          properties: ${file(docs/models/bookings.yml):schema.properties}
     - name: "CreateTravelBandResponse"
       description: "Response for create travel band endpoint: Informations about created travel band"
       contentType: application/json
       schema:
         $schema: "http://json-schema.org/draft-07/schema#"
-        properties: 
-          travelBand: 
+        properties:
+          travelBand:
             type: object
             properties: ${file(docs/models/travelBand.yml):schema.properties}
     - name: "CreateTravelBandRequest"
@@ -143,7 +137,7 @@ documentation:
       contentType: application/json
       schema:
         $schema: "http://json-schema.org/draft-07/schema#"
-        properties: 
+        properties:
           name:
             description: "name of the travel band to create"
             type: string
@@ -155,7 +149,7 @@ documentation:
       contentType: application/json
       schema:
         $schema: "http://json-schema.org/draft-07/schema#"
-        properties: 
+        properties:
           like:
             description: "Whether the spotter likes or dislikes the activity"
             type: boolean
@@ -164,7 +158,7 @@ documentation:
       contentType: application/json
       schema:
         $schema: "http://json-schema.org/draft-07/schema#"
-        properties: 
+        properties:
           username:
             description: "name of the spotter who created the reaction"
             type: string
@@ -182,7 +176,7 @@ documentation:
       contentType: application/json
       schema:
         $schema: "http://json-schema.org/draft-07/schema#"
-        properties: 
+        properties:
           username:
             description: "name of the spotter who created the reaction"
             type: string
@@ -195,9 +189,33 @@ documentation:
           like:
             description: "Whether the spotter likes or dislikes the activity"
             type: boolean
+    - name: "ListHighlightedActivitiesResponse"
+      description: "Response for a list of highlighted activities"
+      contentType: application/json
+      schema:
+        $schema: "http://json-schema.org/draft-07/schema#"
+        type: array
+        items:
+          type: object
+          properties: ${file(docs/models/activity.yml):schema.properties}
+
 
 
 endpoints:
+  listHighlightedActivities:
+    summary: List Highlighted (chosen by staff members) activities
+    description: Retrieve a list of highlighted activities, chosen by staff members. These activities are highlighted because of the quality that the staff wants to promote.
+    methodResponse:
+      - statusCode: "200"
+        responseBody:
+          description: 'List of activities '
+        responseModels:
+          application/json: ListHighlightedActivitiesResponse
+      - statusCode: "500"
+        responseBody:
+          description: An Error occured
+        responseModels:
+          application/json: ErrorResponse
   listTravelBandActivities:
     summary: List activities related to a travel band/wishlist
     description: List/Filter activities inside a travel band
@@ -362,11 +380,11 @@ endpoints:
           description: An error occured
         responseModels:
           application/json: ErrorResponse
-  
+
   listCategories:
     summary: List Activity Categories
     description: Retrieve a list of all categories of activities
-    methodResponses: 
+    methodResponses:
       - statusCode: "200"
         responseBody:
           description: "List of categories"

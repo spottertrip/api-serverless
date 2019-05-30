@@ -50,6 +50,7 @@ test('get spotter properly', async () => {
   const fixtureSpotter: ISpotter = {
     thumbnailUrl: 'test',
     username: 'testing',
+    email: 'testing@testing.fr',
     spotterId: v4(),
     travelBands: [],
   }

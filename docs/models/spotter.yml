@@ -2,6 +2,19 @@ schema:
   $schema: "http://json-schema.org/draft-07/schema#"
   properties:
     spotterId:
+      description: "ID of the spotter"
       type: string
-    name:
+    username:
+      description: "Spotter's username"
       type: string
+    email:
+      description: "Spotter's email address"
+      type: string
+    thumbnailUrl:
+      description: "HTTP(S) link to spotter's Profile picture"
+      type: string
+    travelBands:
+      description: "List of travel Band ID in which the spotter has been invited"
+      type: array
+      items:
+        type: string

@@ -133,6 +133,13 @@ functions:
       - http:
           method: get
           path: activities/{activityId}/availabilities
+  listSpotters:
+    handler: src/handlers/handler.listSpotters
+    events:
+      - http:
+          method: get
+          path: spotters
+          documentation: ${file(docs/serverless.doc.yml):endpoints.listSpotters}
   createTravelBand:
     handler: src/handlers/handler.createTravelBand
     events:

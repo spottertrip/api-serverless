@@ -71,6 +71,15 @@ documentation:
               ID of the last activity treated inside DynamoDB, used for pagination.
               At first call, save this lastEvaluatedId somewhere, so you may use it for following call, in order to retrieve the n (n being the number of results asked in query parameter itemsPerPage) following activities.
               Repeat this step to paginate activities.
+    - name: "ListSpottersResponse"
+      description: "Response for List of spotters - Search a specific username/email"
+      contentType: application/json
+      schema:
+        $schema: "http://json-schema.org/draft-07/schema#"
+        type: array
+        items:
+          type: object
+          properties: ${file(docs/models/spotter.yml):schema.properties}
     - name: "ListCategoriesResponse"
       description:
       contentType: application/json
@@ -459,6 +468,26 @@ endpoints:
           description: "Bookings"
         responseModels:
           application/json: ListAllBookingsResponse
+      - statusCode: "500"
+        responseBody:
+          description: "Internal Error: Database"
+        responseModels:
+          application/json: ErrorResponse
+
+  listSpotters:
+    summary: Find a list of spotters from given username or email
+    description: Find a list of spotters from a given username or email, results are paginated
+    queryParams:
+      - name: "q"
+        description: "Query, to look for in either username or email of spotters to search"
+        schema:
+          type: string
+    methodResponses:
+      - statusCode: "200"
+        responseBody:
+          description: "List of spotters with given query matching either username or email"
+        responseModels:
+          application/json: ListSpottersResponse
       - statusCode: "500"
         responseBody:
           description: "Internal Error: Database"

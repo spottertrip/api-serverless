@@ -54,6 +54,7 @@ export const createTravelBand = async (event) => {
   travelBand.spotters[0] = {
     spotterId: spotter.spotterId,
     username: spotter.username,
+    email: spotter.email,
     thumbnailUrl: spotter.thumbnailUrl,
   }
 

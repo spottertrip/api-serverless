@@ -17,6 +17,7 @@ const datastoreMock = require('@datastore/index')
 const fixtureSpotter: ISpotter = {
   spotterId: v4(),
   username: 'testing user',
+  email: 'testing@testing.fr',
   thumbnailUrl: 'doesnotmatter',
   travelBands: [],
 }

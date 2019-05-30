@@ -1,4 +1,5 @@
 import Activity from '@models/Activity';
+import ISpotter from '@models/Spotter';
 
 /**
  * Output for List Activities Datastore query

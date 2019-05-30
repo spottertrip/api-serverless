@@ -1,4 +1,4 @@
-import { DocumentClient, QueryOutput, GetItemOutput } from 'aws-sdk/clients/dynamodb'
+import { DocumentClient, QueryOutput, GetItemOutput, ScanOutput } from 'aws-sdk/clients/dynamodb'
 import BadRequestError from '@errors/BadRequestError'
 import { t } from '@helpers/i18n'
 import NotFoundError from '@errors/NotFoundError'
@@ -86,4 +86,29 @@ export const getSpotter = async (documentClient: DocumentClient, spotterId: stri
   }
 
   return result.Item as ISpotter
+}
+
+/**
+ * Search a list of spotters based on given query
+ * @param documentClient - AWS DYnamoDB DOcument Client
+ * @param query - Query: either username or email of the spotter to retrieve
+ */
+export const searchSpotters = async (documentClient: DocumentClient, query: string) => {
+  const params = {
+    TableName: process.env.DB_TABLE_SPOTTERS,
+    FilterExpression: 'contains(username, :username) OR contains(email, :email)',
+    ExpressionAttributeValues: {
+      ':username': query,
+      ':email': query,
+    },
+  }
+
+  let result: ScanOutput
+  try {
+    result = await documentClient.scan(params).promise()
+  } catch (e) {
+    throw new DatabaseError(e)
+  }
+
+  return result.Items as ISpotter[]
 }

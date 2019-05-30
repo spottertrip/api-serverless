@@ -20,6 +20,7 @@ const fixtureTravelBandId = v4()
 const fixtureSpotter: ISpotter = {
   spotterId: v4(),
   username: 'testing user',
+  email: 'testing@testing.fr',
   thumbnailUrl: 'doesnotmatter',
   travelBands: [fixtureTravelBandId],
 }

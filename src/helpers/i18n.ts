@@ -18,6 +18,7 @@ const fr = {
       existsInFolder: 'L\'activité a déjà été partagée dans le dossier donné',
     },
     spotters: {
+      invalidQuery: 'Vous devez fournir un terme à rechercher dans un pseudonyme ou email valide.',
       errors: {
         notFound: 'Le spotter n\'existe pas.',
       },

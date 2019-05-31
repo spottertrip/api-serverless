@@ -513,6 +513,9 @@ endpoints:
   inviteSpotter:
     summary: Invite A Spotter to join a Travel Band (Wishlist)
     description: Invite a Spotter to join a given travel band, checks for authorizations of logged in user (whether he may invite members inside the travel band) and invite given spotter into given travel band
+    requestHeaders:
+      - name: "X-Spotter"
+        description: "Spotter ID of the logged-in user: used for authentication, REQUIRED"
     requestBody:
       description: "Spotter ID to invite"
       requestModels:

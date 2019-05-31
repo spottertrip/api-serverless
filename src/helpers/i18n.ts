@@ -20,6 +20,7 @@ const fr = {
     },
     spotters: {
       alreadyInTravelBand: 'Le spotter fait déjà partie de cette wishlist.',
+      notFound: 'Le spotter n\'existe pas.',
       invalidQuery: 'Vous devez fournir un terme à rechercher dans un pseudonyme ou email valide.',
       errors: {
         notFound: 'Le spotter n\'existe pas.',

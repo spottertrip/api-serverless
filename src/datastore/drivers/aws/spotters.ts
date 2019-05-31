@@ -82,7 +82,7 @@ export const getSpotter = async (documentClient: DocumentClient, spotterId: stri
   }
 
   if (!result.Item) {
-    throw new NotFoundError(t('spotters.errors.notFound'));
+    throw new NotFoundError(t('errors.spotters.notFound'));
   }
 
   return result.Item as ISpotter
@@ -136,7 +136,7 @@ export const inviteSpotterToTravelBand = async (documentClient: DocumentClient, 
       '#travelBands': 'travelBands',
     },
     ExpressionAttributeValues: {
-      ':travelBand': travelBandId,
+      ':travelBand': [travelBandId],
       ':empty_list': [],
     },
   }
@@ -155,7 +155,7 @@ export const inviteSpotterToTravelBand = async (documentClient: DocumentClient, 
       '#spotters': 'spotters',
     },
     ExpressionAttributeValues: {
-      ':spotter': travelBandSpotter,
+      ':spotter': [travelBandSpotter],
       ':empty_list': [],
     },
   }
@@ -177,5 +177,8 @@ export const inviteSpotterToTravelBand = async (documentClient: DocumentClient, 
     throw new DatabaseError(e)
   }
 
-  return spotter
+  return {
+    ...spotter,
+    travelBands: [...spotter.travelBands, travelBandId],
+  } as ISpotter
 }

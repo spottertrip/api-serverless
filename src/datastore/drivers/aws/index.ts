@@ -1,8 +1,9 @@
 import { DataStore } from '../../datastore'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
-// Repositories
 import TravelBand from '@models/TravelBand'
 import { IFolder } from '@models/Folder'
+import Activity from '@models/Activity'
+// Repositories
 import {
   listActivities,
   getActivity,
@@ -14,7 +15,7 @@ import {
   getTravelBandActivity,
   updateTravelBandActivity, listHighlightedActivities,
 } from './activities'
-import { listSpotters, getTravelBandIdsForSpotter, getSpotter, searchSpotters } from '@datastore/drivers/aws/spotters'
+import { listSpotters, getTravelBandIdsForSpotter, getSpotter, searchSpotters, inviteSpotterToTravelBand } from '@datastore/drivers/aws/spotters'
 import { listAvailabilities } from '@datastore/drivers/aws/availabilities'
 import {
   createFolder, getCountActivitiesInFolder,
@@ -24,8 +25,7 @@ import {
 } from '@datastore/drivers/aws/folders'
 import { getTravelBand, listTravelBands, createTravelBand } from '@datastore/drivers/aws/travelBands'
 import { listBookingsForTravelBand, listAllBookings } from '@datastore/drivers/aws/bookings'
-import { listCategories } from './categories';
-import Activity from '@models/Activity';
+import { listCategories } from './categories'
 
 export interface AWSOptions {
   endpoint: string
@@ -74,6 +74,8 @@ export default class AWSDataStore implements DataStore {
   public getTravelBandIdsForSpotter = (spotterId: string) => getTravelBandIdsForSpotter(this.documentClient, spotterId)
   public searchSpotters = (query: string) =>
     searchSpotters(this.documentClient, query)
+  public inviteSpotterToTravelBand = (spotterId: string, travelBandId: string) =>
+    inviteSpotterToTravelBand(this.documentClient, spotterId, travelBandId)
   // Folders
   public getFolder = (travelBandId: string, folderId: string) => getFolder(this.documentClient, travelBandId, folderId)
   public listFolders = (travelBandId: string) => listFolders(this.documentClient, travelBandId)

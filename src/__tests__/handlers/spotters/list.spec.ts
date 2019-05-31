@@ -1,5 +1,6 @@
 import { v4 } from 'uuid'
 import { listSpotters } from '@handlers/spotters/list'
+import DatabaseError from '@errors/DatabaseError'
 
 jest.mock('@datastore/index', () => ({
   datastore: {
@@ -50,4 +51,11 @@ test('list spotters with empty query - space', async () => {
   const event = { queryStringParameters: { q: ' ' } }
   const response = await listSpotters(event, {})
   expect(response.statusCode).toBe(400)
+})
+
+test('list spotters with datastore error', async () => {
+  datastoreMock.datastore.searchSpotters.mockRejectedValueOnce(new DatabaseError('db error'))
+  const event = { queryStringParameters: { q: 'test' } }
+  const response = await listSpotters(event, {})
+  expect(response.statusCode).toBe(500)
 })

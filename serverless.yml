@@ -140,6 +140,13 @@ functions:
           method: get
           path: spotters
           documentation: ${file(docs/serverless.doc.yml):endpoints.listSpotters}
+  inviteSpotterToTravelBand:
+    handler: src/handlers/handler.inviteSpotter
+    events:
+      - http:
+          method: post
+          path: travel-bands/{travelBandId}/spotters
+          documentation: ${file(docs/serverless.doc.yml):endpoints.inviteSpotter}
   createTravelBand:
     handler: src/handlers/handler.createTravelBand
     events:

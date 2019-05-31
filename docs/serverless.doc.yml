@@ -207,7 +207,23 @@ documentation:
         items:
           type: object
           properties: ${file(docs/models/activity.yml):schema.properties}
-
+    - name: "InviteSpotterRequest"
+      description: "Request for a spotter Invitation to a travel band"
+      contentType: application/json
+      schema:
+        $schema: "http://json-schema.org/draft-07/schema#"
+        type: object
+        properties:
+          spotterId:
+            description: "ID of the spotter to invite inside given Travel Band"
+            type: string
+    - name: "InviteSpotterResponse"
+      description: "Response for a spotter invitation to a travel band"
+      contentType: application/json
+      schema:
+        $schema: "http://json-schema.org/draft-07/schema#"
+        type: object
+        properties: ${file(docs/models/spotter.yml):schema.properties}
 
 
 endpoints:
@@ -488,6 +504,43 @@ endpoints:
           description: "List of spotters with given query matching either username or email"
         responseModels:
           application/json: ListSpottersResponse
+      - statusCode: "500"
+        responseBody:
+          description: "Internal Error: Database"
+        responseModels:
+          application/json: ErrorResponse
+
+  inviteSpotter:
+    summary: Invite A Spotter to join a Travel Band (Wishlist)
+    description: Invite a Spotter to join a given travel band, checks for authorizations of logged in user (whether he may invite members inside the travel band) and invite given spotter into given travel band
+    requestHeaders:
+      - name: "X-Spotter"
+        description: "Spotter ID of the logged-in user: used for authentication, REQUIRED"
+    requestBody:
+      description: "Spotter ID to invite"
+      requestModels:
+        application/json: "InviteSpotterRequest"
+    pathParams:
+      - name: travelBandId
+        description: "ID of travel band in which the spotter has been invited"
+        schema:
+          type: string
+    methodResponses:
+      - statusCode: "200"
+        responseBody:
+          description: "Spotter invited to join the travel band"
+        responseModels:
+          application/json: InviteSpotterResponse
+      - statusCode: "401"
+        responseBody:
+          description: "Logged in user is not allowed to invite spotters to given travel band"
+        responseModels:
+          application/json: ErrorResponse
+      - statusCode: "404"
+        responseBody:
+          description: "Given spotter does not exist"
+        responseModels:
+          application/json: ErrorResponse
       - statusCode: "500"
         responseBody:
           description: "Internal Error: Database"

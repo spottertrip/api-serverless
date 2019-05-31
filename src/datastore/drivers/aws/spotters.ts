@@ -82,7 +82,7 @@ export const getSpotter = async (documentClient: DocumentClient, spotterId: stri
   }
 
   if (!result.Item) {
-    throw new NotFoundError(t('spotters.errors.notFound'));
+    throw new NotFoundError(t('errors.spotters.notFound'));
   }
 
   return result.Item as ISpotter
@@ -111,4 +111,74 @@ export const searchSpotters = async (documentClient: DocumentClient, query: stri
   }
 
   return result.Items as ISpotter[]
+}
+
+/**
+ * Invite a Spotter to a travel band - Update both travel band document to add spotter, and spotter document to add
+ * travel band ID
+ * @param documentClient - AWS DynamoDB document Client
+ * @param spotterId - ID of the spotter to invite to travel band
+ * @param travelBandId - ID of the travel band in which to invite given spotter
+ * @throws DatabaseError
+ * @throws NotFoundError
+ */
+export const inviteSpotterToTravelBand = async (documentClient: DocumentClient, spotterId: string, travelBandId: string) => {
+  const spotter = await getSpotter(documentClient, spotterId)
+  if (spotter.travelBands && spotter.travelBands.includes(travelBandId)) {
+    throw new BadRequestError(t('errors.spotters.alreadyInTravelBand'))
+  }
+
+  const updateSpotterParams = {
+    TableName: process.env.DB_TABLE_SPOTTERS,
+    Key: { spotterId },
+    UpdateExpression: 'set #travelBands = list_append(if_not_exists(#travelBands, :empty_list), :travelBand)',
+    ExpressionAttributeNames: {
+      '#travelBands': 'travelBands',
+    },
+    ExpressionAttributeValues: {
+      ':travelBand': [travelBandId],
+      ':empty_list': [],
+    },
+  }
+
+  const travelBandSpotter = {
+    username: spotter.username,
+    email: spotter.email,
+    thumbailUrl: spotter.thumbnailUrl,
+    spotterId: spotter.spotterId,
+  }
+  const updateTravelBandParams = {
+    TableName: process.env.DB_TABLE_TRAVELBANDS,
+    Key: { travelBandId },
+    UpdateExpression: 'set #spotters = list_append(if_not_exists(#spotters, :empty_list), :spotter)',
+    ExpressionAttributeNames: {
+      '#spotters': 'spotters',
+    },
+    ExpressionAttributeValues: {
+      ':spotter': [travelBandSpotter],
+      ':empty_list': [],
+    },
+  }
+
+  const transactionParams = {
+    TransactItems: [
+      {
+        Update: updateSpotterParams,
+      },
+      {
+        Update: updateTravelBandParams,
+      },
+    ],
+  }
+
+  try {
+    await documentClient.transactWrite(transactionParams).promise()
+  } catch (e) {
+    throw new DatabaseError(e)
+  }
+
+  return {
+    ...spotter,
+    travelBands: [...spotter.travelBands, travelBandId],
+  } as ISpotter
 }

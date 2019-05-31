@@ -37,6 +37,7 @@ export interface DataStore {
   listSpotters: (travelBandId: string) => Promise<ISpotter[]>
   getTravelBandIdsForSpotter: (spotterId: string) => Promise<string[]>;
   searchSpotters: (query: string) => Promise<ISpotter[]>
+  inviteSpotterToTravelBand: (spotterId: string, travelBandId: string) => Promise<ISpotter>
   // Bookings
   listAllBookings: (spotterId: string) => Promise<IBooking[]>;
   listBookingsForTravelBand: (travelBandId: string) => Promise<IBooking[]>

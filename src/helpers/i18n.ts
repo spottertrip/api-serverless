@@ -6,6 +6,7 @@ const fr = {
     folder: 'dossier d\'activitiés',
   },
   errors: {
+    unauthorized: 'Action non autorisée.',
     invalidUUID: 'L\'id du {{name}} est invalide',
     database: {
       internal: 'Une erreur est survenue, veuillez réessayer à nouveau',
@@ -18,6 +19,8 @@ const fr = {
       existsInFolder: 'L\'activité a déjà été partagée dans le dossier donné',
     },
     spotters: {
+      alreadyInTravelBand: 'Le spotter fait déjà partie de cette wishlist.',
+      notFound: 'Le spotter n\'existe pas.',
       invalidQuery: 'Vous devez fournir un terme à rechercher dans un pseudonyme ou email valide.',
       errors: {
         notFound: 'Le spotter n\'existe pas.',

@@ -394,6 +394,22 @@ endpoints:
         description: "ID of the last activity processed by pagination, use it to start retrieving activities from this activity (next items)"
         schema:
           type: string
+      - name: "q"
+        description: "Query parameter: terms that the user would like to search in activity name/description, office name and location (city, country, street)"
+        schema:
+          type: string
+      - name: "priceMin"
+        description: "Minimum price filter, will find activities with price higher than this parameter"
+        schema:
+          type: integer
+      - name: "priceMax"
+        description: "Maximum price filter, will find activities with price lower than this parameter"
+        schema:
+          type: integer
+      - name: "category"
+        description: "ID of the category in which user wants to search activities for"
+        schema:
+          type: string
     methodResponses:
       - statusCode: "200"
         responseBody:

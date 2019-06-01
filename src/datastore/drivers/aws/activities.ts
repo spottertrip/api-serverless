@@ -1,10 +1,8 @@
 import { DocumentClient, GetItemOutput, QueryOutput, PutItemOutput } from 'aws-sdk/clients/dynamodb'
-import TravelBand from '@models/TravelBand'
-import BadRequestError from '@errors/BadRequestError'
 import NotFoundError from '@errors/NotFoundError'
 import Activity from '@models/Activity'
 import { t } from '@helpers/i18n'
-import { ListActivityOutput } from '@datastore/types'
+import { ListActivityOutput, FilterActivitiesOptions } from '@datastore/types'
 import DatabaseError from '@errors/DatabaseError'
 import { v4 } from 'uuid'
 
@@ -46,17 +44,50 @@ export const createActivities = async (activity: any): Promise<any>  => {}
  * @returns Activity[] - list of activities
  * @throws DatabaseError - Internal error in database
  */
-export const listActivities = async (
-  documentClient: DocumentClient,
-  lastEvaluatedId: string = '',
-  itemsPerPage: number = 20): Promise<ListActivityOutput> => {
+export const listActivities = async (documentClient: DocumentClient, options: FilterActivitiesOptions): Promise<ListActivityOutput> => {
   const params: DocumentClient.ScanInput = {
     TableName: process.env.DB_TABLE_ACTIVITIES,
-    Limit: itemsPerPage,
+    Limit: options.itemsPerPage,
   }
-  if (lastEvaluatedId) {
+  if (options.lastEvaluatedId) {
     params.ExclusiveStartKey = {
-      activityId: lastEvaluatedId,
+      activityId: options.lastEvaluatedId,
+    }
+  }
+
+  const filterExpression: string[] = []
+  const expressionAttributeValues = {}
+  const expressionAttributeNames = {}
+  if (options.category) {
+    filterExpression.push('category.categoryId = :categoryId')
+    expressionAttributeValues[':categoryId'] = options.category
+  }
+  if (options.priceMax) {
+    filterExpression.push('price < :priceMax')
+    expressionAttributeValues[':priceMax'] = options.priceMax
+  }
+  if (options.priceMin) {
+    filterExpression.push('price > :priceMin')
+    expressionAttributeValues[':priceMin'] = options.priceMin
+  }
+  if (options.q) {
+    let expression = '(contains(#city, :query) OR contains(#street, :query) OR contains(#country, :query) '
+    expression += 'OR contains(#name, :query) OR contains(#description, :query) OR contains(#office, :query))'
+    filterExpression.push(expression)
+    expressionAttributeNames['#city'] = 'location.city'
+    expressionAttributeNames['#street'] = 'location.street'
+    expressionAttributeNames['#country'] = 'location.country'
+    expressionAttributeNames['#name'] = 'name'
+    expressionAttributeNames['#description'] = 'description'
+    expressionAttributeNames['#office'] = 'office.name'
+    expressionAttributeValues[':query'] = options.q
+  }
+
+  if (Object.keys(expressionAttributeValues).length > 0) {
+    params.FilterExpression = filterExpression.join(' AND ')
+    params.ExpressionAttributeValues = expressionAttributeValues
+    if (Object.keys(expressionAttributeNames).length > 0) {
+      params.ExpressionAttributeNames = expressionAttributeNames
     }
   }
 

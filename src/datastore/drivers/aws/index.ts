@@ -26,6 +26,7 @@ import {
 import { getTravelBand, listTravelBands, createTravelBand } from '@datastore/drivers/aws/travelBands'
 import { listBookingsForTravelBand, listAllBookings } from '@datastore/drivers/aws/bookings'
 import { listCategories } from './categories'
+import { FilterActivitiesOptions } from '@datastore/types';
 
 export interface AWSOptions {
   endpoint: string
@@ -42,10 +43,7 @@ export default class AWSDataStore implements DataStore {
   }
 
   // Activities
-  public listActivities = (
-    lastEvaluatedId: string = '',
-    itemsPerPage: number = 20,
-  ) => listActivities(this.documentClient, lastEvaluatedId, itemsPerPage)
+  public listActivities = (options: FilterActivitiesOptions) => listActivities(this.documentClient, options)
   public getActivity = (activityId: string) => getActivity(this.documentClient, activityId)
   public deleteActivity = deleteActivity
   public updateActivity = updateActivity

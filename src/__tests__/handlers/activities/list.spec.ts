@@ -25,16 +25,30 @@ test('list activities withtout pagination', async () => {
   const response = await listActivities(event, {})
   expect(response.statusCode).toBe(200)
   expect(response.body).toBe(JSON.stringify(mockValidData))
-  expect(datastoreMock.datastore.listActivities).toBeCalledWith('', 20)
+  expect(datastoreMock.datastore.listActivities).toBeCalledWith({
+    lastEvaluatedId: '',
+    itemsPerPage: 20,
+    q: '',
+    category: '',
+    priceMin: 0,
+    priceMax: 0,
+  })
 })
 
 test('list activities with itemsPerPage: 5', async () => {
   datastoreMock.datastore.listActivities.mockResolvedValueOnce(mockValidData)
-  const event = { queryStringParameters: { itemsPerPage: 20 } }
+  const event = { queryStringParameters: { itemsPerPage: 5 } }
   const response = await listActivities(event, {})
   expect(response.statusCode).toBe(200)
   expect(response.body).toBe(JSON.stringify(mockValidData))
-  expect(datastoreMock.datastore.listActivities).toBeCalledWith('', 20)
+  expect(datastoreMock.datastore.listActivities).toBeCalledWith({
+    lastEvaluatedId: '',
+    itemsPerPage: 5,
+    q: '',
+    category: '',
+    priceMin: 0,
+    priceMax: 0,
+  })
 })
 
 test('list activities with invalid lastEvaluatedId return bad request', async () => {

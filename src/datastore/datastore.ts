@@ -1,7 +1,7 @@
 // Datastore implements every repositories
 import Activity from '@models/Activity'
 import ISpotter from '@models/Spotter'
-import { ListActivityOutput } from '@datastore/types'
+import { ListActivityOutput, FilterActivitiesOptions } from '@datastore/types'
 import { IAvailability } from '@models/Availability'
 import { IFolder } from '@models/Folder'
 import TravelBand from '@models/TravelBand'
@@ -11,7 +11,7 @@ import { ICategory } from '@models/Category'
 export interface DataStore {
   // Activities
   getActivity: (activityId: string) => Promise<Activity>
-  listActivities: (lastEvaluatedId: string, itemsPerPage: number) => Promise<ListActivityOutput>
+  listActivities: (options: FilterActivitiesOptions) => Promise<ListActivityOutput>
   deleteActivity: (id: string) => Promise<void>
   updateActivity: () => Promise<any>
   shareActivity: (activityId: string, travelBandId: string, folderId: string) => Promise<boolean>

@@ -13,8 +13,18 @@ import * as AWS from 'aws-sdk'
 import { v4 } from 'uuid'
 import NotFoundError from '@errors/NotFoundError'
 import DatabaseError from '@errors/DatabaseError';
+import { FilterActivitiesOptions } from '@datastore/types';
 
 AWSMock.setSDKInstance(AWS)
+
+const fixtureOptions: FilterActivitiesOptions = {
+  itemsPerPage: 24,
+  q: '',
+  priceMax: 100,
+  priceMin: 10,
+  lastEvaluatedId: v4(),
+  category: v4(),
+}
 
 // ---- List Travel Band Activities ---- //
 test('list travel band activities datastore error list', async () => {
@@ -41,16 +51,15 @@ test('list travel band activities with valid ID', async () => {
 // ---- List Activities ---- //
 
 test('List activities with valid last evaluated id', async () => {
-  const lastEvaluatedId = v4()
   const mockedList = jest.fn((params: AWS.DynamoDB.DocumentClient.ScanInput, cb: any) => {
-    expect(params.ExclusiveStartKey.activityId).toBe(lastEvaluatedId)
+    expect(params.ExclusiveStartKey.activityId).toBe(fixtureOptions.lastEvaluatedId)
     expect(params.Limit).toBe(10)
-    return cb(null, { Items: [{ activiyId: v4() }], LastEvaluatedKey: { activityId: lastEvaluatedId } })
+    return cb(null, { Items: [{ activiyId: v4() }], LastEvaluatedKey: { activityId: fixtureOptions.lastEvaluatedId } })
   })
   AWSMock.mock('DynamoDB.DocumentClient', 'scan', mockedList)
-  const results = await listActivities(new AWS.DynamoDB.DocumentClient(), lastEvaluatedId, 10)
+  const results = await listActivities(new AWS.DynamoDB.DocumentClient(), { ...fixtureOptions, itemsPerPage: 10 })
   expect(results.activities.length).toBe(1)
-  expect(results.lastEvaluatedId).toBe(lastEvaluatedId)
+  expect(results.lastEvaluatedId).toBe(fixtureOptions.lastEvaluatedId)
   AWSMock.restore('DynamoDB.DocumentClient')
 })
 
@@ -59,7 +68,7 @@ test('List activities dynamodb error', async () => {
     return cb(new Error('DynamoDB error'), null)
   })
   AWSMock.mock('DynamoDB.DocumentClient', 'scan', mockedError)
-  await expect(listActivities(new AWS.DynamoDB.DocumentClient())).rejects.toThrow(InternalServerError)
+  await expect(listActivities(new AWS.DynamoDB.DocumentClient(), fixtureOptions)).rejects.toThrow(InternalServerError)
   AWSMock.restore('DynamoDB.DocumentClient')
 })
 
@@ -71,7 +80,15 @@ test('List activities with default pagination', async () => {
     return cb(null, { Items: [{ activityId: lastEvaluatedId }], LastEvaluatedKey: { activityId: lastEvaluatedId } })
   })
   AWSMock.mock('DynamoDB.DocumentClient', 'scan', mockedList)
-  const results = await listActivities(new AWS.DynamoDB.DocumentClient(), '', 10)
+  const options: FilterActivitiesOptions = {
+    lastEvaluatedId: '',
+    itemsPerPage: 10,
+    priceMin: 0,
+    priceMax: 0,
+    category: '',
+    q: '',
+  }
+  const results = await listActivities(new AWS.DynamoDB.DocumentClient(), options)
   expect(results.activities.length).toBe(1)
   expect(results.lastEvaluatedId).toBe(lastEvaluatedId)
   AWSMock.restore('DynamoDB.DocumentClient')

@@ -1,7 +1,7 @@
 import { handleError } from '@helpers/http'
 import { datastore } from '@datastore/index'
-import HTTPError from '@errors/HTTPError'
 import TravelBand from '@models/TravelBand'
+import { getSpotterIdFromEvent } from '@handlers/utils/auth'
 
 /**
  * Handler for event listing travel bands
@@ -10,11 +10,18 @@ import TravelBand from '@models/TravelBand'
  */
 export const listTravelBands = async (event, context) => {
   let travelBands: TravelBand[]
+  let spotterId: string
 
   try {
-    travelBands = await datastore.listTravelBands()
+    spotterId = await getSpotterIdFromEvent(event)
   } catch (e) {
-    return handleError(e as HTTPError)
+    return handleError(e)
+  }
+
+  try {
+    travelBands = await datastore.listTravelBandsForSpotter(spotterId)
+  } catch (e) {
+    return handleError(e)
   }
   return {
     statusCode: 200,

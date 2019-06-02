@@ -259,6 +259,9 @@ endpoints:
   listTravelBands:
     summary: List all travel bands in which a user has been invited
     description: List travel bands linked to a user, in which he has been invited or has created himself
+    requestHeaders:
+      - name: "X-Spotter"
+        description: "Spotter ID of the logged-in user: used for authentication, REQUIRED"
     methodResponses:
       - statusCode: "200"
         responseBody:

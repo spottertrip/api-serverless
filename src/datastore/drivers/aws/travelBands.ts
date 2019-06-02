@@ -3,6 +3,7 @@ import NotFoundError from '@errors/NotFoundError'
 import { t } from '@helpers/i18n'
 import TravelBand from '@models/TravelBand'
 import DatabaseError from '@errors/DatabaseError'
+import { getTravelBandIdsForSpotter } from './spotters'
 
 /**
  * Get travel band from given ID
@@ -47,6 +48,42 @@ export const listTravelBands = async (documentClient: DocumentClient) => {
   } catch (e) {
     throw new DatabaseError(e.message)
   }
+}
+
+/**
+ * Get a list of travel bands for a given spotter ID
+ * @param documentClient - AWS DynamoDB Document Client
+ * @param spotterId - ID of the spotter to list travel bands for
+ * @throws DatabaseError - Error happened in Datastore
+ * @throws NotFoundError - Spotter does not exist
+ */
+export const listTravelBandsForSpotter = async (documentClient: DocumentClient, spotterId: string) => {
+  const travelBandIds = await getTravelBandIdsForSpotter(documentClient, spotterId);
+  if (!travelBandIds.length) return [];
+
+  let filterExpression = ''
+  const expressionAttributeValues = {};
+  travelBandIds.forEach((travelBandId: string, index: number) => {
+    // Create filter expression string by concatenating expressions
+    if (filterExpression !== '') filterExpression += ','
+    const filterName = `:travelBandId${index}`
+    filterExpression += filterName
+    expressionAttributeValues[filterName] = travelBandId
+  })
+
+  const params = {
+    TableName: process.env.DB_TABLE_TRAVELBANDS,
+    FilterExpression: `travelBandId IN (${filterExpression})`,
+    ExpressionAttributeValues: expressionAttributeValues,
+  }
+
+  let result
+  try {
+    result = await documentClient.scan(params).promise()
+  } catch (e) {
+    throw new DatabaseError(e)
+  }
+  return result.Items as TravelBand[]
 }
 
 /**

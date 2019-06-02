@@ -5,7 +5,7 @@
     "description": "First Activity, cross Paris in Bobsleigh, then second round with electric Scooters and then swimming through the magestic 'La Seine'",
     "pictures": ["https://cap.img.pmdstatic.net/fit/http.3A.2F.2Fprd2-bone-image.2Es3-website-eu-west-1.2Eamazonaws.2Ecom.2Fcap.2F2018.2F09.2F28.2F6dafdece-cfb9-4fa4-a1d9-ca1667b12222.2Ejpeg/750x375/background-color/ffffff/quality/70/special-immobilier-a-paris-2018-les-cartes-des-prix-arrondissement-par-arrondissement-1308957.jpg"],
     "duration": 1,
-    "language": "fr",
+    "languages": ["français", "english"],
     "services": [],
     "location": {
       "street": "44 Avenue Edison",
@@ -37,7 +37,7 @@
     "description": "Second Activity, cooking sushis in the city with friends, get to eat your passionate meals.",
     "pictures": ["https://www.lapleta.com/files-sbbasic/sr_lapleta_com/rafael-hotels-by-la-pleta-hotel-sushi-3.jpg"],
     "duration": 1,
-    "language": "fr",
+    "languages": ["français", "english", "italiano"],
     "office": {
       "officeId": "a2a4f134-65a4-482b-b642-1cf0dabae71d",
       "name": "Stohrer",
@@ -69,7 +69,7 @@
     "description": "Third Activity, cross Paris in Bobsleigh, then second round with electric Scooters and then swimming through the magestic 'La Seine'",
     "pictures": ["https://www.washingtonpost.com/resizer/Qi0DWj2lS6KVcAoYIXRI2JvgTNE=/480x0/arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/HVRQDWUMLUI6RHKZ3TGCYDFLZ4.jpg"],
     "duration": 1,
-    "language": "fr",
+    "languages": ["français"],
     "services": [],
     "office": {
       "officeId": "d36acb97-5f3a-4810-a533-c2bc13c2324e",
@@ -102,7 +102,7 @@
     "description": "Fourth Activity, cooking sushis in the city with friends, get to eat your passionate meals.",
     "pictures": ["http://covsf.com/assets/site/img/key-images/fitness-swimming.jpg"],
     "duration": 1,
-    "language": "fr",
+    "languages": ["français", "italiano"],
     "services": [],
     "office": {
       "officeId": "a2a4f134-65a4-482b-b642-1cf0dabae71d",

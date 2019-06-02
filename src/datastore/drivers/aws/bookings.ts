@@ -30,7 +30,6 @@ export const listBookingsForTravelBand = async (documentClient: DocumentClient, 
 export const listAllBookings = async (documentClient: DocumentClient, spotterId: string): Promise<IBooking[]> => {
   const travelBandIds = await getTravelBandIdsForSpotter(documentClient, spotterId);
   if (!travelBandIds.length) return [];
-  console.log(travelBandIds);
 
   let filterExpression = ''
   const expressionAttributeValues = {};

@@ -17,7 +17,7 @@ const categories = [
   },
   {
     categoryId: '4f5848f0-cf7e-4c68-984a-f3202455281e',
-    name: 'explorations',
+    name: 'exploration',
     thumbnailUrl: 'https://soulspartan.files.wordpress.com/2017/02/nature-2-26-17.jpg',
     link: 'https://www.tripadvisor.fr/Attractions-g187791-Activities-c57-Rome_Lazio.html'
   },

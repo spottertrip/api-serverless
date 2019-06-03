@@ -19,7 +19,7 @@ const categories = [
     categoryId: '4f5848f0-cf7e-4c68-984a-f3202455281e',
     name: 'exploration',
     thumbnailUrl: 'https://soulspartan.files.wordpress.com/2017/02/nature-2-26-17.jpg',
-    link: 'https://www.tripadvisor.fr/Attractions-g187791-Activities-c57-Rome_Lazio.html'
+    link: 'https://www.tripadvisor.fr/Attraction_Products-g187791-zfg11878-Rome_Lazio.html'
   },
   {
     categoryId: '9484a3404-3422-416a-8dc7-95565ce2f054',
@@ -48,6 +48,11 @@ const main = async () => {
     await parseCategoriesPage(c)
   })
   await Promise.all(promises)
+
+  // Create activities highlighted
+  for (let i = 0; i < 3; i++) {
+    globalActivities[i].highlighted = true
+  }
 
   const finalCategories = categories.map(c => {
     const fC = {...c}
@@ -158,7 +163,7 @@ const parseOfficePage = async (link) => {
   return {
     name,
     about,
-    thumbnailUrl: thumbnailUrl[1],
+    thumbnailUrl: thumbnailUrl && thumbnailUrl[1] || '',
     officeId: v4(),
   }
 }

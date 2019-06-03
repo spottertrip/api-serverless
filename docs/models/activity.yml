@@ -29,18 +29,9 @@ schema:
         name:
           description: "Name of the category"
           type: string
-    capacity:
-      description: "Number of persons max. allowed for the activity"
-      type: integer
     price:
       description: "Price of the activity"
       type: number
-    mark:
-      description: "Mark created from review scores given by users"
-      type: number
-    nbVotes:
-      description: "Number of votes submitted for this activity to create the mark"
-      type: integer
     office:
       description: "Office hosting the activity"
       type: object
@@ -75,15 +66,4 @@ schema:
         phoneNumber:
           description: "Phone number of the host for an activity"
           type: string
-    availabilities:
-      type: array
-      items:
-        type: object
-        properties:
-          start:
-            description: "Start Date/Hour (UTC string) of activity"
-            type: string
-          end:
-            description: "End Data/Hour (UTC string) of activity"
-            type: string
       

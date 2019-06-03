@@ -54,12 +54,12 @@ test('List activities with valid last evaluated id', async () => {
   const mockedList = jest.fn((params: AWS.DynamoDB.DocumentClient.ScanInput, cb: any) => {
     expect(params.ExclusiveStartKey.activityId).toBe(fixtureOptions.lastEvaluatedId)
     expect(params.Limit).toBe(10)
-    return cb(null, { Items: [{ activiyId: v4() }], LastEvaluatedKey: { activityId: fixtureOptions.lastEvaluatedId } })
+    return cb(null, { Items: [{ activiyId: v4() }], LastEvaluatedKey: undefined })
   })
   AWSMock.mock('DynamoDB.DocumentClient', 'scan', mockedList)
   const results = await listActivities(new AWS.DynamoDB.DocumentClient(), { ...fixtureOptions, itemsPerPage: 10 })
   expect(results.activities.length).toBe(1)
-  expect(results.lastEvaluatedId).toBe(fixtureOptions.lastEvaluatedId)
+  expect(results.lastEvaluatedId).toBe('')
   AWSMock.restore('DynamoDB.DocumentClient')
 })
 
@@ -76,20 +76,20 @@ test('List activities with default pagination', async () => {
   const lastEvaluatedId = v4()
   const mockedList = jest.fn((params: AWS.DynamoDB.DocumentClient.ScanInput, cb: any) => {
     expect(params.ExclusiveStartKey).toBeUndefined()
-    expect(params.Limit).toBe(10)
+    expect(params.Limit).toBe(2)
     return cb(null, { Items: [{ activityId: lastEvaluatedId }], LastEvaluatedKey: { activityId: lastEvaluatedId } })
   })
   AWSMock.mock('DynamoDB.DocumentClient', 'scan', mockedList)
   const options: FilterActivitiesOptions = {
     lastEvaluatedId: '',
-    itemsPerPage: 10,
+    itemsPerPage: 2,
     priceMin: 0,
     priceMax: 0,
     category: '',
     q: '',
   }
   const results = await listActivities(new AWS.DynamoDB.DocumentClient(), options)
-  expect(results.activities.length).toBe(1)
+  expect(results.activities.length).toBe(2)
   expect(results.lastEvaluatedId).toBe(lastEvaluatedId)
   AWSMock.restore('DynamoDB.DocumentClient')
 })

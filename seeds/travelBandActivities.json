@@ -33,7 +33,7 @@
     "description": "Second Activity, cooking sushis in the city with friends, get to eat your passionate meals.",
     "pictures": ["https://www.lapleta.com/files-sbbasic/sr_lapleta_com/rafael-hotels-by-la-pleta-hotel-sushi-3.jpg"],
     "duration": 1,
-    "language": "fr",
+    "languages": ["français", "italiano"],
     "services": [],
     "reactions": [],
     "location": {

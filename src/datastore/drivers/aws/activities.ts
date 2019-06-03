@@ -91,21 +91,37 @@ export const listActivities = async (documentClient: DocumentClient, options: Fi
     }
   }
 
-  let results: DocumentClient.ScanOutput
-  try  {
-    results = await documentClient.scan(params).promise()
-  } catch (e) {
-    throw new DatabaseError(e)
-  }
+  // DynamoDB Scan Limit does not only count for expressions matching filters
+  // So we have to execute multiple queries to match the requested limit
+  let results = []
+  let lastEvaluatedKey: DocumentClient.Key|undefined
+  do {
+    try {
+      const result = await documentClient.scan(params).promise()
+      results = [...results, ...result.Items]
+      lastEvaluatedKey = result.LastEvaluatedKey
+    } catch (e) {
+      throw new DatabaseError(e)
+    }
+  } while (params.Limit - results.length > 0 && lastEvaluatedKey !== undefined)
+
+  results = results.slice(0, params.Limit)
+
+  // let results: DocumentClient.ScanOutput
+  // try  {
+  //   results = await documentClient.scan(params).promise()
+  // } catch (e) {
+  //   throw new DatabaseError(e)
+  // }
 
   // get Last Evaluated ID for futur pagination
-  const retrieveLastEvaluatedId = results.LastEvaluatedKey && results.LastEvaluatedKey.activityId
-    ? results.LastEvaluatedKey.activityId
+  const retrieveLastEvaluatedId = lastEvaluatedKey && lastEvaluatedKey.activityId
+    ? lastEvaluatedKey.activityId
     : ''
 
   return {
     lastEvaluatedId: retrieveLastEvaluatedId,
-    activities: results.Items as Activity[],
+    activities: results as Activity[],
   }
 }
 export const deleteActivity = async (id: string): Promise<void> => {}

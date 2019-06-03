@@ -1,77 +1,144 @@
 [
   {
-    "id": "d56037bd-a548-4842-88e5-6812e88f7942",
-    "activityId": "1c6afe6d-230c-4528-bd7e-6f447912fee7",
+    "id": "4a815cca-212b-4f9d-8131-894ac3d8e411",
     "travelBandId": "15a992e1-8d3f-421e-99a3-2ba5d2131d09",
-    "folderId": "2ab1a512-5d8d-43b7-8578-c730173391e1",
-    "name": "Cours de créations de croissanterie à la Parisienne",
-    "description": "First Activity, cross Paris in Bobsleigh, then second round with electric Scooters and then swimming through the magestic 'La Seine'",
-    "pictures": ["https://cap.img.pmdstatic.net/fit/http.3A.2F.2Fprd2-bone-image.2Es3-website-eu-west-1.2Eamazonaws.2Ecom.2Fcap.2F2018.2F09.2F28.2F6dafdece-cfb9-4fa4-a1d9-ca1667b12222.2Ejpeg/750x375/background-color/ffffff/quality/70/special-immobilier-a-paris-2018-les-cartes-des-prix-arrondissement-par-arrondissement-1308957.jpg"],
-    "duration": 1,
-    "languages": ["français", "english"],
-    "services": [],
-    "reactions": [],
+    "description": "Votre visite du soir commence dans un lieu central du centre de Rome, où vous accueillerez votre guide et recevrez un briefing sur l’utilisation de votre Segway à la pointe de la technologie. Une fois que vous vous sentez à l'aise pour manœuvrer le véhicule à équilibrage automatique, vous vous dirigez vers votre premier emplacement: la Piazza Navona.En vous glissant entre la fontaine emblématique de Trevi et la place d’Espagne, vous vous arrêterez régulièrement pour prendre des photos et écouter des commentaires captivants. Avant de vous diriger vers le Panthéon et le Colisée, dirigez-vous facilement vers le belvédère des jardins de Pincio (Monte Pincio). Votre visite se termine à votre point de départ initial.",
     "location": {
-      "street": "44 Avenue Edison",
-      "postalCode": 75013,
-      "city": "Paris",
-      "country": "France",
-      "phoneNumber": "0615372839"
+      "city": "Rome",
+      "country": "Italy",
+      "postalCode": "00100",
+      "street": "Roma, Italy",
+      "latitude": 49.008175,
+      "longitude": 2.552139
     },
-    "category": "sport",
-    "capacity": 4,
-    "price": 100,
-    "mark": 4.4,
-    "nbVotes": 120
+    "pictures": [
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-540x360/06/73/e2/06.jpg",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-540x360/06/f0/db/ff.jpg",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-540x360/07/69/28/35.jpg"
+    ],
+    "office": {
+      "name": "Segway Fun Rome",
+      "about": "Circuits, Visites guidées, Plus ",
+      "thumbnailUrl": "https://media-cdn.tripadvisor.com/media/photo-l/11/dd/3d/00/view-from-pincio-hill.jpg",
+      "officeId": "4da76f76-ba40-4c73-a665-125cd2fea008"
+    },
+    "languages": [
+      "français",
+      "anglais",
+      "allemand",
+      "espagnol",
+      "italien",
+      "russe"
+    ],
+    "activityId": "922ff323-1a12-4210-ae41-6bb2e55e3eaa",
+    "duration": 3,
+    "price": 56,
+    "name": "Visite en petit groupe en segway : visite nocturne panoramique de Rome",
+    "category": {
+      "categoryId": "9018066d-88b9-4906-a6db-7f9e46e0783b",
+      "name": "culture"
+    }
   },
   {
-    "id": "30b37451-b9b7-4ad2-8e54-9b9ae8f1cdda",
-    "activityId": "3afe37d5-41db-438a-9f51-8cd212d76d25",
-    "travelBandId":  "15a992e1-8d3f-421e-99a3-2ba5d2131d09",
-    "folderId": "9a090e46-1d90-4b09-939e-1dd1f1a203f3",
-    "name": "Confection de petits-déjeuner Parisien avec un chef cuisinier",
-    "description": "Second Activity, cooking sushis in the city with friends, get to eat your passionate meals.",
-    "pictures": ["https://www.lapleta.com/files-sbbasic/sr_lapleta_com/rafael-hotels-by-la-pleta-hotel-sushi-3.jpg"],
-    "duration": 1,
-    "languages": ["français", "italiano"],
-    "services": [],
-    "reactions": [],
+    "id": "0cce84f0-f6cf-4301-8339-c3420be78757",
+    "travelBandId": "15a992e1-8d3f-421e-99a3-2ba5d2131d09",
+    "description": "Découvrez Milan à bord d'un pousse-pousse moderne respectueux de l'environnement, avec des chauffeurs personnels. Avec le pousse-pousse, vous pourrez voir le centre-ville de façon exclusive ! Depuis la Piazza del Duomo jusqu'au parc Sempione, à travers le château des Sforza, l'Arc de la Paix et le quartier commerçant. Vous pourrez également voir la Piazza Santa Maria delle Grazie, la Piazza Mercanti, la Piazza della Scala, la basilique de Saint-Ambroise, et bien plus encore !En outre, nous mettons à votre disposition un nombre limité de billets pour visiter la Cène peinte par Léonard de Vinci ! Les billets pour la Cène sont garantis 24 heures avant et 24 heures après votre excursion. La date exacte et l'heure d'entrée de votre billet vous seront communiquées après la réservation. Pour cette raison, veuillez vous assurer d'être à Milan jusqu'à 24 heures avant et 24 heures après votre excursion en pousse-pousse.",
     "location": {
-      "street": "51 Avenue de Iéna",
-      "postalCode": 75008,
-      "city": "Paris",
-      "country": "France",
-      "phoneNumber": "0615372839"
+      "city": "Rome",
+      "country": "Italy",
+      "postalCode": "00100",
+      "street": "Roma, Italy",
+      "latitude": 49.008175,
+      "longitude": 2.552139
     },
-    "category": "loisir",
-    "capacity": 2,
-    "price": 30,
-    "mark": 3.8,
-    "nbVotes": 231
+    "pictures": [
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-540x360/06/73/08/d3.jpg"
+    ],
+    "office": {
+      "name": "Veditalia - Day Tours",
+      "about": "Circuits, Visites guidées, Plus ",
+      "thumbnailUrl": "https://media-cdn.tripadvisor.com/media/photo-l/07/53/6e/27/veditalia-day-tours.jpg",
+      "officeId": "a492fcde-d062-4d36-9122-8f54cc5006d5"
+    },
+    "languages": [
+      "anglais"
+    ],
+    "activityId": "d79653ce-2c32-4fd0-bd48-e3c3ff38e3f6",
+    "duration": 2,
+    "price": 90,
+    "name": "Le meilleur de Milan en pousse-pousse et billets pour la Cène",
+    "category": {
+      "categoryId": "9484a3404-3422-416a-8dc7-95565ce2f054",
+      "name": "sport"
+    }
   },
   {
-    "id": "c5e9a26b-78b0-49b4-b9e5-82c7340fb672",
-    "activityId": "0dc3da16-82bd-4885-8b79-81d8bd735dad",
-    "travelBandId":  "15a992e1-8d3f-421e-99a3-2ba5d2131d09",
-    "folderId": "9a090e46-1d90-4b09-939e-1dd1f1a203f3",
-    "name": "Atelier « Vin, Bérêt, Croissant » dans une ancienne biscuiterie",
-    "description": "Third Activity, cross Paris in Bobsleigh, then second round with electric Scooters and then swimming through the magestic 'La Seine'",
-    "pictures": ["https://www.washingtonpost.com/resizer/Qi0DWj2lS6KVcAoYIXRI2JvgTNE=/480x0/arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/HVRQDWUMLUI6RHKZ3TGCYDFLZ4.jpg"],
-    "duration": 1,
-    "languages": ["français", "english"],
-    "services": [],
-    "reactions": [],
+    "id": "5be5a213-3024-4926-850f-d109bc5cfb32",
+    "travelBandId": "15a992e1-8d3f-421e-99a3-2ba5d2131d09",
+    "description": "La journée commence lorsque votre guide expert anglophone vient vous chercher à Rome dans un véhicule confortable et climatisé et vous emmène jusqu’à la campagne de Toscane. Votre première étape est le site classé au patrimoine mondial de L’UNESCO, le village perché de Pienza. Là, vous pourrez vous promener dans les belles rues, en admirant une vue imprenable sur la campagne et vous pourrez faire des achats d’aliments et de vin si vous le souhaitez. Votre guide vous fera découvrir les spécialités toscanes traditionnelles comme le fromage de brebis et le sanglier, et vous indiquera les meilleurs magasins de céramique. Ensuite, nous nous dirigeons vers une ferme familiale et biologique. Après une visite de la ferme, il sera temps de s'asseoir pour un festin toscan d'ingrédients locaux et saisonniers provenant directement des champs. Le repas se termine par une dégustation complète des meilleurs aliments saisonniers de la ferme. Entre les discussions avec les propriétaires de la ferme, vous siroterez des vins locaux et profiterez de vues incroyables sur la célèbre région de Val d'Orcia.Après le déjeuner, vous irez à Montalcino, une ville perchée sur une colline célèbre, entre autres, pour son beau château. Avec des billets d'accès spéciaux, vous pouvez grimper les tours d'observation et admirer la vue sur la campagne environnante ou prendre quelques photos qui feront envie à tous vos amis à la maison. Pour terminer la journée, vous visiterez un vignoble pour une visite guidée des vignes et cave à vin. Et que serait une visite d'un vignoble toscan sans une dégustation complète ? Essayez un baptême de l'air des meilleurs vins de la région et n'hésitez pas à acheter une ou deux bouteilles (encore une fois, sans obligation) pour les ranger dans votre sac.Nous ne gâcherons pas une parfaite journée avec un grand groupe. Profitez d'un groupe intime de 15 personnes ou moins avec un guide expert et anglophone pour faciliter votre voyage et faire des présentations ainsi qu'un chauffeur expert qui connaît les routes de campagne mieux que quiconque. Notre but est de vous donner une expérience vraiment italienne qui vous laissera un merveilleux souvenir de la Toscane longtemps après votre retour à la maison. Sites visités :  • La ville de Pienza  • Ferme biologique de Val d'Orcia  • Le château de Montalcino  • Vignoble local réputé dans la région de Montalcino",
     "location": {
-      "street": "44 Avenue Edison",
-      "postalCode": 75013,
-      "city": "Paris",
-      "country": "France",
-      "phoneNumber": "0615372839"
+      "city": "Rome",
+      "country": "Italy",
+      "postalCode": "00100",
+      "street": "Roma, Italy",
+      "latitude": 49.008175,
+      "longitude": 2.552139
     },
-    "category": "sport",
-    "capacity": 4,
-    "price": 75,
-    "mark": 4.4,
-    "nbVotes": 476
+    "pictures": [
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-540x360/06/6b/74/83.jpg",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-540x360/06/6b/74/84.jpg"
+    ],
+    "office": {
+      "name": "Walks of Italy",
+      "about": "Circuits, Visites pédestres, Plus ",
+      "thumbnailUrl": "https://media-cdn.tripadvisor.com/media/photo-l/03/39/90/88/walks-of-italy.jpg",
+      "officeId": "54fc0a12-4c96-4295-8886-733ef090dc61"
+    },
+    "languages": [
+      "anglais"
+    ],
+    "activityId": "e0a9d61c-0a4a-4764-bc68-e6a0e2f65f64",
+    "duration": 13,
+    "price": 159,
+    "name": "Excursion d’une journée en Toscane en petit groupe au départ de Rome avec les collines et les châteaux",
+    "category": {
+      "categoryId": "9018066d-88b9-4906-a6db-7f9e46e0783b",
+      "name": "culture"
+    }
+  },
+  {
+    "id": "315b16fa-b969-475e-8a97-bc5f1355d49d",
+    "travelBandId": "15a992e1-8d3f-421e-99a3-2ba5d2131d09",
+    "description": "Santa Maria degli Angeli e dei MartiriLa prise en charge est offerte",
+    "location": {
+      "city": "Rome",
+      "country": "Italy",
+      "postalCode": "00100",
+      "street": "Roma, Italy",
+      "latitude": 49.008175,
+      "longitude": 2.552139
+    },
+    "pictures": [
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-540x360/07/41/2b/66.jpg",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-540x360/07/41/2f/73.jpg",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-540x360/07/1b/cc/13.jpg"
+    ],
+    "office": {
+      "name": "ToursforAll",
+      "about": "Autre, Transports, Circuits, Plus ",
+      "thumbnailUrl": "https://media-cdn.tripadvisor.com/media/photo-l/16/db/53/ff/varmtours.jpg",
+      "officeId": "0c4a54d8-10f3-4838-8eb8-216db53fb0f9"
+    },
+    "languages": [
+      "anglais"
+    ],
+    "activityId": "84fddac8-82b9-48f1-a3b3-802c0c355101",
+    "duration": 3,
+    "price": 48,
+    "name": "Salami et dégustation de fromage au vin rouge et à l'histoire de Martini",
+    "category": {
+      "categoryId": "96775713-f67a-4a3b-aac3-62711da6699a",
+      "name": "party"
+    }
   }
 ]

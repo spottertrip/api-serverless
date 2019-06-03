@@ -31,6 +31,7 @@ provider:
         - { "Fn::GetAtt": ["BookingDynamoDbTable", "Arn" ] }
         - { "Fn::GetAtt": ["AvailabilitiesDynamodbTable", "Arn" ] }
         - { "Fn::GetAtt": ["TravelBandActivitiesDynamodbTable", "Arn" ] }
+        - { "Fn::GetAtt": ["CategoriesDynamoDbTable", "Arn" ] }
   environment:
     LOCAL_ENDPOINT: ${file(./config.${self:provider.stage}.json):AWS_ENDPOINT}
     LOCAL_REGION: ${file(./config.${self:provider.stage}.json):AWS_REGION}

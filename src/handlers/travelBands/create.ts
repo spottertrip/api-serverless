@@ -8,14 +8,21 @@ import { validateTravelBand } from '@validators/travelBands'
 import { defaultFolder, defaultTravelBandThumbnail } from '@constants/defaults'
 import BadRequestError from '@errors/BadRequestError';
 import { t } from '@helpers/i18n';
+import { getSpotterIdFromEvent } from '@handlers/utils/auth';
 
 /**
  * Create a travel band Handler
  * @param event - AWS Event
  */
 export const createTravelBand = async (event) => {
-  // TODO: Remove when authentication is ready
-  const spotterId = '15a992e1-8d3f-421e-99a3-2ba5d2131d82';
+  let spotterId: string
+
+  try {
+    spotterId = await getSpotterIdFromEvent(event)
+  } catch (e) {
+    return handleError(e)
+  }
+
   let data
   try {
     data = JSON.parse(event.body)

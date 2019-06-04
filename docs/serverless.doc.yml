@@ -277,6 +277,9 @@ endpoints:
   createTravelBand:
     summary: Create a travel band (Wishlist)
     description: "Create a travel band, and add currently logged in user to the travel band"
+    requestHeaders:
+      - name: "X-Spotter"
+        description: "Spotter ID of the logged-in user: used for authentication, REQUIRED"
     requestBody:
       description: "Travel band name and description (optional)"
     requestModels:

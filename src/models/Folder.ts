@@ -2,7 +2,7 @@ export interface IFolder {
   folderId: string
   name: string
   description: string
-  thumbailUrl?: string
+  thumbnailUrl?: string
   isDefault?: boolean
   nbActivities?: number
 }

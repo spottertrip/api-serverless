@@ -144,7 +144,7 @@ export const inviteSpotterToTravelBand = async (documentClient: DocumentClient, 
   const travelBandSpotter = {
     username: spotter.username,
     email: spotter.email,
-    thumbailUrl: spotter.thumbnailUrl,
+    thumbnailUrl: spotter.thumbnailUrl,
     spotterId: spotter.spotterId,
   }
   const updateTravelBandParams = {

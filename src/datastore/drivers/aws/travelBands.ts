@@ -92,13 +92,37 @@ export const listTravelBandsForSpotter = async (documentClient: DocumentClient, 
  * @param travelBand - Travel Band to create
  */
 export const createTravelBand = async (documentClient: DocumentClient, travelBand: TravelBand) => {
-  const params = {
+  const createTravelBandParams = {
     TableName: process.env.DB_TABLE_TRAVELBANDS,
     Item: travelBand,
   }
 
+  const updateSpotterParams = {
+    TableName: process.env.DB_TABLE_SPOTTERS,
+    Key: { spotterId: travelBand.spotters[0].spotterId },
+    UpdateExpression: 'set #travelBands = list_append(if_not_exists(#travelBands, :empty_list), :travelBand)',
+    ExpressionAttributeNames: {
+      '#travelBands': 'travelBands',
+    },
+    ExpressionAttributeValues: {
+      ':travelBand': [travelBand.travelBandId],
+      ':empty_list': [],
+    },
+  }
+
+  const transactionParams = {
+    TransactItems: [
+      {
+        Put: createTravelBandParams,
+      },
+      {
+        Update: updateSpotterParams,
+      },
+    ],
+  }
+
   try {
-    await documentClient.put(params).promise()
+    await documentClient.transactWrite(transactionParams).promise()
     return travelBand
   } catch (e) {
     throw new DatabaseError(e.message)

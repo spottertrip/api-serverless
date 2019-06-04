@@ -5,6 +5,15 @@ import TravelBand from '@models/TravelBand'
 import ISpotter from '@models/Spotter'
 import { createTravelBand } from '@handlers/travelBands/create'
 import { defaultTravelBandThumbnail } from '@constants/defaults'
+import UnauthorizedError from '@errors/UnauthorizedError';
+
+const fixtureSpotterId = v4()
+
+// authorizations
+jest.mock('@handlers/utils/auth', () => ({
+  getSpotterIdFromEvent: jest.fn((event) => { return fixtureSpotterId }),
+}))
+const authMock = require('@handlers/utils/auth')
 
 jest.mock('@datastore/index', () => ({
   datastore: {
@@ -15,7 +24,7 @@ jest.mock('@datastore/index', () => ({
 const datastoreMock = require('@datastore/index')
 
 const fixtureSpotter: ISpotter = {
-  spotterId: v4(),
+  spotterId: fixtureSpotterId,
   username: 'testing user',
   email: 'testing@testing.fr',
   thumbnailUrl: 'doesnotmatter',
@@ -50,6 +59,12 @@ const checkTravelBand = (travelBand: TravelBand, withDescription = false) => {
 const fixtureEvent = {
   body: JSON.stringify({ name: fixtureTravelBand.name, description: fixtureTravelBand.description }),
 }
+
+test('create travel band - auth error', async () => {
+  authMock.getSpotterIdFromEvent.mockRejectedValueOnce(new UnauthorizedError('auth error'))
+  const response = await createTravelBand(fixtureEvent)
+  expect(response.statusCode).toBe(401)
+})
 
 test('create travel band - spotter does not exist', async () => {
   datastoreMock.datastore.getSpotter.mockRejectedValueOnce(new NotFoundError('does not exist'))

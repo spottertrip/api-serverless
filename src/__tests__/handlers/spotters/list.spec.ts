@@ -16,14 +16,14 @@ const spotters = [
     email: 'testing@testing.fr',
     username: 'testing',
     travelBands: [],
-    thumbailUrl: 'thumbnail',
+    thumbnailUrl: 'thumbnail',
   },
   {
     spotterId: v4(),
     email: 'second@second.fr',
     username: 'second',
     travelBands: [],
-    thumbailUrl: 'thumbnail',
+    thumbnailUrl: 'thumbnail',
   },
 ]
 

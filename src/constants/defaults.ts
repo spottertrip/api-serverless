@@ -5,7 +5,7 @@ export const defaultFolder: IFolder = {
   name:  'ignore me',
   isDefault: true,
   description: 'Ignore this folder please',
-  thumbailUrl: 'https://activeforlife.com/content/uploads/2015/06/boy-girl-beach-ball.jpg',
+  thumbnailUrl: 'https://activeforlife.com/content/uploads/2015/06/boy-girl-beach-ball.jpg',
 }
 
 export const defaultTravelBandThumbnail = 'https://timedotcom.files.wordpress.com/2018/12/how-to-travel-for-free.jpg?quality=50';

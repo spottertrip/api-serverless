@@ -21,7 +21,6 @@ try {
 export * from './travelBands'
 export * from './activities'
 export * from './availabilities'
-export * from './folders'
 export * from './bookings'
 export * from './categories'
 export * from './spotters'

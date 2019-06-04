@@ -182,24 +182,7 @@ functions:
       - http:
           method: get
           path: travel-bands/{travelBandId}/spotters
-  listFolders:
-    handler: src/handlers/handler.listFolders
-    events:
-      - http:
-          method: get
-          path: travel-bands/{travelBandId}/folders
-  createFolder:
-    handler: src/handlers/handler.createFolder
-    events:
-      - http:
-          method: post
-          path: travel-bands/{travelBandId}/folders
-  listActivitiesInFolder:
-    handler: src/handlers/handler.listActivitiesInFolder
-    events:
-      - http:
-          method: get
-          path: travel-bands/{travelBandId}/folders/{folderId}/activities
+          documentation: ${file(docs/serverless.doc.yml):endpoints.listTravelBandSpotters}
   listBookingsInTravelBand:
     handler: src/handlers/handler.listBookingsForTravelBand
     events:

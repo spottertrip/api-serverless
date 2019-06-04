@@ -224,6 +224,25 @@ documentation:
         $schema: "http://json-schema.org/draft-07/schema#"
         type: object
         properties: ${file(docs/models/spotter.yml):schema.properties}
+    - name: "ListTravelBandSpotterResponse"
+      description: "Response for a travel band's associated spotters list request"
+      contentType: application/json
+      schema:
+        $schema: "http://json-schema.org/draft-07/schema#"
+        type: object
+        properties:
+          spotterId:
+            description: "ID of the spotter"
+            type: string
+          username:
+            description: "Username of the spotter"
+            type: string
+          email:
+            description: "Email of the spotter"
+            type: string
+          thumbnailUrl:
+            description: "Http(s) link to a spotter's profile picture"
+            type: string
 
 
 endpoints:
@@ -568,3 +587,29 @@ endpoints:
           description: "Internal Error: Database"
         responseModels:
           application/json: ErrorResponse
+
+  listTravelBandSpotters:
+    summary: List All spotters invited inside a travel band
+    description: Retrieve a list of spotters invited inside a given travel band
+    pathParams:
+      - name: travelBandId
+        description: "ID Of the travel band in which you want to retrieve a list of spotter"
+        schema:
+          type: string
+    methodResponses:
+      - statusCode: "200"
+        responseBody:
+          description: "List of spotters invited to the travel band"
+        responseModels:
+          application/json: ListTravelBandSpotterResponse
+      - statusCode: "404"
+        responseBody:
+          description: "Given Travel Band does not exist"
+        responseModels:
+          application/json: ErrorResponse
+      - statusCode: "500"
+        responseBody:
+          description: "Internal Error: Database"
+        responseModels:
+          application/json: ErrorResponse
+    

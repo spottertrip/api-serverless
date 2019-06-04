@@ -111,13 +111,20 @@ const fixtureTravelBand: TravelBand = {
   description: '',
   folders: [],
   bookings: [],
-  spotters: [],
+  spotters: [
+    {
+      spotterId: v4(),
+      username: 'testing user',
+      email: 'test@test.fr',
+      thumbnailUrl: 'thumbnail',
+    },
+  ],
   activityCount: 0,
 }
 
 test('travel band created properly', async () => {
   const mockedPut = jest.fn((params: any, cb: any) => cb(null, {}));
-  AWSMock.mock('DynamoDB.DocumentClient', 'put', mockedPut)
+  AWSMock.mock('DynamoDB.DocumentClient', 'transactWrite', mockedPut)
   const response = await createTravelBand(new AWS.DynamoDB.DocumentClient(), fixtureTravelBand);
   expect(response.travelBandId).toBe(fixtureTravelBand.travelBandId)
   AWSMock.restore('DynamoDB.DocumentClient')
@@ -127,6 +134,6 @@ test('travel band db error', async () => {
   const mockedPut = jest.fn((params: any, cb: any) => {
     throw new Error('Datastore error')
   })
-  AWSMock.mock('DynamoDB.DocumentClient', 'put', mockedPut)
+  AWSMock.mock('DynamoDB.DocumentClient', 'transactWrite', mockedPut)
   await expect(createTravelBand(new AWS.DynamoDB.DocumentClient(), fixtureTravelBand)).rejects.toThrow(DatabaseError)
 })

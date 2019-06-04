@@ -103,7 +103,7 @@ export const listActivities = async (documentClient: DocumentClient, options: Fi
     } catch (e) {
       throw new DatabaseError(e)
     }
-  } while (params.Limit - results.length > 0 && lastEvaluatedKey !== undefined)
+  } while (results.length > 0 && params.Limit - results.length > 0 && lastEvaluatedKey !== undefined)
 
   results = results.slice(0, params.Limit)
 

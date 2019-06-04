@@ -559,8 +559,8 @@ endpoints:
         description: "Spotter ID of the logged-in user: used for authentication, REQUIRED"
     requestBody:
       description: "Spotter ID to invite"
-      requestModels:
-        application/json: "InviteSpotterRequest"
+    requestModels:
+      application/json: "InviteSpotterRequest"
     pathParams:
       - name: travelBandId
         description: "ID of travel band in which the spotter has been invited"

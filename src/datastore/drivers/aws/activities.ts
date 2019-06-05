@@ -105,7 +105,6 @@ export const listActivities = async (documentClient: DocumentClient, options: Fi
       results = [...results, ...result.Items]
       lastResultsCount = result.Items.length
       lastEvaluatedKey = result.LastEvaluatedKey
-      console.log('toto')
     } catch (e) {
       throw new DatabaseError(e)
     }

@@ -95,15 +95,20 @@ export const listActivities = async (documentClient: DocumentClient, options: Fi
   // So we have to execute multiple queries to match the requested limit
   let results = []
   let lastEvaluatedKey: DocumentClient.Key|undefined
+  let lastResultsCount = 0
   do {
     try {
+      if (lastEvaluatedKey) {
+        params.ExclusiveStartKey = { ...lastEvaluatedKey }
+      }
       const result = await documentClient.scan(params).promise()
       results = [...results, ...result.Items]
+      lastResultsCount = result.Items.length
       lastEvaluatedKey = result.LastEvaluatedKey
     } catch (e) {
       throw new DatabaseError(e)
     }
-  } while (results.length > 0 && params.Limit - results.length > 0 && lastEvaluatedKey !== undefined)
+  } while (params.Limit - results.length > 0 && lastEvaluatedKey !== undefined)
 
   results = results.slice(0, params.Limit)
 

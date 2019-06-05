@@ -83,7 +83,9 @@ export const listTravelBandsForSpotter = async (documentClient: DocumentClient, 
   } catch (e) {
     throw new DatabaseError(e)
   }
-  return result.Items as TravelBand[]
+  return result.Items.map(
+    (travelBand: TravelBand) => ({ ...travelBand, description: travelBand.description || '' }),
+  ) as TravelBand[]
 }
 
 /**

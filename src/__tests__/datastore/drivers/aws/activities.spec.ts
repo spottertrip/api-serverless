@@ -75,7 +75,6 @@ test('List activities dynamodb error', async () => {
 test('List activities with default pagination', async () => {
   const lastEvaluatedId = v4()
   const mockedList = jest.fn((params: AWS.DynamoDB.DocumentClient.ScanInput, cb: any) => {
-    expect(params.ExclusiveStartKey).toBeUndefined()
     expect(params.Limit).toBe(2)
     return cb(null, { Items: [{ activityId: lastEvaluatedId }], LastEvaluatedKey: { activityId: lastEvaluatedId } })
   })

@@ -194,7 +194,7 @@ export const activityExistsInFolder = async (documentClient: DocumentClient, act
 export const shareActivity = async (documentClient: DocumentClient, activityId: string, travelBandId: string, folderId: string) => {
   // retrieve activity to share it inside travel band folder
   const activity = await getActivity(documentClient, activityId)
-  const { name, pictures, price, mark, nbVotes, location } = activity
+  const { name, pictures, price, mark, nbVotes, location, category } = activity
   const sharedActivity = {
     activityId,
     travelBandId,
@@ -205,6 +205,7 @@ export const shareActivity = async (documentClient: DocumentClient, activityId: 
     mark,
     nbVotes,
     location,
+    category,
     id: v4(),
     reactions: [],
   }

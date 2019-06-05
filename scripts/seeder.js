@@ -113,8 +113,11 @@ const parseActivityPage = async (link, category) => {
 
 
   // Location
-  const locationRegex = new RegExp('"coords":"([0-9\.]+),([0-9\.]+)"')
-  const latLng = document.body.textContent.match(locationRegex)
+  const subLocationRegex = new RegExp('"coords":"([0-9\.]+),([0-9\.]+)"')
+  const locationRegex = /"coords":"([0-9.]+),([0-9.]+)"/g
+  const locationLatLng = document.body.textContent.match(locationRegex)
+  const foundCoords = locationLatLng[locationLatLng.length - 1]
+  const latLng = foundCoords.match(subLocationRegex)
   const location = {
     ...globalLocation,
     latitude: parseFloat(latLng[1], 7),

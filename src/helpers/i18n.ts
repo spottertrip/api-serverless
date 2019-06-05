@@ -75,7 +75,7 @@ const fr = {
       name: 'Découvertes sportives',
       description: 'Envie de vous dépenser dans un milieu inconnu ?',
     },
-    party: {
+    loisir: {
       name: 'Soirées et détente',
       description: 'Faire la fête avec des locaux dans un pays étranger, quelle bonne idée !',
     },

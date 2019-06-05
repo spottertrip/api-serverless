@@ -68,7 +68,7 @@ const fr = {
       description: 'Explorer la nature avec ses amis n\'a jamais été aussi prenant.',
     },
     culture: {
-      name: 'Sortie culturel et touristique',
+      name: 'Sorties culturelles et touristiques',
       description: 'Osez vous aventurer dans les pièces secrètes d\'anciens donjons oubliés, ou simplement passez visiter le Louvres.',
     },
     sport: {

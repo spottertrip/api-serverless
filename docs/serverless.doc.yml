@@ -328,6 +328,9 @@ endpoints:
   createReaction:
     summary: React/show (dis)interest to an activity shared inside a travel band
     description: React/show (dis)interest to an activity shared inside a travel band
+    requestHeaders:
+      - name: "X-Spotter"
+        description: "Spotter ID of the logged-in user: used for authentication, REQUIRED"
     requestBody:
       description: "Whether the spotter wants to like or dislike the activity"
     requestModels:
@@ -371,6 +374,9 @@ endpoints:
   deleteReaction:
     summary: Delete a reaction to an activity
     description: Delete reaction to an activity for current spotter
+    requestHeaders:
+      - name: "X-Spotter"
+        description: "Spotter ID of the logged-in user: used for authentication, REQUIRED"
     pathParams:
       - name: activityId
         description: "ID of the activity to react to"

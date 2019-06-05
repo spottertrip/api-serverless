@@ -4,6 +4,13 @@ import DatabaseError from '@errors/DatabaseError'
 import ISpotter from '@models/Spotter'
 import { createReaction } from '@handlers/travelBands/reactions/createReaction'
 import Activity from '@models/Activity'
+import UnauthorizedError from '@errors/UnauthorizedError';
+
+// authorizations
+jest.mock('@handlers/utils/auth', () => ({
+  getSpotterIdFromEvent: jest.fn((event) => {}),
+}))
+const authMock = require('@handlers/utils/auth')
 
 jest.mock('@datastore/index', () => ({
   datastore: {
@@ -36,6 +43,12 @@ const fixtureEvent = {
     travelBandId: fixtureTravelBandId,
   },
 }
+
+test('auth error', async () => {
+  authMock.getSpotterIdFromEvent.mockRejectedValueOnce(new UnauthorizedError('auth error'))
+  const response = await createReaction(fixtureEvent)
+  expect(response.statusCode).toBe(401)
+})
 
 test('spotter does not exist', async () => {
   datastoreMock.datastore.getSpotter.mockRejectedValueOnce(new NotFoundError('does not exist'))

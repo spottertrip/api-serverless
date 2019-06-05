@@ -9,6 +9,7 @@ import Activity from '@models/Activity';
 import NotFoundError from '@errors/NotFoundError';
 import { Reaction } from '@models/Reaction';
 import UnauthorizedError from '@errors/UnauthorizedError';
+import { getSpotterIdFromEvent } from '@handlers/utils/auth';
 
 /**
  * Delete a reaction
@@ -17,6 +18,13 @@ import UnauthorizedError from '@errors/UnauthorizedError';
 export const deleteReaction = async (event) => {
   let travelBandId: string
   let activityId: string
+  let spotterId: string
+
+  try {
+    spotterId = await getSpotterIdFromEvent(event)
+  } catch (e) {
+    return handleError(e)
+  }
 
   try {
     travelBandId = getIdFromPath('travelBandId', event.pathParameters)
@@ -29,9 +37,6 @@ export const deleteReaction = async (event) => {
   } catch (e) {
     return handleError(new BadRequestError(t('errors.activities.invalidUUID')))
   }
-
-  // TODO: Remove when authentication is ready
-  const spotterId = '15a992e1-8d3f-421e-99a3-2ba5d2131d82';
 
   // Get Spotter who shared a reaction to the activity
   let spotter: ISpotter

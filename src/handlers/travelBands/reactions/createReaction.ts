@@ -1,14 +1,14 @@
 import { datastore } from '@datastore/index'
 import { handleError } from '@helpers/http'
 import HTTPError from '@errors/HTTPError'
-import ISpotter from '@models/Spotter';
-import BadRequestError from '@errors/BadRequestError';
-import { t } from '@helpers/i18n';
-import { getIdFromPath } from '@helpers/event';
-import Activity from '@models/Activity';
-import NotFoundError from '@errors/NotFoundError';
-import { Reaction } from '@models/Reaction';
-import UnauthorizedError from '@errors/UnauthorizedError';
+import ISpotter from '@models/Spotter'
+import BadRequestError from '@errors/BadRequestError'
+import { t } from '@helpers/i18n'
+import { getIdFromPath } from '@helpers/event'
+import Activity from '@models/Activity'
+import { Reaction } from '@models/Reaction'
+import UnauthorizedError from '@errors/UnauthorizedError'
+import { getSpotterIdFromEvent } from '@handlers/utils/auth'
 
 // HTTP Request body for reaction creation endpoint
 type CreateReactionBody = {
@@ -22,6 +22,13 @@ type CreateReactionBody = {
 export const createReaction = async (event) => {
   let travelBandId: string
   let activityId: string
+  let spotterId: string
+
+  try {
+    spotterId = await getSpotterIdFromEvent(event)
+  } catch (e) {
+    return handleError(e)
+  }
 
   try {
     travelBandId = getIdFromPath('travelBandId', event.pathParameters)
@@ -35,8 +42,6 @@ export const createReaction = async (event) => {
     return handleError(new BadRequestError(t('errors.activities.invalidUUID')))
   }
 
-  // TODO: Remove when authentication is ready
-  const spotterId = '15a992e1-8d3f-421e-99a3-2ba5d2131d82';
   let data: CreateReactionBody
   try {
     data = JSON.parse(event.body)
@@ -52,7 +57,7 @@ export const createReaction = async (event) => {
   let spotter: ISpotter
   try {
     // TODO: remove when authentication is done
-    spotter = await datastore.getSpotter(spotterId);
+    spotter = await datastore.getSpotter(spotterId)
     if (!spotter.travelBands || !spotter.travelBands.includes(travelBandId)) {
       throw new UnauthorizedError(t('errors.travelBands.unauthorized'))
     }
